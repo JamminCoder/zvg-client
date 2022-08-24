@@ -14,7 +14,6 @@
 .collapsing-nav-content {
     grid-area: collapsing-items;
     display: none;
-    height: 0px;
 }
 
 .collapse-btn {
@@ -24,18 +23,17 @@
 .nav-expanded {
     margin-top: 1em;
     display: block;
-    height: auto;
 }
 
 @media (min-width: 768px) {
     .nav {
         display: flex;
         align-items: flex-start;
-        justify-content: space-between;
+        justify-content: space-around;
     }
 
     .collapsing-nav-content {
         display: flex;
-        gap: 1em;
+        gap: 2em;
     }
 }

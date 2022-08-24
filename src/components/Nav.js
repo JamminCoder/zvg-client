@@ -28,8 +28,10 @@ export default function Nav() {
             <Link to="/" className="text-2xl">Zoar Valley Gifts</Link>
 
             <div className="collapsing-nav-content">
-                <Link to="/" className="text-xl block">Shop</Link>
-                <Link to="/" className="text-xl block">Camp Ground</Link>
+                <Link to="/shop" className="text-xl block">Shop</Link>
+                <Link to="/campground" className="text-xl block">Camp Ground</Link>
+                <Link to="/about" className="text-xl block">About</Link>
+                <Link to="/contact" className="text-xl block">Contact</Link>
             </div>
 
             <a className="collapse-btn md:hidden h-10 w-10 bg-blue-400" onClick={ handleCollapse }></a>
