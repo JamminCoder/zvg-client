@@ -11,8 +11,6 @@ export default function Nav() {
         document.querySelector(".collapsing-nav-content")
     );
 
-    const [nav, setNav] = useState(document.querySelector(".nav"));
-
     useEffect(() => {
         window.matchMedia("(min-width: 768px)").addEventListener('change', e => setMqMatches( e.matches ));
         setCollapsingContent(document.querySelector(".collapsing-nav-content"));
