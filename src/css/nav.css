@@ -1,0 +1,41 @@
+.nav {
+    transition: all 1s;
+    display: grid;
+    padding: 1rem;
+    align-items: center;
+    grid-template-columns: 90% 10%;
+    grid-template-areas: 
+        "brand collapse-btn"
+        "collapsing-items .";
+
+    overflow: hidden;
+}
+
+.collapsing-nav-content {
+    grid-area: collapsing-items;
+    display: none;
+    height: 0px;
+}
+
+.collapse-btn {
+    grid-area: collapse-btn;
+}
+
+.nav-expanded {
+    margin-top: 1em;
+    display: block;
+    height: auto;
+}
+
+@media (min-width: 768px) {
+    .nav {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+
+    .collapsing-nav-content {
+        display: flex;
+        gap: 1em;
+    }
+}

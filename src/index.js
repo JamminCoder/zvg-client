@@ -1,18 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import App from './Home';
 import reportWebVitals from './reportWebVitals';
 import { HashRouter, Routes, Route } from 'react-router-dom';
+
+import Nav from "./components/Nav";
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <HashRouter>
+      <Nav/>
       <Routes>
 
         <Route path="/" element={ <App/> } />
-        
+
       </Routes>
     </HashRouter>
     
