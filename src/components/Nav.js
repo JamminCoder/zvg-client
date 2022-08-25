@@ -32,7 +32,7 @@ export default function Nav() {
                 <Link to="/contact" className="text-xl block">Contact</Link>
             </div>
 
-            <a className="collapse-btn md:hidden h-10 w-10 bg-blue-400" onClick={ handleCollapse }></a>
+            <a className="collapse-btn md:hidden h-10 w-10 bg-blue-400 grid place-items-center" onClick={ handleCollapse }>demo nav</a>
         </nav>
     );
 }
