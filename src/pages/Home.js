@@ -113,7 +113,7 @@ export function HeaderSection(props) {
   return (
     <div className="welcome-slider">
         <Slide 
-          img='/img/zoar_valley.jpg'
+          img={`${process.env.PUBLIC_URL}/img/zoar_valley.jpg`}
           header="Zoar Valley Gifts & More"
           lead="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi"
           buttons={[
@@ -126,7 +126,7 @@ export function HeaderSection(props) {
         />
 
         <Slide 
-          img='/img/zoar_valley.jpg'
+          img={`${process.env.PUBLIC_URL}/img/zoar_valley.jpg`}
           header="The Second Slide"
           lead="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi"
           buttons={[
@@ -139,7 +139,7 @@ export function HeaderSection(props) {
         />
 
         <Slide 
-          img='/img/zoar_valley.jpg'
+          img={`${process.env.PUBLIC_URL}/img/zoar_valley.jpg`}
           header="The Third Slide"
           lead="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi"
           buttons={[
@@ -152,7 +152,7 @@ export function HeaderSection(props) {
         />
 
         <Slide 
-          img='/img/zoar_valley.jpg'
+          img={`${process.env.PUBLIC_URL}/img/zoar_valley.jpg`}
           header="The Fourth Slide"
           lead="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi"
           buttons={[
@@ -165,7 +165,7 @@ export function HeaderSection(props) {
         />
 
         <Slide 
-          img='/img/zoar_valley.jpg'
+          img={`${process.env.PUBLIC_URL}/img/zoar_valley.jpg`}
           header="The Fifth Slide"
           lead="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi"
           buttons={[
