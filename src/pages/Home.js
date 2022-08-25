@@ -15,14 +15,7 @@ export function Slide({ img, header, lead, buttons, sliderNum, max }) {
   }
 
   return (
-    <section onClick={() => {
-      let scrollNum = document.body.clientWidth;
-      let slider = document.querySelector(".welcome-slider");
-      if (sliderNum === max) scrollNum = -100000;
-
-      slider.scrollBy(scrollNum, 0);
-
-    }} className="slide flex-grow w-[100vw] relative grid place-items-center" id={"slide-" + sliderNum}>
+    <section className="slide flex-grow w-[100vw] relative grid place-items-center" id={"slide-" + sliderNum}>
 
       <div class="w-[100vw]">
         {/* Image */}
@@ -57,8 +50,26 @@ export function Slide({ img, header, lead, buttons, sliderNum, max }) {
 
 export function HeaderSection(props) {
   const sliderCount = 5;
+  let currentSlider = 1;
+
+  function handleSlides() {
+    let scrollWidth = document.body.clientWidth;
+    let slider = document.querySelector(".welcome-slider");
+    if (currentSlider === sliderCount) {
+      scrollWidth = -100000;
+      slider.scrollBy(scrollWidth, 0);
+      currentSlider = 1;
+      return;
+    }
+
+    slider.scrollBy(scrollWidth, 0);
+    
+    currentSlider++;
+  }
+
   return (
-    <div className="welcome-slider">
+    <div className="welcome-slider" 
+      onClick={ handleSlides }>
         <Slide 
           img='/img/zoar_valley.jpg'
           header="Zoar Valley Gifts & More"
