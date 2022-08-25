@@ -15,7 +15,14 @@ export function Slide({ img, header, lead, buttons, sliderNum, max }) {
   }
 
   return (
-    <section className="slide flex-grow w-[100vw] relative grid place-items-center">
+    <section onClick={() => {
+      let scrollNum = document.body.clientWidth;
+      let slider = document.querySelector(".welcome-slider");
+      if (sliderNum === max) scrollNum = -100000;
+
+      slider.scrollBy(scrollNum, 0);
+
+    }} className="slide flex-grow w-[100vw] relative grid place-items-center" id={"slide-" + sliderNum}>
 
       <div class="w-[100vw]">
         {/* Image */}
@@ -23,10 +30,10 @@ export function Slide({ img, header, lead, buttons, sliderNum, max }) {
       </div>
 
       <div class="welcome-header-section w-[100%] h-[100%] absolute grid place-items-center">
-        <div class="flex flex-col items-center gap-2">
+        <div class="flex flex-col items-center gap-2 max-w-[80%]">
 
           {/* Header and lead */}
-          <h1 class="text-white text-center text-3xl md:text-7xl font-bold ">{ header }</h1>
+          <h1 class="text-white text-center text-3xl md:text-7xl font-bold">{ header }</h1>
           <p class="text-center text-white text-2xl font-light max-w-[30rem]">{ lead }</p>
           
           <div class="flex justify-center gap-2 mt-2">
@@ -49,11 +56,12 @@ export function Slide({ img, header, lead, buttons, sliderNum, max }) {
 
 
 export function HeaderSection(props) {
+  const sliderCount = 5;
   return (
     <div className="welcome-slider">
         <Slide 
           img='/img/zoar_valley.jpg'
-          header="Zoar Valley Gifts & More Store"
+          header="Zoar Valley Gifts & More"
           lead="lorem ipsum something awesome, I wish I could come up with cool things to say"
           buttons={[
             <a class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Shop</a>,
@@ -61,7 +69,7 @@ export function HeaderSection(props) {
           ]}
 
           sliderNum={1}
-          max={2}
+          max={sliderCount}
         />
 
         <Slide 
@@ -74,7 +82,46 @@ export function HeaderSection(props) {
           ]}
 
           sliderNum={2}
-          max={2}
+          max={sliderCount}
+        />
+
+        <Slide 
+          img='/img/zoar_valley.jpg'
+          header="The Third Slide"
+          lead="Backend development is better"
+          buttons={[
+            <a class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Shop</a>,
+            <a class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Campgrounds</a>
+          ]}
+
+          sliderNum={3}
+          max={sliderCount}
+        />
+
+        <Slide 
+          img='/img/zoar_valley.jpg'
+          header="The Fourth Slide"
+          lead="Backend development is better"
+          buttons={[
+            <a class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Shop</a>,
+            <a class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Campgrounds</a>
+          ]}
+
+          sliderNum={4}
+          max={sliderCount}
+        />
+
+        <Slide 
+          img='/img/zoar_valley.jpg'
+          header="The Fifth Slide"
+          lead="Backend development is better"
+          buttons={[
+            <a class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Shop</a>,
+            <a class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Campgrounds</a>
+          ]}
+
+          sliderNum={5}
+          max={sliderCount}
         />
     </div>
   );
