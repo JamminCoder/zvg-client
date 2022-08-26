@@ -185,7 +185,7 @@ function SectionTab(props) {
   return (
     <div 
       style={ props.style }
-      className="flex flex-col items-center gap-4 p-10 bg-red-300">
+      className="flex flex-col items-center gap-4 p-20 rounded-b-lg">
       { props.children }
     </div>
   );
@@ -197,7 +197,7 @@ export default function Home() {
       <HeaderSection/>
       <main className="flex justify-center text-center">
         <SectionTab style={{ backgroundColor: "rgb(252 165 165)" }}>
-          <h1 className="text-3xl">Featured Products</h1>
+          <h1 className="text-4xl">Featured Products</h1>
           <p className="text-lg">From candles and ornaments, to clothing items including T-shirts, hats, scarves, and coats, you will find wondeful gifts for you and your family!</p>
         </SectionTab>
       </main>
