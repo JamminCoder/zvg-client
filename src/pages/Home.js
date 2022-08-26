@@ -2,7 +2,7 @@ import "../css/Home.css";
 import { useEffect, useState } from "react";
 
 
-export function Slide({ img, header, lead, buttons, sliderNum, max }) {
+function Slide({ img, header, lead, buttons, sliderNum, max }) {
 
   const indicators = [];
   for (let i = 1; i <= max; i++) {
@@ -49,7 +49,7 @@ export function Slide({ img, header, lead, buttons, sliderNum, max }) {
 }
 
 
-export function HeaderSection(props) {
+function HeaderSection(props) {
   const sliderCount = 5;
   let currentSlider = 1;
 
@@ -186,7 +186,9 @@ export default function Home() {
   return (
     <div>
       <HeaderSection/>
-      
+      <main className="flex justify-center">
+        <h1>Hello!!</h1>
+      </main>
     </div>
   );
 }
