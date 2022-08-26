@@ -58,6 +58,7 @@ export function HeaderSection(props) {
     let touchEndX = 0;
     let scrollWidth = document.body.clientWidth;
     let slider = document.querySelector(".welcome-slider");
+    const animationDelay = 4500;
 
     let scrollInterval = setInterval(() => {
       slider.scrollBy(scrollWidth, 0);
@@ -69,7 +70,7 @@ export function HeaderSection(props) {
 
       currentSlider++;
 
-    }, 4500);
+    }, animationDelay);
 
 
     function swipeScroll() {
