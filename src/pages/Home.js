@@ -181,25 +181,31 @@ function HeaderSection(props) {
   );
 }
 
-function SectionTab(props) {
-  return (
-    <div 
-      style={ props.style }
-      className="flex flex-col items-center gap-4 p-20 rounded-b-lg">
-      { props.children }
-    </div>
-  );
-}
 
 export default function Home() {
   return (
     <div>
       <HeaderSection/>
-      <main className="flex justify-center text-center">
-        <SectionTab style={{ backgroundColor: "rgb(252 165 165)" }}>
-          <h1 className="text-4xl">Featured Products</h1>
-          <p className="text-lg">From candles and ornaments, to clothing items including T-shirts, hats, scarves, and coats, you will find wondeful gifts for you and your family!</p>
-        </SectionTab>
+      <main className="">
+        <section className="grid grid-cols-1 md:grid-cols-2 py-24">
+          <div className=" flex flex-col items-center gap-5">
+            <article>
+              <h1 className="text-4xl">Candles, ornaments, jewelry, and more.</h1>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, aspernatur saepe deleniti quidem est ipsum cupiditate accusamus corporis ipsa amet quas quaerat non nihil dolore voluptatum, dolor sed facere qui.</p>
+            </article>
+            <img src={`${process.env.PUBLIC_URL}/img/placeholder-square-1024.png`} alt="hello" className="w-3/4"/>
+          </div>
+          
+          <div className="flex md:flex-col items-center flex-col-reverse">
+            <img src={`${process.env.PUBLIC_URL}/img/placeholder-square-1024.png`} alt="hello" className="w-3/4"/>
+            <article>
+              <h1 className="text-4xl">Candles, ornaments, jewelry, and more.</h1>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, aspernatur saepe deleniti quidem est ipsum cupiditate accusamus corporis ipsa amet quas quaerat non nihil dolore voluptatum, dolor sed facere qui.</p>
+            </article>
+          </div>
+
+          
+        </section>
       </main>
     </div>
   );
