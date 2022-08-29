@@ -187,30 +187,32 @@ function ProductShowcaseSection() {
   }
 
   return (
-    <section className="grid place-items-center grid-cols-1 md:grid-cols-2 py-24">
-      <div className="w-[100%] max-w-[35rem]">
-        <article className="flex flex-col items-center">
-          <div>
-            <h1 className="text-4xl">Candles, ornaments, jewelry, and more.</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, aspernatur saepe deleniti quidem est ipsum cupiditate accusamus corporis ipsa amet quas quaerat non nihil dolore voluptatum, dolor sed facere qui.</p>
-          </div>
-          <ProductImage src={`${process.env.PUBLIC_URL}/img/placeholder-square-1024.png`}/>
-        </article>
-      </div>
-      
-      <div className="w-[100%] max-w-[35rem]">
-        <article className="flex flex-col items-center md:flex-col-reverse">
-          <div>
-            <h1 className="text-4xl">Candles, ornaments, jewelry, and more.</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, aspernatur saepe deleniti quidem est ipsum cupiditate accusamus corporis ipsa amet quas quaerat non nihil dolore voluptatum, dolor sed facere qui.</p>
-          </div>
-          
-          <ProductImage src={`${process.env.PUBLIC_URL}/img/placeholder-square-1024.png`}/>
-        </article>
-      </div>
+    <div className="flex justify-center">
+      <section className="grid gap-10 place-items-center grid-cols-1 md:grid-cols-2 py-24">
+        <div className="w-[100%] max-w-[35rem]">
+          <article className="flex gap-16 flex-col items-center">
+            <div>
+              <h1 className="text-4xl mb-4">Candles, ornaments, jewelry, and more.</h1>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, aspernatur saepe deleniti quidem est ipsum cupiditate accusamus corporis ipsa amet quas quaerat non nihil dolore voluptatum, dolor sed facere qui.</p>
+            </div>
+            <ProductImage src={`${process.env.PUBLIC_URL}/img/placeholder-square-1024.png`}/>
+          </article>
+        </div>
+        
+        <div className="w-[100%] max-w-[35rem] px-5">
+          <article className="flex gap-16 flex-col items-center md:flex-col-reverse">
+            <div>
+              <h1 className="text-4xl mb-4">Candles, ornaments, jewelry, and more.</h1>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, aspernatur saepe deleniti quidem est ipsum cupiditate accusamus corporis ipsa amet quas quaerat non nihil dolore voluptatum, dolor sed facere qui.</p>
+            </div>
+            
+            <ProductImage src={`${process.env.PUBLIC_URL}/img/placeholder-square-1024.png`}/>
+          </article>
+        </div>
 
-      
-    </section>
+        
+      </section>
+    </div>
   );
 }
 
@@ -218,7 +220,7 @@ export default function Home() {
   return (
     <div>
       <HeaderSection/>
-      <main className="">
+      <main>
           <ProductShowcaseSection/>
       </main>
     </div>
