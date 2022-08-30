@@ -183,34 +183,41 @@ function HeaderSection(props) {
 
 function ProductShowcaseSection() {
   function ProductImage({ src, alt }) {
-    return <img src={ src } alt={ alt } className="w-[100%] max-w-[35rem] rounded-md"/>
+    return <img src={ src } alt={ alt } className="w-[100%] max-w-[30rem] rounded-md"/>
+  }
+
+  function ShowcaseColumn({ header, paragraph, imgSrc, reverse=false }) {
+    const reverseCol = reverse ? " lg:flex-col-reverse": "";
+
+    return (
+      <div className="w-[100%] max-w-[30rem]">
+        <div className="lg:flex-col-reverse"></div>
+        <article className={ "flex gap-16 flex-col items-center" + reverseCol }>
+          <div>
+            <h1 className="text-4xl mb-4">{ header }</h1>
+            <p>{ paragraph }</p>
+          </div>
+          <ProductImage src={ imgSrc }/>
+        </article>
+      </div>
+    );
   }
 
   return (
     <div className="flex justify-center">
-      <section className="grid gap-10 place-items-center grid-cols-1 md:grid-cols-2 py-24">
-        <div className="w-[100%] max-w-[35rem]">
-          <article className="flex gap-16 flex-col items-center">
-            <div>
-              <h1 className="text-4xl mb-4">Candles, ornaments, jewelry, and more.</h1>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, aspernatur saepe deleniti quidem est ipsum cupiditate accusamus corporis ipsa amet quas quaerat non nihil dolore voluptatum, dolor sed facere qui.</p>
-            </div>
-            <ProductImage src={`${process.env.PUBLIC_URL}/img/placeholder-square-1024.png`}/>
-          </article>
-        </div>
-        
-        <div className="w-[100%] max-w-[35rem] px-5">
-          <article className="flex gap-16 flex-col items-center md:flex-col-reverse">
-            <div>
-              <h1 className="text-4xl mb-4">Candles, ornaments, jewelry, and more.</h1>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, aspernatur saepe deleniti quidem est ipsum cupiditate accusamus corporis ipsa amet quas quaerat non nihil dolore voluptatum, dolor sed facere qui.</p>
-            </div>
-            
-            <ProductImage src={`${process.env.PUBLIC_URL}/img/placeholder-square-1024.png`}/>
-          </article>
-        </div>
+      <section className="grid gap-20 place-items-center grid-cols-1 lg:grid-cols-2 py-24 mx-10 lg:w-[70%] max-w-[70rem]">
+        <ShowcaseColumn
+          header="Candles, ornaments, jewelry, and more."
+          paragraph="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, aspernatur saepe deleniti quidem est ipsum cupiditate accusamus corporis ipsa amet quas quaerat non nihil dolore voluptatum, dolor sed facere qui."
+          imgSrc={ `${process.env.PUBLIC_URL}/img/placeholder-square-1024.png` }
+        />
 
-        
+        <ShowcaseColumn
+          header="Epic Awesome Stuff"
+          paragraph="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, aspernatur saepe deleniti quidem est ipsum cupiditate accusamus corporis ipsa amet quas quaerat non nihil dolore voluptatum, dolor sed facere qui."
+          imgSrc={ `${process.env.PUBLIC_URL}/img/placeholder-square-1024.png` }
+          reverse={ true }
+        />
       </section>
     </div>
   );
