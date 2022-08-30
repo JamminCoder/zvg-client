@@ -20,7 +20,7 @@ function Slide({ img, header, lead, buttons, sliderNum, max }) {
 
       <div class="w-[100vw]">
         {/* Image */}
-        <img src={ img } alt="description here" class="h-[70vh] w-[100%] object-cover" />
+        <img src={ img } alt="description here" class="h-[50vh] lg:h-[65vh] w-[100%] object-cover" />
       </div>
 
       <div class="welcome-header-section w-[100%] h-[100%] absolute grid place-items-center">
@@ -28,7 +28,7 @@ function Slide({ img, header, lead, buttons, sliderNum, max }) {
 
           {/* Header and lead */}
           <h1 class="text-white text-center text-3xl md:text-7xl font-bold">{ header }</h1>
-          <p class="text-center text-white text-2xl font-light max-w-[30rem]">{ lead }</p>
+          <p class="text-center text-white text-2xl font-light">{ lead }</p>
           
           <div class="flex justify-center gap-2 mt-2">
 
@@ -110,73 +110,28 @@ function HeaderSection(props) {
   }
 
   useEffect(handleSlides);
+  const testSlides = [];
+  for (let i = 1; i <= sliderCount; i++) {
+    const testSlide = <Slide 
+      img={`${process.env.PUBLIC_URL}/img/zoar_valley.jpg`}
+      header="Zoar Valley Gifts & More"
+      lead="Lorem ipsum dolor, sit amet consectetur adipisicing elit."
+      buttons={[
+        <a href="/" class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Shop</a>,
+        <a href="/" class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Campgrounds</a>
+      ]}
+
+      sliderNum={ i }
+      key={ i }
+      max={sliderCount}
+    />
+
+    testSlides.push(testSlide)
+  }
 
   return (
     <div className="welcome-slider">
-        <Slide 
-          img={`${process.env.PUBLIC_URL}/img/zoar_valley.jpg`}
-          header="Zoar Valley Gifts & More"
-          lead="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi"
-          buttons={[
-            <a href="/" class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Shop</a>,
-            <a href="/" class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Campgrounds</a>
-          ]}
-
-          sliderNum={1}
-          max={sliderCount}
-        />
-
-        <Slide 
-          img={`${process.env.PUBLIC_URL}/img/zoar_valley.jpg`}
-          header="The Second Slide"
-          lead="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi"
-          buttons={[
-            <a href="/" class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Shop</a>,
-            <a href="/" class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Campgrounds</a>
-          ]}
-
-          sliderNum={2}
-          max={sliderCount}
-        />
-
-        <Slide 
-          img={`${process.env.PUBLIC_URL}/img/zoar_valley.jpg`}
-          header="The Third Slide"
-          lead="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi"
-          buttons={[
-            <a href="/" class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Shop</a>,
-            <a href="/" class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Campgrounds</a>
-          ]}
-
-          sliderNum={3}
-          max={sliderCount}
-        />
-
-        <Slide 
-          img={`${process.env.PUBLIC_URL}/img/zoar_valley.jpg`}
-          header="The Fourth Slide"
-          lead="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi"
-          buttons={[
-            <a href="/" class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Shop</a>,
-            <a href="/" class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Campgrounds</a>
-          ]}
-
-          sliderNum={4}
-          max={sliderCount}
-        />
-
-        <Slide 
-          img={`${process.env.PUBLIC_URL}/img/zoar_valley.jpg`}
-          header="The Fifth Slide"
-          lead="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi"
-          buttons={[
-            <a href="/" class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Shop</a>,
-            <a href="/" class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Campgrounds</a>
-          ]}
-
-          sliderNum={5}
-          max={sliderCount}
-        />
+      { testSlides }
     </div>
   );
 }
