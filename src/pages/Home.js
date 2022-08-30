@@ -1,5 +1,5 @@
 import "../css/Home.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 
 function Slide({ img, header, lead, buttons, sliderNum, max }) {
@@ -20,7 +20,7 @@ function Slide({ img, header, lead, buttons, sliderNum, max }) {
 
       <div class="w-[100vw]">
         {/* Image */}
-        <img src={ img } class="h-[70vh] w-[100%] object-cover" />
+        <img src={ img } alt="description here" class="h-[70vh] w-[100%] object-cover" />
       </div>
 
       <div class="welcome-header-section w-[100%] h-[100%] absolute grid place-items-center">
@@ -118,8 +118,8 @@ function HeaderSection(props) {
           header="Zoar Valley Gifts & More"
           lead="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi"
           buttons={[
-            <a class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Shop</a>,
-            <a class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Campgrounds</a>
+            <a href="/" class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Shop</a>,
+            <a href="/" class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Campgrounds</a>
           ]}
 
           sliderNum={1}
@@ -131,8 +131,8 @@ function HeaderSection(props) {
           header="The Second Slide"
           lead="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi"
           buttons={[
-            <a class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Shop</a>,
-            <a class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Campgrounds</a>
+            <a href="/" class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Shop</a>,
+            <a href="/" class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Campgrounds</a>
           ]}
 
           sliderNum={2}
@@ -144,8 +144,8 @@ function HeaderSection(props) {
           header="The Third Slide"
           lead="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi"
           buttons={[
-            <a class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Shop</a>,
-            <a class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Campgrounds</a>
+            <a href="/" class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Shop</a>,
+            <a href="/" class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Campgrounds</a>
           ]}
 
           sliderNum={3}
@@ -157,8 +157,8 @@ function HeaderSection(props) {
           header="The Fourth Slide"
           lead="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi"
           buttons={[
-            <a class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Shop</a>,
-            <a class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Campgrounds</a>
+            <a href="/" class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Shop</a>,
+            <a href="/" class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Campgrounds</a>
           ]}
 
           sliderNum={4}
@@ -170,8 +170,8 @@ function HeaderSection(props) {
           header="The Fifth Slide"
           lead="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi"
           buttons={[
-            <a class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Shop</a>,
-            <a class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Campgrounds</a>
+            <a href="/" class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Shop</a>,
+            <a href="/" class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Campgrounds</a>
           ]}
 
           sliderNum={5}
