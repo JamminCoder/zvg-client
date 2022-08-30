@@ -6,7 +6,7 @@ function Slide({ img, header, lead, buttons, sliderNum, max }) {
 
   const indicators = [];
   for (let i = 1; i <= max; i++) {
-    let style = {backgroundColor: "rgba(0, 0, 0, 0.5)"}
+    let style = {backgroundColor: "rgba(0, 0, 0, 0.6)"}
     
     if (i === sliderNum) style = {backgroundColor: "white"};
 
