@@ -194,12 +194,29 @@ function ProductShowcaseSection() {
   );
 }
 
+function CabinSection() {
+  return (
+    <div className="relative h-[70vh] overflow-hidden">
+      <img src={ `${ process.env.PUBLIC_URL }/img/cabin.png` } alt="description here" class="h-[70vh] w-[100%] object-cover absolute top-0" />
+      
+      <div className="absolute top-0 grid place-items-center w-[100%] h-[100%] text-white">
+          <div className="flex flex-col items-center gap-5">
+            <h1 className="text-6xl">Reserve a Cabin</h1>
+            <a href="/" className="px-7 py-3 rounded bg-blue-700 text-2xl">Explore options</a>
+          </div>
+      </div>
+    </div>
+    
+  );
+}
+
 export default function Home() {
   return (
     <div>
       <HeaderSection/>
       <main>
           <ProductShowcaseSection/>
+          <CabinSection/>
       </main>
     </div>
   );
