@@ -138,7 +138,23 @@ function HeaderSection(props) {
 
 function ProductShowcaseSection() {
   function ProductImage({ src, alt }) {
-    return <img src={ src } alt={ alt } className="w-[100%] max-w-[30rem] rounded-md"/>
+    return (
+      <div className="relative w-[100%] max-w-[30rem]">
+        <img src={ src } alt={ alt } className="w-[100%] rounded-md bg-[rgba(0,0,0,0.1)]"/>
+        <div className="absolute text-white bottom-0 left-0  w-[100%] h-[100%]" style={{
+          background: "linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.1))"
+        }}>
+          <div className="absolute bottom-0 p-10">
+            <h3><a className="text-xl underline" href="/products"> &gt; Explore these items</a></h3>
+            <p className="font-light">
+              Lorum ipsum dolar sit amit sit dolar ipsum...
+            </p>
+          </div>
+          
+
+        </div>
+      </div>
+    );
   }
 
   function ShowcaseColumn({ header, paragraph, imgSrc, reverse=false }) {
@@ -160,7 +176,7 @@ function ProductShowcaseSection() {
 
   return (
     <div className="flex justify-center">
-      <section className="grid gap-20 place-items-center grid-cols-1 lg:grid-cols-2 py-24 mx-10 lg:w-[70%] max-w-[70rem]">
+      <section className="grid gap-20 place-items-center grid-cols-1 lg:grid-cols-2 py-24 mx-10 lg:w-[80%] max-w-[80rem]">
         <ShowcaseColumn
           header="Candles, ornaments, jewelry, and more."
           paragraph="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, aspernatur saepe deleniti quidem est ipsum cupiditate accusamus corporis ipsa amet quas quaerat non nihil dolore voluptatum, dolor sed facere qui."
