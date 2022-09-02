@@ -1,12 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import "./css/reset.css"
-import App from './pages/Home';
 import reportWebVitals from './reportWebVitals';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 
+// CSS
+import './index.css';
+import "./css/reset.css"
+
 import Nav from "./components/Nav";
+
+// Pages
+import Shop from "./pages/Shop";
+import Home from './pages/Home';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -16,7 +21,8 @@ root.render(
       <Nav/>
       <Routes>
 
-        <Route path="/" element={ <App/> } />
+        <Route path="/" element={ <Home/> } />
+        <Route path="/shop" element={ <Shop/> }/>
 
       </Routes>
     </HashRouter>
