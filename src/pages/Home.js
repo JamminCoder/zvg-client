@@ -196,16 +196,51 @@ function ProductShowcaseSection() {
 
 function CabinSection() {
   return (
-    <div className="relative h-[70vh] overflow-hidden">
-      <img src={ `${ process.env.PUBLIC_URL }/img/cabin.png` } alt="description here" class="h-[70vh] w-[100%] object-cover absolute top-0" />
-      
-      <div className="absolute top-0 grid place-items-center w-[100%] h-[100%] text-white">
-          <div className="flex flex-col items-center gap-5">
-            <h1 className="text-6xl">Reserve a Cabin</h1>
-            <a href="/" className="px-7 py-3 rounded bg-blue-700 text-2xl">Explore options</a>
+    <div>
+      <section className="relative h-[70vh] overflow-hidden">
+        <img src={ `${ process.env.PUBLIC_URL }/img/cabin.png` } alt="description here" class="h-[70vh] w-[100%] object-cover absolute top-0" />
+        
+        <div className="absolute top-0 grid place-items-center w-[100%] h-[100%] text-white">
+            <div className="text-center flex flex-col items-center gap-5">
+              <h1 className="text-6xl">Reserve a Cabin</h1>
+              <p className="text-lg max-w-[60ch]">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+              </p>
+              <a href="/" className="px-7 py-3 rounded bg-blue-700 text-2xl">Explore options</a>
+            </div>
+        </div>
+      </section>
+
+      <section className="py-24 bg-gray-900 text-white px-10">
+        <section className="grid place-items-center md:grid-cols-2 mb-24">
+            <div>
+              <img src={ `${ process.env.PUBLIC_URL }/img/cabin.png` } alt="cabin"/>
+            </div>
+            
+            <div>
+              <h1 className="text-5xl mb-5">Lorum ipsum dolar sit amit</h1>
+              <p>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+              </p>
+            </div>
+        </section>
+
+        <section className="grid place-items-center md:grid-cols-2 mb-24">
+          <div>
+            <h1 className="text-5xl mb-5">Lorum ipsum dolar sit amit</h1>
+            <p>
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+            </p>
           </div>
-      </div>
+
+          <div>
+            <img src={ `${ process.env.PUBLIC_URL }/img/cabin.png` } alt="cabin"/>
+          </div>
+        </section>
+      </section>
+      
     </div>
+    
     
   );
 }
