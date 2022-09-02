@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "../css/nav.css"
 
 export default function Nav() {
@@ -21,15 +21,35 @@ export default function Nav() {
         collapsingContent.classList.toggle("nav-expanded");
     }
 
+    let activeLinkStyle = {
+        color: "rgb(0, 0, 0)",
+        borderBottom: "1px solid rgba(0, 0, 0, 0.4)"
+    };
+
     return (
         <nav className="nav shadow">
-            <Link to="/" className="text-2xl">Zoar Valley Gifts</Link>
+            <Link to="/" className="text-2xl underline">Zoar Valley Gifts</Link>
 
             <div className="collapsing-nav-content">
-                <Link to="/shop" className="text-xl block">Shop</Link>
-                <Link to="/campground" className="text-xl block">Camp Ground</Link>
-                <Link to="/about" className="text-xl block">About</Link>
-                <Link to="/contact" className="text-xl block">Contact</Link>
+                <NavLink to="/shop" className="text-xl block text-gray-800" 
+                    style={({ isActive }) =>
+                    isActive ? activeLinkStyle : undefined
+                }>Shop</NavLink>
+                <NavLink to="/campground" className="text-xl block text-gray-800" 
+                    style={({ isActive }) =>
+                    isActive ? activeLinkStyle : undefined
+                }>Camp Ground</NavLink>
+
+                <NavLink to="/about" className="text-xl block text-gray-800" 
+                    style={({ isActive }) =>
+                    isActive ? activeLinkStyle : undefined
+                }>About</NavLink>
+
+                <NavLink to="/contact" className="text-xl block text-gray-800" 
+                    style={({ isActive }) =>
+                    isActive ? activeLinkStyle : undefined
+                }>Contact</NavLink>
+
             </div>
 
             <a className="collapse-btn md:hidden h-10 w-10 bg-blue-400 grid place-items-center" onClick={ handleCollapse }>demo nav</a>
