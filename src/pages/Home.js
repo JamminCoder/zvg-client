@@ -1,5 +1,6 @@
 import "../css/Home.css";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 
 function Slide({ img, header, lead, buttons, sliderNum, max }) {
@@ -117,7 +118,7 @@ function HeaderSection(props) {
       header="Zoar Valley Gifts & More"
       lead="Lorem ipsum dolor, sit amet consectetur adipisicing elit."
       buttons={[
-        <a href="/" class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Shop</a>,
+        <Link to="/shop" class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Shop</Link>,
         <a href="/" class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Campgrounds</a>
       ]}
 
