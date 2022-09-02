@@ -212,7 +212,7 @@ function CabinSection() {
       </section>
 
       <section className="py-24 bg-gray-900 text-white px-10">
-        <section className="grid place-items-center md:grid-cols-2 mb-24">
+        <section className="gap-10 flex flex-col-reverse md:grid place-items-center grid-cols-2 mb-24">
             <div>
               <img src={ `${ process.env.PUBLIC_URL }/img/cabin.png` } alt="cabin"/>
             </div>
@@ -225,7 +225,7 @@ function CabinSection() {
             </div>
         </section>
 
-        <section className="grid place-items-center md:grid-cols-2 mb-24">
+        <section className="gap-10 grid place-items-center md:grid-cols-2 mb-24">
           <div>
             <h1 className="text-5xl mb-5">Lorum ipsum dolar sit amit</h1>
             <p>
