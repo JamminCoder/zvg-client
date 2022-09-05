@@ -10,7 +10,7 @@ function CatagoryListing({ name, description, imgSrc, imgAlt }) {
             <div className="flex flex-col gap-2 justify-center">
                 <h1 className="text-3xl">{ name }</h1>
                 <p>{ description }</p>
-                <Link to={`/shop/catagory/${ name.toLowerCase() }`} className="mt-5 py-2 px-4 bg-green-600 text-white  w-fit rounded">Go to { name.toLowerCase() } section.</Link>
+                <Link to={`/shop/${ name.toLowerCase() }`} className="mt-5 py-2 px-4 bg-green-600 text-white  w-fit rounded">Go to { name.toLowerCase() } section.</Link>
             </div>
 
         </div>
