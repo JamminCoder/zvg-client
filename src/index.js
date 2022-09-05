@@ -12,6 +12,7 @@ import Nav from "./components/Nav";
 // Pages
 import Shop from "./pages/Shop";
 import Home from './pages/Home';
+import ProductsPage from "./pages/ProductsPage";
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -23,6 +24,7 @@ root.render(
 
         <Route path="/" element={ <Home/> } />
         <Route path="/shop" element={ <Shop/> }/>
+        <Route path="/shop/:productType" element={ <ProductsPage/> }/>
 
       </Routes>
     </HashRouter>
