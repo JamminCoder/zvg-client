@@ -13,6 +13,7 @@ import Nav from "./components/Nav";
 import Shop from "./pages/Shop";
 import Home from './pages/Home';
 import ProductsPage from "./pages/ProductsPage";
+import ProductDetails from "./pages/ProductDetails";
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -24,7 +25,8 @@ root.render(
 
         <Route path="/" element={ <Home/> } />
         <Route path="/shop" element={ <Shop/> }/>
-        <Route path="/shop/:productType" element={ <ProductsPage/> }/>
+        <Route path="/shop/:productType" element={ <ProductsPage/> } />
+        <Route path="/shop/:productType/:productName" element={ <ProductDetails/> } />
 
       </Routes>
     </HashRouter>
