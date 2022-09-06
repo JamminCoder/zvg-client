@@ -18,7 +18,7 @@ function ProductListing({ name, price, description, imgSrc, imgAlt }) {
 
                     <div className="flex flex-wrap justify-center items-center gap-4">
                         <Link to={`/cart/add/${ name.toLowerCase() }`} className="py-2 px-4 bg-green-600 text-white w-fit rounded">Add to cart</Link>
-                        <Link to={`/shop/${ productType }/${ name }`} className="py-2 px-4 bg-white w-fit rounded">Details</Link>
+                        <Link to={`/shop/${ productType }/${ name }`} className="py-2 px-4 border bg-slate-50 w-fit rounded">Details</Link>
                         <h3 className="text-2xl font-bold text-green-700">${ price }</h3>
                     </div>
                 </div>

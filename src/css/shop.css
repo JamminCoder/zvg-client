@@ -1,16 +1,9 @@
 .product-listing {
     padding: 2rem;
-    background-color: rgb(243, 243, 243);
     cursor: pointer;
     transition: all 0.3s;
-    box-shadow: 0px 0.2em 1em 0.5em rgba(0, 0, 0, 0.1);
 }
 
-
-.product-listing:hover {
-    transform: translateY(-3px);
-    box-shadow: 0px 0.5em 2em 0.5em rgba(0, 0, 0, 0.1);
-}
 
 .product-listing__image {
     width: clamp(0%, 100%, 15rem) !important;
