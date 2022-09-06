@@ -1,17 +1,23 @@
 import HeroSection from "../components/HeroSection";
 import { Link } from "react-router-dom";
+import "../css/shop.css";
+
 
 
 function CatagoryListing({ name, description, imgSrc, imgAlt }) {
     return (
-        <div className="p-10 bg-slate-50 max-w-[50rem] grid sm:grid-cols-2 gap-10 sm:gap-0">
-            <img src={ imgSrc } alt={ imgAlt } className="place-self-center sm:w-52"/>
+        <div className="product-listing">
+            <div className="product-listing__content">
+                <img src={ imgSrc } alt={ imgAlt } className="product-listing__image rounded"/>
 
-            <div className="flex flex-col gap-2 justify-center">
-                <h1 className="text-3xl">{ name }</h1>
-                <p>{ description }</p>
-                <Link to={`/shop/${ name.toLowerCase() }`} className="mt-5 py-2 px-4 bg-green-600 text-white  w-fit rounded">Go to { name.toLowerCase() } section.</Link>
+                <div className="flex flex-col gap-2 flex-wrap product-listing__data">
+                    <h1 className="text-3xl">{ name }</h1>
+                    <p className="text-lg text-gray-800 md:max-w-[40ch]">{ description }</p>
+
+                    <Link to={`/shop/${ name }`} className="py-2 px-4 bg-green-600 text-white w-fit rounded">Go to {name} section</Link>
+                </div>
             </div>
+            
 
         </div>
     );

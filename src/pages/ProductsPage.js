@@ -12,11 +12,11 @@ function ProductListing({ name, price, description, imgSrc, imgAlt }) {
             <div className="product-listing__content">
                 <img src={ imgSrc } alt={ imgAlt } className="product-listing__image rounded"/>
 
-                <div className="flex flex-col gap-2 flex-wrap product-listing__data">
+                <div className="flex flex-col gap-2 product-listing__data">
                     <h1 className="text-3xl">{ name }</h1>
                     <p className="text-lg text-gray-800 md:max-w-[40ch]">{ description }</p>
 
-                    <div className="flex items-center gap-4">
+                    <div className="flex flex-wrap justify-center items-center gap-4">
                         <Link to={`/cart/add/${ name.toLowerCase() }`} className="py-2 px-4 bg-green-600 text-white w-fit rounded">Add to cart</Link>
                         <Link to={`/shop/${ productType }/${ name }`} className="py-2 px-4 bg-white w-fit rounded">Details</Link>
                         <h3 className="text-2xl font-bold text-green-700">${ price }</h3>
@@ -54,14 +54,14 @@ export default function ProductsPage(props) {
                 <ProductListing
                     name="Product Name"
                     price={15.99}
-                    description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique atque sunt, nesciunt quas voluptatum in perferendis"
+                    description="Lorem ipsum dolor sit amet consectetur adipisicing elit"
                     imgSrc={`${process.env.PUBLIC_URL}/img/placeholder-square-1024.png`}
                 />
 
                 <ProductListing
                     name="Product Name"
                     price={15.99}
-                    description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique atque sunt, nesciunt quas voluptatum in perferendis"
+                    description="Similique atque sunt, nesciunt quas voluptatum in perferendis"
                     imgSrc={`${process.env.PUBLIC_URL}/img/placeholder-square-1024.png`}
                 />
 

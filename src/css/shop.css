@@ -13,7 +13,7 @@
 }
 
 .product-listing__image {
-    width: clamp(0%, 100%, 15rem);
+    width: clamp(0%, 100%, 15rem) !important;
 }
 
 .product-listing__content {
@@ -25,6 +25,10 @@
     gap: 2rem;
 }
 
+.product-listing__content > * {
+    width: 100%;
+}
+
 .product-listing__data {
     align-items: center;
 }
@@ -34,6 +38,10 @@
         flex-wrap: nowrap;
         justify-content: flex-start;
         text-align: left;
+    }
+
+    .product-listing__content > * {
+        width: 50%;
     }
 
     .product-listing__data {
