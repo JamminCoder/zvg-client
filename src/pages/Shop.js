@@ -25,7 +25,7 @@ function CatagoryListing({ name, description, imgSrc, imgAlt }) {
 
 function Catagories(props) {
     return (
-        <div className="py-24 flex flex-col gap-10">
+        <div className="py-24 grid md:grid-cols-2 gap-10">
             <CatagoryListing 
                 name="Gifts"
                 description="Candles, ornaments, trinkets, photo frames, hiking sticks."
