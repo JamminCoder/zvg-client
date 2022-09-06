@@ -8,7 +8,7 @@ function ProductListing({ name, price, description, imgSrc, imgAlt }) {
     const productType = useParams().productType;
 
     return (
-        <div className="product-listing">
+        <div className="product-listing border-b border-slate-200">
             <div className="product-listing__content">
                 <img src={ imgSrc } alt={ imgAlt } className="product-listing__image rounded"/>
 
@@ -50,7 +50,7 @@ export default function ProductsPage(props) {
             </HeroSection>
 
 
-            <div className="py-24 px-10 gap-10 grid md:grid-cols-2">
+            <div className="py-24 px-10 gap-10 grid xl:grid-cols-2">
                 <ProductListing
                     name="Product Name"
                     price={15.99}
