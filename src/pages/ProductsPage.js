@@ -4,7 +4,7 @@ import HeroSection  from "../components/HeroSection";
 import "../css/shop.css";
 
 
-function ProductListing({ name, price, description, imgSrc, imgAlt }) {
+export function ProductListing({ name, price, description, imgSrc, imgAlt }) {
     const productType = useParams().productType;
 
     return (
