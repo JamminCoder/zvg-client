@@ -50,7 +50,7 @@ export default function ProductsPage(props) {
             </HeroSection>
 
 
-            <div className="py-24 px-10 flex flex-col gap-10">
+            <div className="py-24 px-10 gap-10 grid md:grid-cols-2">
                 <ProductListing
                     name="Product Name"
                     price={15.99}
