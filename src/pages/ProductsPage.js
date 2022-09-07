@@ -16,15 +16,13 @@ export function ProductListing({ name, price, description, imgSrc, imgAlt }) {
                     <h1 className="text-3xl">{ name }</h1>
                     <p className="text-lg text-gray-800 md:max-w-[40ch]">{ description }</p>
 
-                    <div className="flex flex-wrap justify-center items-center gap-4">
+                    <div className="flex flex-wrap justify-center sm:justify-start items-center gap-4">
                         <Link to={`/cart/add/${ name.toLowerCase() }`} className="py-2 px-4 bg-green-600 text-white w-fit rounded">Add to cart</Link>
                         <Link to={`/shop/${ productType }/${ name }`} className="py-2 px-4 border bg-slate-50 w-fit rounded">Details</Link>
                         <h3 className="text-2xl font-bold text-green-700">${ price }</h3>
                     </div>
                 </div>
             </div>
-            
-
         </div>
     );
 }
