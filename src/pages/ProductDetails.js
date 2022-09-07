@@ -1,5 +1,36 @@
 import { useParams } from "react-router-dom";
+import { Children, useState } from "react";
 import { ProductListing } from "./ProductsPage";
+
+
+function ImagePreview(props) {
+    const children = Children.toArray(props.children);
+    const [currentImage, setCurrentImage] = useState(children[0].props.src);
+    let thumbnails = [];
+
+    for (let i = 0; i < children.length; i++) {
+        let child = children[i];
+        thumbnails.push(
+            <img 
+            onClick={() => {
+                setCurrentImage(child.props.src)
+            }}
+            key={ i } className="w-12 transition-all hover:-translate-y-2" src={ child.props.src }/>
+        );
+    }
+
+    return (
+        <div className={`w-[100%] max-w-[30rem] place-self-center ${props.className}`}>
+            <div>
+                <img src={ currentImage } />
+            </div>
+
+            <div className="flex gap-2 mt-4">
+                { thumbnails }
+            </div>
+        </div>
+    );
+}
 
 export default function ProductDetails(props) {
     const productName = useParams().productName;
@@ -12,27 +43,11 @@ export default function ProductDetails(props) {
         <div className="flex flex-col items-center px-4 py-24">
             <main className="grid place-content-center md:grid-cols-2 max-w-[100rem] flex-grow gap-12">
                 
-                <div className=" w-[100%] max-w-[30rem] place-self-center">
-                    <div className="welcome-slider">
-                        <img className="w-[100%] slide" id="slide-1" src={`${process.env.PUBLIC_URL}/img/candles1.jpg`} />
-                        <img className="w-[100%] slide" id="slide-2" src={`${process.env.PUBLIC_URL}/img/placeholder-square-1024.png`} />
-                        <img className="w-[100%] slide" id="slide-3" src={`${process.env.PUBLIC_URL}/img/placeholder-square-1024.png`} />
-                    </div>
-
-                    <div className="flex gap-2 mt-4">
-                        <div className="w-12 aspect-square bg-slate-100 hover:-translate-y-1 transition-transform">
-                            <img className="w-[100%]" src={`${process.env.PUBLIC_URL}/img/candles1.jpg`} />
-                        </div>
-
-                        <div className="w-12 aspect-square bg-slate-100 hover:-translate-y-1 transition-transform">
-                            <img className="w-[100%]" src={`${process.env.PUBLIC_URL}/img/placeholder-square-1024.png`} />
-                        </div>
-
-                        <div className="w-12 aspect-square bg-slate-100 hover:-translate-y-1 transition-transform">
-                            <img className="w-[100%]" src={`${process.env.PUBLIC_URL}/img/cabin.png`} />
-                        </div>
-                    </div>
-                </div>
+                
+                <ImagePreview>
+                    <img src={`${process.env.PUBLIC_URL}/img/candles1.jpg`} />
+                    <img src={`${process.env.PUBLIC_URL}/img/placeholder-square-1024.png`} />
+                </ImagePreview>
 
 
                 <div className="flex flex-col justify-center gap-5">
