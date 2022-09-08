@@ -19,8 +19,27 @@ export default function ReservationPage() {
                 </div>
                 
             </HeroSection>
-            <main>
-                Hello!
+            <main className="p-10">
+                <p>Playing around with the form:</p>
+                <form className="p-4 shadow w-fit">
+                    <h2 className="text-xl mb-5">Fill out this form to create reservation</h2>
+                    <div className="flex gap-2 mb-5">
+                        <label>Name:</label>
+                        <input type="text" className="border-b border-gray-400"/>
+                    </div>
+
+                    <div className="flex gap-2 mb-5">
+                        <label>Email:</label>
+                        <input type="text" className="border-b border-gray-400"/>
+                    </div>
+
+                    <div className="flex gap-2 mb-5">
+                        <label>Number of Nights:</label>
+                        <input type="text" className="border-b border-gray-400"/>
+                    </div>
+                    
+                    <button className="hover:shadow transition-all rounded border py-2 px-4 bg-slate-200">Submit</button>
+                </form>
             </main>
         </div>
     );
