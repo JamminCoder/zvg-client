@@ -207,36 +207,26 @@ function CabinSection() {
               <p className="text-lg max-w-[60ch]">
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
               </p>
-              <a href="/" className="px-7 py-3 rounded bg-blue-700 text-2xl">Explore options</a>
+              <Link to="/campground" className="px-7 py-3 rounded bg-blue-700 text-2xl">Create a Reservation</Link>
             </div>
         </div>
       </section>
 
       <section className="py-24 bg-gray-900 text-white px-10">
-        <section className="gap-10 flex flex-col-reverse md:grid place-items-center grid-cols-2 mb-24">
+        <section className="gap-10 flex flex-col-reverse md:grid place-items-center grid-cols-2">
             <div>
               <img src={ `${ process.env.PUBLIC_URL }/img/cabin.png` } alt="cabin"/>
             </div>
             
             <div>
-              <h1 className="text-5xl mb-5">Lorum ipsum dolar sit amit</h1>
-              <p>
+              <h1 className="text-3xl sm:text-5xl mb-5">Lorum ipsum dolar sit amit</h1>
+              <p className="mb-5">
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
               </p>
+
+              <Link to="/campground" className="px-7 py-3 rounded bg-blue-700 text-xl sm:text-2xl">Create a Reservation</Link>
+
             </div>
-        </section>
-
-        <section className="gap-10 grid place-items-center md:grid-cols-2 mb-24">
-          <div>
-            <h1 className="text-5xl mb-5">Lorum ipsum dolar sit amit</h1>
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-            </p>
-          </div>
-
-          <div>
-            <img src={ `${ process.env.PUBLIC_URL }/img/cabin.png` } alt="cabin"/>
-          </div>
         </section>
       </section>
       
