@@ -1,5 +1,16 @@
 import HeroSection from "../components/HeroSection";
 
+
+function FormGroup(props) {
+    return (
+        <div>
+            <div className="flex gap-2 mb-5">
+                { props.children }
+            </div>
+        </div>
+    );
+}
+
 export default function ReservationPage() {
     return (
         <div>
@@ -20,25 +31,59 @@ export default function ReservationPage() {
                 
             </HeroSection>
             <main className="p-10">
-                <p>Playing around with the form:</p>
-                <form className="p-4 shadow w-fit">
-                    <h2 className="text-xl mb-5">Fill out this form to create reservation</h2>
-                    <div className="flex gap-2 mb-5">
+                <h1 className="text-3xl">Create Reservation Here:</h1>
+                <form className="p-4 shadow-lg w-[100%] max-w-[50rem]">
+                    <FormGroup>
                         <label>Name:</label>
                         <input type="text" className="border-b border-gray-400"/>
-                    </div>
+                    </FormGroup>
 
-                    <div className="flex gap-2 mb-5">
+                    <FormGroup>
                         <label>Email:</label>
-                        <input type="text" className="border-b border-gray-400"/>
+                        <input type="email" className="border-b border-gray-400"/>
+                    </FormGroup>
+
+                    <FormGroup>
+                        <label>Phone:</label>
+                        <input type="phone" className="border-b border-gray-400"/>
+                    </FormGroup>
+                    
+                    <FormGroup>
+                        <label>Month:</label>
+                        <input type="month" className="border-b border-gray-400"/>
+                    </FormGroup>
+
+                    <FormGroup>
+                        <label>Number of nights:</label>
+                        <input type="number" className="border-b border-gray-400 w-12"/>
+                    </FormGroup>
+
+                    <div className="mb-5">
+                        <p>Openings for X consecutive nights in month:</p>
+                        <div className="flex gap-4">
+                            <a className="px-2 py-1 shadow-md bg-blue-300">8th - 10th</a>
+                            <a className="px-2 py-1 shadow-md bg-slate-200">11th - 13th</a>
+                            <a className="px-2 py-1 shadow-md bg-slate-200">14th - 16th</a>
+                            <a className="px-2 py-1 shadow-md bg-slate-200">17th - 19th</a>
+                        </div>
                     </div>
 
-                    <div className="flex gap-2 mb-5">
-                        <label>Number of Nights:</label>
-                        <input type="text" className="border-b border-gray-400"/>
-                    </div>
-                    
-                    <button className="hover:shadow transition-all rounded border py-2 px-4 bg-slate-200">Submit</button>
+                    <FormGroup>
+                        <label>Number of people:</label>
+                        <input type="number" className="border-b border-gray-400 w-12"/>
+                    </FormGroup>
+
+                    <section className="border-t pt-10 text-xl">
+                        <h2 className="text-2xl font-medium mb-4">Reservation Info</h2>
+                        
+                        <div className="grid gap-2 mb-2">
+                            <p><span className="font-bold mr-2">Lodging Time:</span>X nights</p>
+                            <p><span className="font-bold mr-2">Number of People:</span>X</p>
+                            <p><span className="font-bold mr-2">Total Cost:</span>$XYZ at $XYZ/night for X people</p>
+                        </div>
+                        
+                        <button className="hover:shadow transition-all rounded border py-2 px-4 bg-slate-200">Submit</button>
+                    </section>
                 </form>
             </main>
         </div>
