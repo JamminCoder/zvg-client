@@ -30,7 +30,7 @@ export function ProductListing({ name, price, description, imgSrc, imgAlt }) {
 
 function ProductCard() {
     return (
-        <div className="w-[100%] max-w-[20rem] border">
+        <div className="w-[100%] max-w-[20rem] border shadow-lg">
             <div>
                 <img className="bg-gray-400 w-[100%] aspect-video"/>
             </div>
@@ -51,7 +51,7 @@ function ProductCard() {
 export default function ProductsPage(props) {
     const productType = useParams().productType;
     const properType = capatalizeFirstLetter(productType);
-    const productsCardMin = "14rem"
+    const productsCardMin = "18rem"
     const productsSectionStyle = {
         gridTemplateColumns: `repeat(auto-fit, minmax(min(${ productsCardMin }, 100%), 1fr))`,
         display: "grid"
@@ -73,7 +73,13 @@ export default function ProductsPage(props) {
             </HeroSection>
 
 
-            <div className="py-24 px-10 gap-5 place-items-center" style={ productsSectionStyle }>
+            <div className="py-24 px-2 md:px-10 gap-5 place-items-center" style={ productsSectionStyle }>
+                <ProductCard/>
+
+                <ProductCard/>
+
+                <ProductCard/>
+
                 <ProductCard/>
 
                 <ProductCard/>
