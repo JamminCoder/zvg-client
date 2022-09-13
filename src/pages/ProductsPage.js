@@ -2,7 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { capatalizeFirstLetter } from "../utils";
 import HeroSection  from "../components/HeroSection";
 import "../css/shop.css";
-
+import "../css/app.css"
 
 export function ProductListing({ name, price, description, imgSrc, imgAlt }) {
     const productType = useParams().productType;
@@ -30,7 +30,7 @@ export function ProductListing({ name, price, description, imgSrc, imgAlt }) {
 
 function ProductCard() {
     return (
-        <div className="w-72 border">
+        <div className="w-[100%] max-w-[20rem] border">
             <div>
                 <img className="bg-gray-400 w-[100%] aspect-video"/>
             </div>
@@ -51,6 +51,12 @@ function ProductCard() {
 export default function ProductsPage(props) {
     const productType = useParams().productType;
     const properType = capatalizeFirstLetter(productType);
+    const productsCardMin = "14rem"
+    const productsSectionStyle = {
+        gridTemplateColumns: `repeat(auto-fit, minmax(min(${ productsCardMin }, 100%), 1fr))`,
+        display: "grid"
+    }
+
     return (
         <div>
             <HeroSection  
@@ -67,7 +73,13 @@ export default function ProductsPage(props) {
             </HeroSection>
 
 
-            <div className="py-24 px-10 gap-10 grid xl:grid-cols-2">
+            <div className="py-24 px-10 gap-5 place-items-center" style={ productsSectionStyle }>
+                <ProductCard/>
+
+                <ProductCard/>
+
+                <ProductCard/>
+
                 <ProductCard/>
             </div>
         </div>
