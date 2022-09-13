@@ -28,6 +28,25 @@ export function ProductListing({ name, price, description, imgSrc, imgAlt }) {
 }
 
 
+function ProductCard() {
+    return (
+        <div className="w-72 border">
+            <div>
+                <img className="bg-gray-400 w-[100%] aspect-video"/>
+            </div>
+
+            <div className="pl-2 py-2">
+                <h2 className="font-medium text-xl">Product Name</h2>
+                <h3 className="mb-2">$19.99</h3>
+                <p className="mb-2">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed aut vitae.
+                </p>
+
+                <button className="py-1 px-2 bg-green-600 text-white rounded">Add to Cart</button>
+            </div>
+        </div>
+    );
+}
 
 export default function ProductsPage(props) {
     const productType = useParams().productType;
@@ -49,33 +68,7 @@ export default function ProductsPage(props) {
 
 
             <div className="py-24 px-10 gap-10 grid xl:grid-cols-2">
-                <ProductListing
-                    name="Product Name"
-                    price={15.99}
-                    description="Lorem ipsum dolor sit amet consectetur adipisicing elit"
-                    imgSrc={`${process.env.PUBLIC_URL}/img/placeholder-square-1024.png`}
-                />
-
-                <ProductListing
-                    name="Product Name"
-                    price={15.99}
-                    description="Similique atque sunt, nesciunt quas voluptatum in perferendis"
-                    imgSrc={`${process.env.PUBLIC_URL}/img/placeholder-square-1024.png`}
-                />
-
-                <ProductListing
-                    name="Product Name"
-                    price={15.99}
-                    description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique atque sunt, nesciunt quas voluptatum in perferendis"
-                    imgSrc={`${process.env.PUBLIC_URL}/img/placeholder-square-1024.png`}
-                />
-
-                <ProductListing
-                    name="Product Name"
-                    price={15.99}
-                    description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique atque sunt, nesciunt quas voluptatum in perferendis"
-                    imgSrc={`${process.env.PUBLIC_URL}/img/placeholder-square-1024.png`}
-                />
+                <ProductCard/>
             </div>
         </div>
     );
