@@ -1,8 +1,11 @@
+import { Link } from 'react-router-dom';
+
 export default function Card(props) {
-    
+
+
     return (
-        <div className="w-[100%] max-w-[20rem] border shadow-lg">
+        <Link to={ props.to } className={ `w-[100%] max-w-[20rem] border shadow-lg ${ props.className }` }>
              { props.children }
-        </div>
+        </Link>
     );
 }

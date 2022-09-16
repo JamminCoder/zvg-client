@@ -1,10 +1,14 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Card from "./Card";
 
 
 export function ProductCard({ name, description, price }) {
+    const type = useParams().productType;
+    const productUrl = `/shop/${type}/${name}`;
     return (
-        <Card>
+        <Card 
+        to={ productUrl }
+        className="hover:-translate-y-[3px] transition-all hover:shadow-xl cursor-pointer">
             <div>
                 <img className="bg-gray-400 w-[100%] aspect-video"/>
             </div>
@@ -23,8 +27,11 @@ export function ProductCard({ name, description, price }) {
 }
 
 export function CatagoryListingCard({ name, description }) {
+    const catagoryUrl = `/shop/${ name }`
     return (
-        <Card>
+        <Card 
+        to={ catagoryUrl }
+        className="hover:-translate-y-[3px] transition-all hover:shadow-xl cursor-pointer">
             <div>
                 <img className="bg-gray-400 w-[100%] aspect-video"/>
             </div>

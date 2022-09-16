@@ -41,7 +41,7 @@ export default function ProductDetails(props) {
     const description = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Culpa repellendus velit voluptate assumenda beatae debitis dignissimos consectetur, tenetur, ea atque magni sit delectus cum dolorem? Mollitia voluptates dolores vel cue.";
 
     return (
-        <div className="flex flex-col items-center px-4 py-24">
+        <div className="mx-auto px-4 py-24">
             <main className="grid place-content-center md:grid-cols-2 max-w-[100rem] flex-grow gap-12">
                 
                 
