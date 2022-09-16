@@ -64,7 +64,7 @@ export default function ProductDetails(props) {
                 </div>
             </main>
 
-            <div className="py-20 mt-20 border-t border-slate-400 w-[100%]">
+            <div className="pt-20 mt-20 border-t border-slate-400 w-[100%]">
                 <h3 className="text-4xl text-center">More items</h3>
             </div>
 
