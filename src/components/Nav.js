@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import "../css/nav.css"
+import "../css/nav.css";
+import ShoppingCart from "./ShoppingCart";
 
 export default function Nav() {
     const [mqMatches, setMqMatches] = useState(
@@ -25,31 +26,36 @@ export default function Nav() {
         color: "rgb(0, 0, 0)",
         borderBottom: "1px solid rgba(0, 0, 0, 0.4)"
     };
-
+    
     return (
-        <nav className="nav shadow">
-            <Link to="/" className="text-2xl underline">Zoar Valley Gifts</Link>
+        <nav className="nav shadow-lg bg-slate-100">
+            <Link to="/" className="text-2xl underline interactive-hover">Zoar Valley Gifts</Link>
 
             <div className="collapsing-nav-content">
-                <NavLink to="/shop" className="text-xl block text-gray-800" 
+                
+                
+                <NavLink to="/shop" className="text-xl block text-gray-800 interactive-hover" 
                     style={({ isActive }) =>
                     isActive ? activeLinkStyle : undefined
                 }>Shop</NavLink>
-                <NavLink to="/campground" className="text-xl block text-gray-800" 
+
+                <NavLink to="/campground" className="text-xl block text-gray-800 interactive-hover" 
                     style={({ isActive }) =>
                     isActive ? activeLinkStyle : undefined
                 }>Camp Ground</NavLink>
 
-                <NavLink to="/about" className="text-xl block text-gray-800" 
+                <NavLink to="/about" className="text-xl block text-gray-800 interactive-hover" 
                     style={({ isActive }) =>
                     isActive ? activeLinkStyle : undefined
                 }>About</NavLink>
 
-                <NavLink to="/contact" className="text-xl block text-gray-800" 
+                <NavLink to="/contact" className="text-xl block text-gray-800 interactive-hover" 
                     style={({ isActive }) =>
                     isActive ? activeLinkStyle : undefined
                 }>Contact</NavLink>
 
+                <ShoppingCart className="md:ml-5"/>
+                
             </div>
 
             <a className="collapse-btn md:hidden h-10 w-10 bg-blue-400 grid place-items-center" onClick={ handleCollapse }>demo nav</a>
