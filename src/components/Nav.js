@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import "../css/nav.css"
+import "../css/nav.css";
+import { getNavHeight } from "../utils"
 
 export default function Nav() {
     const [mqMatches, setMqMatches] = useState(
@@ -25,9 +26,9 @@ export default function Nav() {
         color: "rgb(0, 0, 0)",
         borderBottom: "1px solid rgba(0, 0, 0, 0.4)"
     };
-
+    
     return (
-        <nav className="nav shadow">
+        <nav className="nav shadow-lg bg-slate-100">
             <Link to="/" className="text-2xl underline">Zoar Valley Gifts</Link>
 
             <div className="collapsing-nav-content">
