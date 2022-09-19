@@ -4,7 +4,7 @@
     
     display: grid;
     align-items: center;
-    grid-template-columns: 90% 10%;
+    grid-template-columns: 80% 10%;
     grid-template-areas: 
         "brand collapse-btn"
         "collapsing-items .";
