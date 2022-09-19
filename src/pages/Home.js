@@ -65,8 +65,7 @@ function HeaderSection(props) {
       slider.scrollBy(scrollWidth, 0);
       
       if (currentSlider === sliderCount) {
-        slider.scrollBy(-scrollWidth * sliderCount, 0);
-        currentSlider = 0;
+        return;
       }
 
       currentSlider++;
