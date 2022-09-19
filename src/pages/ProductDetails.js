@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { Children, useState } from "react";
-import { ProductListing } from "./ProductsPage";
+import { ProductCard } from '../components/Cards';
+import GridEvenContainer from '../components/GridEvenContainer';
 
 
 function ImagePreview(props) {
@@ -40,7 +41,7 @@ export default function ProductDetails(props) {
     const description = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Culpa repellendus velit voluptate assumenda beatae debitis dignissimos consectetur, tenetur, ea atque magni sit delectus cum dolorem? Mollitia voluptates dolores vel cue.";
 
     return (
-        <div className="flex flex-col items-center px-4 py-24">
+        <div className="mx-auto px-4 py-24">
             <main className="grid place-content-center md:grid-cols-2 max-w-[100rem] flex-grow gap-12">
                 
                 
@@ -63,39 +64,37 @@ export default function ProductDetails(props) {
                 </div>
             </main>
 
-            <div className="py-20 mt-20 border-t border-slate-400 w-[100%]">
+            <div className="pt-20 mt-20 border-t border-slate-400 w-[100%]">
                 <h3 className="text-4xl text-center">More items</h3>
             </div>
-            
-            <section className="mb-24 px-10 gap-10 grid xl:grid-cols-2">
-                <ProductListing
+
+            <GridEvenContainer>
+                <ProductCard
                     name="Product Name"
-                    price={15.99}
-                    description="Lorem ipsum dolor sit amet consectetur adipisicing elit"
-                    imgSrc={`${process.env.PUBLIC_URL}/img/placeholder-square-1024.png`}
+                    description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
+                    price="$19.99"
                 />
 
-                <ProductListing
+                <ProductCard
                     name="Product Name"
-                    price={15.99}
-                    description="Similique atque sunt, nesciunt quas voluptatum in perferendis"
-                    imgSrc={`${process.env.PUBLIC_URL}/img/placeholder-square-1024.png`}
+                    description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
+                    price="$19.99"
                 />
 
-                <ProductListing
+                <ProductCard
                     name="Product Name"
-                    price={15.99}
-                    description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique atque sunt, nesciunt quas voluptatum in perferendis"
-                    imgSrc={`${process.env.PUBLIC_URL}/img/placeholder-square-1024.png`}
+                    description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
+                    price="$19.99"
                 />
 
-                <ProductListing
+                <ProductCard
                     name="Product Name"
-                    price={15.99}
-                    description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique atque sunt, nesciunt quas voluptatum in perferendis"
-                    imgSrc={`${process.env.PUBLIC_URL}/img/placeholder-square-1024.png`}
+                    description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
+                    price="$19.99"
                 />
-            </section>
+
+            </GridEvenContainer>
+                
         </div>
     );
 }
