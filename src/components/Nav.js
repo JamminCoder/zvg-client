@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import "../css/nav.css";
-import ShoppingCart from "./ShoppingCart";
+import { ShoppingCart } from "./ShoppingCart";
 
 export default function Nav() {
     const [mqMatches, setMqMatches] = useState(

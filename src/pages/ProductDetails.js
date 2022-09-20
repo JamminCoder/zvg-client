@@ -70,25 +70,25 @@ export default function ProductDetails(props) {
 
             <GridEvenContainer>
                 <ProductCard
-                    name="Product Name"
+                    name="Product"
                     description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
                     price="$19.99"
                 />
 
                 <ProductCard
-                    name="Product Name"
+                    name="Awesome"
                     description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
                     price="$19.99"
                 />
 
                 <ProductCard
-                    name="Product Name"
+                    name="Chickens"
                     description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
                     price="$19.99"
                 />
 
                 <ProductCard
-                    name="Product Name"
+                    name="Flowers"
                     description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
                     price="$19.99"
                 />
