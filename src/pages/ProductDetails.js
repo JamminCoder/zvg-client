@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { Children, useState } from "react";
 import { ProductCard } from '../components/Cards';
 import GridEvenContainer from '../components/GridEvenContainer';
-
+import ShoppingCartManager from "../shoppingCartManager";
 
 function ImagePreview(props) {
     const children = Children.toArray(props.children);
@@ -39,6 +39,12 @@ export default function ProductDetails(props) {
     // These values will be extracted from the product API
     const price = 15.99;
     const description = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Culpa repellendus velit voluptate assumenda beatae debitis dignissimos consectetur, tenetur, ea atque magni sit delectus cum dolorem? Mollitia voluptates dolores vel cue.";
+    
+    function addToCart(e) {
+        ShoppingCartManager.addItem(productName, 1);
+        e.stopPropagation();
+        e.preventDefault(); 
+    }
 
     return (
         <div className="mx-auto px-4 py-24">
@@ -58,7 +64,7 @@ export default function ProductDetails(props) {
                     </p>
 
                     <div className="flex items-center gap-5 ">
-                        <a href="#add-to-cart" className="px-3 py-2 bg-green-600 text-lg text-white rounded">Add to Cart</a>
+                        <button onClick={ addToCart } href="#add-to-cart" className="px-3 py-2 bg-green-600 text-lg text-white rounded">Add to Cart</button>
                         <h2 className="text-2xl text-green-900 font-bold">${ price }</h2>
                     </div>
                 </div>
