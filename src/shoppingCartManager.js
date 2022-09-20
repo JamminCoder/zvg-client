@@ -11,12 +11,23 @@ export default class ShoppingCartManager {
             cartJSON = ShoppingCartManager.all();
         }
 
-        if (cartJSON[itemName] != null) 
+        if (cartJSON[itemName] != null) {
             cartJSON[itemName] = cartJSON[itemName] + qty;
-
-        else cartJSON[itemName] = qty;
+        } else { cartJSON[itemName] = qty; }
 
         localStorage.setItem("shoppingCart", JSON.stringify(cartJSON));
+
+        let notification = document.querySelector("#cart_notification")
+        try {
+            notification.innerHTML = parseInt(notification.innerText) + qty;
+        } catch (e) {
+            let notification = document.createElement("span")
+            notification.classList.add("absolute", "z-10", "right-[-10px]", "top-[-8px]", "text-white", "text-sm", "bg-green-600", "rounded-full", "aspect-square", "w-5", "grid", "place-items-center")
+            notification.setAttribute("id", "cart_notification");
+            notification.innerText = 1;
+            document.querySelector("#cart_icon").appendChild(notification)
+        }
+        
     }
 
     static getItem(itemName) {
