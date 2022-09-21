@@ -15,3 +15,9 @@ export function slugify(string) {
     }
     return result;
 }
+
+
+export function preventDefaults(e) {
+    e.preventDefault();
+    e.stopPropagation();
+}
