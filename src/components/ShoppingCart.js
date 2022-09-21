@@ -10,8 +10,9 @@ export function Notification({ count }) {
 export function ViewCart(props) {
     const items = ShoppingCartManager.all();
     const [cartIcon, setCartIcon] = useState(null);
-    const [cartRect, setCartRect] = useState(null)
-    
+    const [cartRect, setCartRect] = useState(null);
+    const [listenerAdded, setListenerAdded] = useState(false);
+
     useEffect(() => {
         if (!cartIcon) {
             setCartIcon(document.querySelector("#cart_icon"));
@@ -22,24 +23,37 @@ export function ViewCart(props) {
             setCartRect(cartIcon.getBoundingClientRect());
             return;
         }
+
+        if (!listenerAdded) {
+            window.addEventListener("resize", () => {
+                setCartIcon(document.querySelector("#cart_icon"));
+                
+                if (!cartIcon) return;
+        
+                setCartRect(cartIcon.getBoundingClientRect());
+            });
+
+            setListenerAdded(true);
+        }
     })
 
     if (!cartIcon || !cartRect) return;
 
-    const cart = [];
+    const cartItems = [];
     for (let itemName in items) {
-        cart.push(<div key={itemName}>{itemName}: {items[itemName]}</div>)
+        cartItems.push(<div key={itemName}>{itemName}: {items[itemName]}</div>)
     }
 
     const style = {
         position: "fixed",
         top: `${cartRect.y + 30}px`,
-        left: `${cartRect.x + 30}px`
+        left: `${cartRect.x + 30}px`,
+        marginRight: "1rem"
     }
 
     return (
-        <div style={style} className="bg-white rounded p-2 z-20" {...props}>
-            {cart}
+        <div style={style} className="bg-white rounded p-2 z-20 shadow-lg" {...props}>
+            { cartItems }
         </div>
     );
 }
@@ -52,7 +66,6 @@ export function ShoppingCart(props) {
         if (ShoppingCartManager.itemCount()) {
             setNotification(<Notification count={ ShoppingCartManager.itemCount() } />);
         }
-        
     }, [setNotification]);
 
     function handleClick() {
