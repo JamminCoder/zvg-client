@@ -2,6 +2,22 @@ import { slugify } from "./utils";
 import { db } from "./db";
 
 export default class ShoppingCartManager {
+    static async updateCartNotification() {
+        const itemCount = await ShoppingCartManager.itemCount();
+        let notification = document.querySelector("#cart_notification");
+        if (!notification) {
+            const cartIcon = document.querySelector("#cart_icon");
+            notification = document.createElement("span");
+            notification.setAttribute("id", "cart-notification");
+
+            notification.innerHTML = itemCount;
+            cartIcon.appendChild(notification);
+
+        } else {
+            notification.innerHTML = itemCount;
+        }
+    }
+
     static async addItem(name, price, count) {
 
         try {
@@ -11,7 +27,7 @@ export default class ShoppingCartManager {
                 count: count
             });
 
-            console.log(id);
+            ShoppingCartManager.updateCartNotification();
 
         } catch (e) {
             console.log("error inserting data");

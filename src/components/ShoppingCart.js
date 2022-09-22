@@ -31,7 +31,6 @@ export function ViewCart(props) {
                 }
 
                 setCartItems(parsedItems);
-                // console.log(cartItems)
             }
         }
         wrapper();
