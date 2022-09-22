@@ -6,7 +6,7 @@ export function ProductCard({ name, description, price }) {
     const type = useParams().productType;
     const productUrl = `/shop/${type}/${name}`;
     function handleClick(e) {
-        ShoppingCartManager.addItem(name, 1);
+        ShoppingCartManager.addItem(name, price, 1);
         e.stopPropagation();
         e.preventDefault(); 
     }

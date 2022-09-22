@@ -41,7 +41,7 @@ export default function ProductDetails(props) {
     const description = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Culpa repellendus velit voluptate assumenda beatae debitis dignissimos consectetur, tenetur, ea atque magni sit delectus cum dolorem? Mollitia voluptates dolores vel cue.";
     
     function addToCart(e) {
-        ShoppingCartManager.addItem(productName, 1);
+        ShoppingCartManager.addItem(productName, price, 1);
         e.stopPropagation();
         e.preventDefault(); 
     }

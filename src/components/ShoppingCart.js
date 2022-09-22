@@ -9,12 +9,33 @@ export function Notification({ count }) {
 
 
 export function ViewCart(props) {
-    const items = ShoppingCartManager.all();
+    const [cartItems, setCartItems] = useState([]);
     const [cartIcon, setCartIcon] = useState(null);
     const [cartRect, setCartRect] = useState(null);
     const [listenerAdded, setListenerAdded] = useState(false);
 
     useEffect(() => {
+        async function wrapper() {
+            if (cartItems.length == 0) {
+                let items = await ShoppingCartManager.all();
+                let parsedItems = [];
+                for (let itemIndex in items) {
+                    const item = items[itemIndex];
+
+                    parsedItems.push(
+                        <div key={ item.name } className="border-b border-b-gray-300 mb-2">
+                            <h4>{ item.name } - { item.count }</h4>
+                            <h6>{ item.price }</h6>
+                        </div>
+                    );
+                }
+
+                setCartItems(parsedItems);
+                // console.log(cartItems)
+            }
+        }
+        wrapper();
+
         if (!cartIcon) {
             setCartIcon(document.querySelector("#cart_icon"));
             return;
@@ -36,16 +57,10 @@ export function ViewCart(props) {
 
             setListenerAdded(true);
         }
-        
-       
-    })
 
-    if (!cartIcon || !cartRect) return;
+    });
 
-    const cartItems = [];
-    for (let itemName in items) {
-        cartItems.push(<div key={ itemName }>{ itemName }: { items[itemName] }</div>)
-    }
+    if (!cartRect || !cartItems) return;
 
     const style = {
         position: "fixed",
@@ -55,7 +70,7 @@ export function ViewCart(props) {
     }
 
     return (
-        <div style={ style } className="bg-white rounded p-2 z-20 shadow-lg" { ...props }>
+        <div style={ style } className="bg-white rounded p-2 z-20 shadow-lg min-w-[10rem]" { ...props }>
             { cartItems }
         </div>
     );
@@ -66,18 +81,24 @@ export function ShoppingCart(props) {
     const [isViewing, setIsViewing] = useState(false);
     const [listenerAdded, setListenerAdded] = useState(false);
 
+    
     useEffect(() => {
-        if (ShoppingCartManager.itemCount()) {
-            setNotification(<Notification count={ ShoppingCartManager.itemCount() } />);
+        async function wrapper() {
+            const itemCount = await ShoppingCartManager.itemCount()
+            if (itemCount) {
+                setNotification(<Notification count={ itemCount } />);
+            }
+            
+            if (!listenerAdded) {
+                window.addEventListener("click", () => {
+                    setIsViewing(false);
+                });
+    
+                setListenerAdded(true);
+            }
         }
         
-        if (!listenerAdded) {
-            window.addEventListener("click", () => {
-                setIsViewing(false);
-            });
-
-            setListenerAdded(true);
-        }
+        wrapper();
 
     }, [setNotification]);
 
