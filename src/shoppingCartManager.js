@@ -44,4 +44,8 @@ export default class ShoppingCartManager {
     static async itemCount() {
         return await db.items.count();
     }
+
+    static async clearCart() {
+        await db.items.clear();
+    }
 }
