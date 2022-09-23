@@ -96,7 +96,7 @@ export function ViewCart(props) {
 
     return (
         <div style={ style } className="bg-white rounded p-2 z-20 shadow-lg min-w-[10rem]" { ...props }>
-            { cartItems }
+            { !cartItems.length > 0 ? "Nothing in cart": cartItems }
             { cartItems.length > 0 ? <button className="py-1 px-2 bg-red-500 text-white font-bold" onClick={ ShoppingCartManager.clearCart }>Clear Cart</button>: "" }
         </div>
     );
