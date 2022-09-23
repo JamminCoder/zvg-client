@@ -7,6 +7,15 @@ export function Notification({ count }) {
     return <span id="cart_notification" className="absolute z-10 right-[-10px] top-[-8px] text-white text-sm bg-green-600 rounded-full aspect-square w-5 grid place-items-center">{ count }</span>
 }
 
+export function Item({ item }) {
+    console.log(item);
+    return (
+        <div key={ item.name } className="border-b border-b-gray-300 mb-2">
+            <h4>{ item.name } - { item.count }</h4>
+            <h6>{ item.price }</h6>
+        </div>
+    );
+}
 
 export function ViewCart(props) {
     const [cartItems, setCartItems] = useState([]);
@@ -18,23 +27,39 @@ export function ViewCart(props) {
         async function wrapper() {
             if (cartItems.length == 0) {
                 let items = await ShoppingCartManager.all();
-                let parsedItems = [];
+
+                let itemNames = [];
+                
+                let parsedItems = {};
+                let itemComponents = [];
+
                 for (let itemIndex in items) {
                     const item = items[itemIndex];
+                    
+                    if (!itemNames.includes(item.name)) {
+                        itemNames.push(item.name);
 
-                    parsedItems.push(
-                        <div key={ item.name } className="border-b border-b-gray-300 mb-2">
-                            <h4>{ item.name } - { item.count }</h4>
-                            <h6>{ item.price }</h6>
-                        </div>
-                    );
+                    } else {
+                        try {
+                            parsedItems[item.name].count += 1;
+                        } catch (e) {
+                            parsedItems[item.name] = item;
+                            parsedItems[item.name].count += 1;
+
+                        }
+                    }
                 }
 
-                setCartItems(parsedItems);
+                for (let itemName in parsedItems) {
+                    itemComponents.push(<Item item={ parsedItems[itemName] } />)
+                }
+
+                setCartItems(itemComponents);
             }
         }
         wrapper();
 
+        
         if (!cartIcon) {
             setCartIcon(document.querySelector("#cart_icon"));
             return;

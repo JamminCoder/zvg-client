@@ -19,9 +19,8 @@ export default class ShoppingCartManager {
     }
 
     static async addItem(name, price, count) {
-
         try {
-            const id = await db.items.add({
+            await db.items.add({
                 name: slugify(name), 
                 price: price,
                 count: count
@@ -35,7 +34,7 @@ export default class ShoppingCartManager {
     }
 
     static async getItem(name) {
-        return await db.items.where("name").equals(name)
+        return await db.items.where("name").equals(name);
     }
 
     static async all() {
