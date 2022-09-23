@@ -38,6 +38,7 @@ export function ViewCart(props) {
                     
                     if (!itemNames.includes(item.name)) {
                         itemNames.push(item.name);
+                        parsedItems[item.name] = item;
 
                     } else {
                         try {
