@@ -32,25 +32,25 @@ export default function ProductsPage(props) {
                 <ProductCard
                     name="Product"
                     description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
-                    price="$19.99"
+                    price="19.99"
                 />
 
                 <ProductCard
                     name="Awesome"
                     description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
-                    price="$19.99"
+                    price="19.99"
                 />
 
                 <ProductCard
                     name="Chickens"
                     description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
-                    price="$19.99"
+                    price="19.99"
                 />
 
                 <ProductCard
                     name="Flowers"
                     description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
-                    price="$19.99"
+                    price="19.99"
                 />
 
             </GridEvenContainer>

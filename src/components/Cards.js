@@ -21,7 +21,7 @@ export function ProductCard({ name, description, price }) {
 
             <div className="px-2 py-2 ">
                 <h2 className="font-medium text-xl">{ name }</h2>
-                <h3 className="mb-2">{ price }</h3>
+                <h3 className="mb-2">${ price }</h3>
                 <p className="mb-2">
                     { description }
                 </p>

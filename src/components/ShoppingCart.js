@@ -12,7 +12,7 @@ export function Item({ item }) {
     return (
         <div key={ item.name } className="border-b border-b-gray-300 mb-2">
             <h4>{ item.name } - { item.count }</h4>
-            <h6>{ item.price }</h6>
+            <h6>${ item.price * item.count}</h6>
         </div>
     );
 }
