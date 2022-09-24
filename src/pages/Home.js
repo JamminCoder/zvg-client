@@ -12,26 +12,26 @@ function Slide({ img, header, lead, buttons, sliderNum, max }) {
     if (i === sliderNum) style = {backgroundColor: "white"};
 
 
-    let indicator = <span key={i} class="w-2 aspect-square bg-white inline-block mx-2 rounded-full" style={style}></span>
+    let indicator = <span key={i} className="w-2 aspect-square bg-white inline-block mx-2 rounded-full" style={style}></span>
     indicators.push(indicator);
   }
 
   return (
     <section className="slide flex-grow w-[100vw] relative grid place-items-center" id={"slide-" + sliderNum}>
 
-      <div class="w-[100vw]">
+      <div className="w-[100vw]">
         {/* Image */}
-        <img src={ img } alt="description here" class="h-[50vh] lg:h-[65vh] w-[100%] object-cover" />
+        <img src={ img } alt="description here" className="h-[50vh] lg:h-[65vh] w-[100%] object-cover" />
       </div>
 
-      <div class="welcome-header-section w-[100%] h-[100%] absolute grid place-items-center">
-        <div class="flex flex-col items-center gap-2 max-w-[80%]">
+      <div className="welcome-header-section w-[100%] h-[100%] absolute grid place-items-center">
+        <div className="flex flex-col items-center gap-2 max-w-[80%]">
 
           {/* Header and lead */}
-          <h1 class="text-white text-center text-3xl md:text-7xl font-bold">{ header }</h1>
-          <p class="text-center text-white text-2xl font-light">{ lead }</p>
+          <h1 className="text-white text-center text-3xl md:text-7xl font-bold">{ header }</h1>
+          <p className="text-center text-white text-2xl font-light">{ lead }</p>
           
-          <div class="flex justify-center gap-2 mt-2">
+          <div className="flex justify-center gap-4 mt-2">
 
             {/* Buttons */}
             { buttons }
@@ -39,7 +39,7 @@ function Slide({ img, header, lead, buttons, sliderNum, max }) {
           </div>
 
           {/* Slider indicators */}
-          <div class="mt-5">
+          <div className="mt-5">
            { indicators }
           </div>
 
@@ -59,7 +59,7 @@ function HeaderSection(props) {
     let touchEndX = 0;
     let scrollWidth = document.body.clientWidth;
     let slider = document.querySelector(".welcome-slider");
-    const animationDelay = 5000;
+    const animationDelay = 7000;
 
     let scrollInterval = setInterval(() => {
       slider.scrollBy(scrollWidth, 0);
@@ -117,8 +117,8 @@ function HeaderSection(props) {
       header="Zoar Valley Gifts & More"
       lead="Lorem ipsum dolor, sit amet consectetur adipisicing elit."
       buttons={[
-        <Link to="/shop" class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Shop</Link>,
-        <a href="/" class="px-2 py-1 bg-white bg-opacity-75 rounded text-xl">Campgrounds</a>
+        <Link to="/shop" className="px-4 py-2 bg-white rounded text-xl font-medium">Visit Shop</Link>,
+        <a href="/" className="px-4 py-2 bg-sky-600 text-white rounded text-xl font-medium">Campgrounds</a>
       ]}
 
       sliderNum={ i }
@@ -145,7 +145,7 @@ function ProductShowcaseSection() {
           background: "linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.1))"
         }}>
           <div className="absolute bottom-0 p-10">
-            <h3><a className="text-xl underline" href="/products"> &gt; Explore these items</a></h3>
+            <h3><Link className="text-xl underline" to="shop/jewelry"> &gt; Explore these items</Link></h3>
             <p className="font-light">
               Lorum ipsum dolar sit amit sit dolar ipsum...
             </p>
@@ -162,7 +162,6 @@ function ProductShowcaseSection() {
 
     return (
       <div className="w-[100%] max-w-[30rem]">
-        <div className="lg:flex-col-reverse"></div>
         <article className={ "flex gap-16 flex-col items-center" + reverseCol }>
           <div>
             <h1 className="text-4xl mb-4">{ header }</h1>
@@ -175,8 +174,8 @@ function ProductShowcaseSection() {
   }
 
   return (
-    <div className="flex justify-center">
-      <section className="grid gap-20 place-items-center grid-cols-1 lg:grid-cols-2 py-24 mx-10 lg:w-[80%] max-w-[80rem]">
+    <div className="flex items-center flex-col">
+      <section className="grid gap-14 place-items-center grid-cols-1 lg:grid-cols-2 py-24 mx-10 lg:w-[80%] max-w-[80rem]">
         <ShowcaseColumn
           header="Candles, ornaments, jewelry, and more."
           paragraph="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, aspernatur saepe deleniti quidem est ipsum cupiditate accusamus corporis ipsa amet quas quaerat non nihil dolore voluptatum, dolor sed facere qui."
@@ -190,6 +189,22 @@ function ProductShowcaseSection() {
           reverse={ true }
         />
       </section>
+
+
+      <section className="grid gap-14 place-items-center grid-cols-1 lg:grid-cols-2 py-24 mx-10 lg:w-[80%] max-w-[80rem]">
+        <ShowcaseColumn
+          header="Lorem ipsum dolar sit amet."
+          paragraph="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, aspernatur saepe deleniti quidem est ipsum cupiditate accusamus corporis ipsa amet quas quaerat non nihil dolore voluptatum, dolor sed facere qui."
+          imgSrc={ `${process.env.PUBLIC_URL}/img/placeholder-square-1024.png` }
+        />
+
+        <ShowcaseColumn
+          header="Lorem ipsum dolor sit amet"
+          paragraph="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, aspernatur saepe deleniti quidem est ipsum cupiditate accusamus corporis ipsa amet quas quaerat non nihil dolore voluptatum, dolor sed facere qui."
+          imgSrc={ `${process.env.PUBLIC_URL}/img/placeholder-square-1024.png` }
+          reverse={ true }
+        />
+      </section>
     </div>
   );
 }
@@ -198,7 +213,7 @@ function CabinSection() {
   return (
     <div>
       <section className="relative h-[70vh] overflow-hidden">
-        <img src={ `${ process.env.PUBLIC_URL }/img/cabin.png` } alt="description here" class="h-[70vh] w-[100%] object-cover absolute top-0" />
+        <img src={ `${ process.env.PUBLIC_URL }/img/cabin.png` } alt="description here" className="h-[70vh] w-[100%] object-cover absolute top-0" />
         
         <div className="absolute top-0 grid place-items-center w-[100%] h-[100%] text-white">
             <div className="text-center flex flex-col items-center gap-5">
