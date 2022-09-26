@@ -19,17 +19,17 @@ export function ProductCard({ name, description, price }) {
                 <img className="bg-gray-400 w-[100%] aspect-video"/>
             </div>
 
-            <div className="px-2 py-2 ">
+            <div className="px-2 py-2">
                 <h2 className="font-medium text-xl">{ name }</h2>
                 <h3 className="mb-2">${ price }</h3>
-                <p className="mb-2">
-                    { description }
-                </p>
+
+                { description ? <p className="text-xs mb-4">{ description }</p>: "" }
 
                 <button  
                     onClick={ handleClick }
-                    className="py-1 px-2 bg-green-600 text-white rounded hover:shadow-lg hover:bg-green-500 transition-all"
-                    >Add to Cart</button>
+                    className="py-1 px-2 w-[100%] bg-green-600 text-white rounded hover:shadow-lg hover:bg-green-500 transition-all"
+                >Add to Cart</button>
+                
             </div>
         </Card>
     );
