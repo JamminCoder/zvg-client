@@ -3,10 +3,6 @@ import { useState } from "react";
 import ShoppingCartManager from "../shoppingCartManager";
 import { preventDefaults } from "../utils";
 
-export function Notification(props) {
-    return <span id="cart-notification" className="absolute z-10 right-[-10px] top-[-8px] text-white text-sm bg-green-600 rounded-full aspect-square w-5 grid place-items-center" >{ props.count }</span>
-}
-
 export function Item({ item }) {
     return (
         <div key={ item.name } className="border-b border-b-gray-300 mb-2">
@@ -55,7 +51,7 @@ export function ViewCart(props) {
 
             setCartItems(itemComponents);
         }
-        
+
         wrapper();
 
         
@@ -86,7 +82,6 @@ export function ViewCart(props) {
     function clearCart() {
         ShoppingCartManager.clearCart();
         ShoppingCartManager.updateCartNotification();
-        setCartItems([]);
     }
 
     if (!cartRect || !cartItems) return;
