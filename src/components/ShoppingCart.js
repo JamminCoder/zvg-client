@@ -24,39 +24,38 @@ export function ViewCart(props) {
 
     useEffect(() => {
         async function wrapper() {
-            if (cartItems.length == 0) {
-                let items = await ShoppingCartManager.all();
+            let items = await ShoppingCartManager.all();
 
-                let itemNames = [];
+            let itemNames = [];
+            
+            let parsedItems = {};
+            let itemComponents = [];
+
+            for (let itemIndex in items) {
+                const item = items[itemIndex];
                 
-                let parsedItems = {};
-                let itemComponents = [];
+                if (!itemNames.includes(item.name)) {
+                    itemNames.push(item.name);
+                    parsedItems[item.name] = item;
 
-                for (let itemIndex in items) {
-                    const item = items[itemIndex];
-                    
-                    if (!itemNames.includes(item.name)) {
-                        itemNames.push(item.name);
+                } else {
+                    try {
+                        parsedItems[item.name].count += 1;
+                    } catch (e) {
                         parsedItems[item.name] = item;
+                        parsedItems[item.name].count += 1;
 
-                    } else {
-                        try {
-                            parsedItems[item.name].count += 1;
-                        } catch (e) {
-                            parsedItems[item.name] = item;
-                            parsedItems[item.name].count += 1;
-
-                        }
                     }
                 }
-
-                for (let itemName in parsedItems) {
-                    itemComponents.push(<Item item={ parsedItems[itemName] } />)
-                }
-
-                setCartItems(itemComponents);
             }
+
+            for (let itemName in parsedItems) {
+                itemComponents.push(<Item item={ parsedItems[itemName] } />)
+            }
+
+            setCartItems(itemComponents);
         }
+        
         wrapper();
 
         
