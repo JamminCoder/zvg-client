@@ -3,12 +3,11 @@ import { useState } from "react";
 import ShoppingCartManager from "../shoppingCartManager";
 import { preventDefaults } from "../utils";
 
-export function Notification({ count }) {
-    return <span id="cart_notification" className="absolute z-10 right-[-10px] top-[-8px] text-white text-sm bg-green-600 rounded-full aspect-square w-5 grid place-items-center">{ count }</span>
+export function Notification(props) {
+    return <span id="cart-notification" className="absolute z-10 right-[-10px] top-[-8px] text-white text-sm bg-green-600 rounded-full aspect-square w-5 grid place-items-center" >{ props.count }</span>
 }
 
 export function Item({ item }) {
-    console.log(item);
     return (
         <div key={ item.name } className="border-b border-b-gray-300 mb-2">
             <h4>{ item.name } - { item.count }</h4>
@@ -62,7 +61,7 @@ export function ViewCart(props) {
 
         
         if (!cartIcon) {
-            setCartIcon(document.querySelector("#cart_icon"));
+            setCartIcon(document.querySelector("#cart-icon"));
             return;
         }
 
@@ -73,7 +72,7 @@ export function ViewCart(props) {
 
         if (!listenerAdded) {
             window.addEventListener("resize", () => {
-                setCartIcon(document.querySelector("#cart_icon"));
+                setCartIcon(document.querySelector("#cart-icon"));
                 
                 if (!cartIcon) return;
         
@@ -85,9 +84,15 @@ export function ViewCart(props) {
 
     });
 
+    function clearCart() {
+        ShoppingCartManager.clearCart();
+        ShoppingCartManager.updateCartNotification();
+        setCartItems([]);
+    }
+
     if (!cartRect || !cartItems) return;
 
-    const style = {
+    const viewStyle = {
         position: "fixed",
         top: `${cartRect.y + 30}px`,
         left: `${cartRect.x + 30}px`,
@@ -95,26 +100,20 @@ export function ViewCart(props) {
     }
 
     return (
-        <div style={ style } className="bg-white rounded p-2 z-20 shadow-lg min-w-[10rem]" { ...props }>
+        <div style={ viewStyle } className="bg-white rounded p-2 z-20 shadow-lg min-w-[10rem]" { ...props }>
             { !cartItems.length > 0 ? "Nothing in cart": cartItems }
-            { cartItems.length > 0 ? <button className="py-1 px-2 bg-red-500 text-white font-bold" onClick={ ShoppingCartManager.clearCart }>Clear Cart</button>: "" }
+            { cartItems.length > 0 ? <button className="py-1 px-2 bg-red-500 text-white font-bold" onClick={ clearCart }>Clear Cart</button>: "" }
         </div>
     );
 }
 
 export function ShoppingCart(props) {
-    const [notification, setNotification] = useState(null);
     const [isViewing, setIsViewing] = useState(false);
     const [listenerAdded, setListenerAdded] = useState(false);
 
     
     useEffect(() => {
         async function wrapper() {
-            const itemCount = await ShoppingCartManager.itemCount()
-            if (itemCount) {
-                setNotification(<Notification count={ itemCount } />);
-            }
-            
             if (!listenerAdded) {
                 window.addEventListener("click", () => {
                     setIsViewing(false);
@@ -123,10 +122,12 @@ export function ShoppingCart(props) {
                 setListenerAdded(true);
             }
         }
+
+        ShoppingCartManager.updateCartNotification();
         
         wrapper();
 
-    }, [setNotification]);
+    });
 
     function handleClick(e) {
         preventDefaults(e);
@@ -137,8 +138,7 @@ export function ShoppingCart(props) {
     }
 
     return (
-        <div id="cart_icon" className="relative" onClick={ handleClick }>
-            { notification }
+        <div id="cart-icon" className="relative" onClick={ handleClick }>
             { isViewing ? <ViewCart onClick={ preventDefaults }/>: "" }
             <img src={ `${ process.env.PUBLIC_URL }/icons/cart.svg` } className={ `w-7 interactive-hover cursor-pointer ${props.className}` }/>
         </div>

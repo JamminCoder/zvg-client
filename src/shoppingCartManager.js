@@ -4,18 +4,29 @@ import { db } from "./db";
 export default class ShoppingCartManager {
     static async updateCartNotification() {
         const itemCount = await ShoppingCartManager.itemCount();
-        let notification = document.querySelector("#cart_notification");
+        
+        let notification = document.querySelector("#cart-notification");
+        const cartIcon = document.querySelector("#cart-icon");
+
         if (!notification) {
-            const cartIcon = document.querySelector("#cart_icon");
             notification = document.createElement("span");
             notification.setAttribute("id", "cart-notification");
 
+            if (itemCount === 0) {
+                notification.remove();
+                return;
+            }
+
             notification.innerHTML = itemCount;
             cartIcon.appendChild(notification);
-
-        } else {
-            notification.innerHTML = itemCount;
         }
+
+        if (itemCount === 0)  {            
+            notification.remove();
+            return;
+        };
+
+        notification.innerHTML = itemCount;
     }
 
     static async addItem(name, price, count) {
@@ -29,7 +40,7 @@ export default class ShoppingCartManager {
             ShoppingCartManager.updateCartNotification();
 
         } catch (e) {
-            console.log("error inserting data");
+            console.log(`error inserting item: {name: "${name}", price: "${price}", count: ${count}}`);
         }   
     }
 
