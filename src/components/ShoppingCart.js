@@ -1,13 +1,17 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import ShoppingCartManager from "../shoppingCartManager";
-import { preventDefaults } from "../utils";
+import { capatalizeFirstLetter, preventDefaults } from "../utils";
 
 export function Item({ item }) {
     return (
-        <div key={ item.name } className="border-b border-b-gray-300 mb-2">
-            <h4>{ item.name } - { item.count }</h4>
-            <h6>${ item.price * item.count}</h6>
+        <div 
+            key={ item.name } 
+            className="border-b border-b-gray-300 mb-1 py-2 hover:bg-slate-50 transition-colors cursor-pointer"
+            onClick={ () => { alert("Not implemented yet:\nIn the future, clicking that will bring user to item details") }} >
+            <h4 className="font-bold text-lg">{  capatalizeFirstLetter(item.name) } - ${ item.price * item.count}</h4>
+            <h5><span className="font-medium">Qty</span>: { item.count }</h5>
+            
         </div>
     );
 }
@@ -17,10 +21,12 @@ export function ViewCart(props) {
     const [cartIcon, setCartIcon] = useState(null);
     const [cartRect, setCartRect] = useState(null);
     const [listenerAdded, setListenerAdded] = useState(false);
+    const [totalPrice, setTotalPrice] = useState(0);
 
     useEffect(() => {
         async function wrapper() {
             let items = await ShoppingCartManager.all();
+            setTotalPrice(await ShoppingCartManager.totalPrice());
 
             let itemNames = [];
             
@@ -89,14 +95,30 @@ export function ViewCart(props) {
     const viewStyle = {
         position: "fixed",
         top: `${cartRect.y + 30}px`,
-        left: `${cartRect.x + 30}px`,
-        marginRight: "1rem"
+        left: `clamp(0px, calc(${cartRect.x}px - 10rem), 90vw)`,
+        margin: "0 1rem"
     }
 
     return (
-        <div style={ viewStyle } className="bg-white rounded p-2 z-20 shadow-lg min-w-[10rem]" { ...props }>
+        <div style={ viewStyle } className="bg-white rounded p-2 z-20 shadow-lg min-w-[15rem]" { ...props }>
+            {/* <svg className="hover:bg-slate-100 cursor-pointer rounded-full" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+            </svg> */}
+            
+
             { !cartItems.length > 0 ? "Nothing in cart": cartItems }
-            { cartItems.length > 0 ? <button className="py-1 px-2 bg-red-500 text-white font-bold" onClick={ clearCart }>Clear Cart</button>: "" }
+
+            { cartItems.length > 0 ? 
+                <div>
+                    <p className="text-lg pb-2">Total: <span className="font-medium">${ totalPrice }</span></p>
+                    <div className="flex gap-8 py-1">
+                        <Link to="/shop/checkout" className="py-1 px-2 font-bold bg-green-600 text-white">Checkout</Link>
+                        <button className="py-1 px-2 bg-red-500 text-white font-bold" onClick={ clearCart }>Clear Cart</button>
+                    </div>
+                </div>
+                : ""
+            }
+            
         </div>
     );
 }

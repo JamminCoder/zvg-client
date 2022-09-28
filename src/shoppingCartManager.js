@@ -59,4 +59,16 @@ export default class ShoppingCartManager {
     static async clearCart() {
         await db.items.clear();
     }
+
+    static async totalPrice() {
+        let total = 0;
+        const items = await ShoppingCartManager.all();
+
+        items.forEach(item => {
+            total += parseFloat(item.price);
+        });
+
+        return Math.round(100 * total) / 100;
+
+    }
 }
