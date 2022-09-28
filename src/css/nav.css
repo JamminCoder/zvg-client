@@ -4,6 +4,7 @@
     
     display: grid;
     align-items: center;
+    place-content: center;
     grid-template-columns: 80% 10%;
     grid-template-areas: 
         "brand collapse-btn"
@@ -25,22 +26,28 @@
 
 .collapse-btn {
     grid-area: collapse-btn;
+    display: block;
 }
+
 
 .nav-expanded {
     margin-top: 1em;
     display: block;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 870px) {
     .nav {
         display: flex;
-        align-items: flex-start;
+        align-items: center;
         justify-content: space-around;
     }
 
     .collapsing-nav-content {
         display: flex;
         gap: 2em;
+    }
+
+    .collapse-btn {
+        display: none;
     }
 }

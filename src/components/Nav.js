@@ -29,7 +29,10 @@ export default function Nav() {
     
     return (
         <nav className="nav shadow-lg bg-slate-100">
-            <Link to="/" className="text-2xl underline interactive-hover">Zoar Valley Gifts</Link>
+            <div className="flex gap-4 items-center">
+                <img src={ `${ process.env.PUBLIC_URL }/icons/zvg-logo.svg` } alt="logo" className="w-16"/>
+                <Link to="/" className="text-2xl underline interactive-hover">Zoar Valley Gifts</Link>
+            </div>
 
             <div className="collapsing-nav-content">
                 
@@ -58,7 +61,7 @@ export default function Nav() {
                 
             </div>
 
-            <a className="collapse-btn md:hidden h-10 w-10 bg-blue-400 grid place-items-center" onClick={ handleCollapse }>demo nav</a>
+            <a className="collapse-btn h-10 w-10 bg-blue-400 grid place-items-center" onClick={ handleCollapse }>demo nav</a>
         </nav>
     );
 }
