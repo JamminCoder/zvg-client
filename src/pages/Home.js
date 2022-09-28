@@ -28,7 +28,7 @@ function Slide({ img, header, lead, buttons, sliderNum, max }) {
         <div className="flex flex-col items-center gap-2 max-w-[80%]">
 
           {/* Header and lead */}
-          <h1 className="text-white text-center text-3xl md:text-7xl font-bold">{ header }</h1>
+          <h1 className="text-white text-center font-bold" style={{fontSize: "clamp(0rem, 10vw, 4.5rem)" }}>{ header }</h1>
           <p className="text-center text-white text-2xl font-light">{ lead }</p>
           
           <div className="flex justify-center gap-4 mt-2">
