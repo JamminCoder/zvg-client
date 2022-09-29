@@ -26,8 +26,10 @@ root.render(
 
         <Route path="/" element={ <Home/> } />
         <Route path="/shop" element={ <Shop/> }/>
+        <Route path="/shop/checkout" element={ <h1 className="text-4xl font-bold">Checkout page not created yet.</h1> }/>
         <Route path="/shop/:productType" element={ <ProductsPage/> } />
         <Route path="/shop/:productType/:productName" element={ <ProductDetails/> } />
+        
 
         <Route path="/campground" element={ <ReservationPage/> } />
 
