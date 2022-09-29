@@ -163,7 +163,7 @@ export function ShoppingCart(props) {
     }
 
     return (
-        <div id="cart-icon" className="relative" onClick={ handleClick }>
+        <div id="cart-icon" className="relative w-fit" onClick={ handleClick }>
             { isViewing ? <ViewCart onClick={ preventDefaults }/>: "" }
             <img src={ `${ process.env.PUBLIC_URL }/icons/cart.svg` } className={ `w-7 interactive-hover cursor-pointer ${props.className}` }/>
         </div>

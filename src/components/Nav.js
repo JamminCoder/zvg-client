@@ -35,8 +35,6 @@ export default function Nav() {
             </div>
 
             <div className="collapsing-nav-content">
-                
-                
                 <NavLink to="/shop" className="text-xl block text-gray-800 interactive-hover" 
                     style={({ isActive }) =>
                     isActive ? activeLinkStyle : undefined
@@ -57,7 +55,7 @@ export default function Nav() {
                     isActive ? activeLinkStyle : undefined
                 }>Contact</NavLink>
 
-                <ShoppingCart className="md:ml-5"/>
+                <ShoppingCart/>
                 
             </div>
             

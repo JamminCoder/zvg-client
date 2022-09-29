@@ -1,3 +1,7 @@
+#cart-icon {
+    margin-top: 1rem;
+}
+
 .nav {
     width: 100%;
     padding: 1rem;
@@ -21,6 +25,7 @@
 
 .collapsing-nav-content {
     grid-area: collapsing-items;
+    align-items: flex-start;
     display: none;
 }
 
@@ -49,5 +54,9 @@
 
     .collapse-btn {
         display: none;
+    }
+
+    #cart-icon {
+        margin: 0;
     }
 }
