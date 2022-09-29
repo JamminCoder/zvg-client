@@ -44,6 +44,11 @@ export default class ShoppingCartManager {
         }   
     }
 
+    static async deleteItem(name) {
+        let deleteCount = await db.items.where("name").equals(name).delete();
+        // console.log(`Deleted ${deleteCount} items from ${name}.`)
+    }
+
     static async getItem(name) {
         return await db.items.where("name").equals(name);
     }
