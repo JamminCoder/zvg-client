@@ -16,7 +16,9 @@ export function Item({ item }) {
             key={ item.name } 
             className="border-b border-b-gray-300 mb-1 py-2 hover:bg-slate-50 transition-colors cursor-pointer"
         >
-            <h4 className="font-bold text-lg">{  capatalizeFirstLetter(item.name) } - ${ item.price * item.count}</h4>
+            <h4 className="text-lg">
+                <span className="font-bold ">{ capatalizeFirstLetter(item.name) } </span>
+                - ${ item.price * item.count}</h4>
             <h5>
                 <span className="font-medium">Qty</span>: { item.count }             
                 <button className="ml-4 px-1 bg-gray-800 hover:bg-gray-700 text-white text-sm rounded-sm" onClick={ remove }>Remove</button>
