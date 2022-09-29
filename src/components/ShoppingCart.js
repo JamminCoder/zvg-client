@@ -19,7 +19,7 @@ export function Item({ item }) {
             <h4 className="font-bold text-lg">{  capatalizeFirstLetter(item.name) } - ${ item.price * item.count}</h4>
             <h5>
                 <span className="font-medium">Qty</span>: { item.count }             
-                <button className="ml-2 px-1 bg-gray-800 hover:bg-gray-700 text-white text-sm rounded-sm" onClick={ remove }>Remove</button>
+                <button className="ml-4 px-1 bg-gray-800 hover:bg-gray-700 text-white text-sm rounded-sm" onClick={ remove }>Remove</button>
             </h5>
         </div>
     );
