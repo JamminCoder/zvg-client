@@ -3,6 +3,6 @@
 @tailwind components;
 
 
-#cart-notification {
-    @apply absolute z-10 right-[-10px] top-[-8px] text-white text-sm bg-green-600 rounded-full aspect-square w-5 grid place-items-center
+.cart-notification:not(:empty) {
+    @apply absolute z-20 right-[-10px] top-[-8px] text-white text-sm bg-green-600 rounded-full aspect-square w-5 grid place-items-center
 }

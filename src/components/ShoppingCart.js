@@ -8,7 +8,6 @@ export function Item({ item }) {
     function remove(e) {
         preventDefaults(e);
         ShoppingCartManager.deleteItem(item.name);
-        ShoppingCartManager.updateCartNotification();
     }
 
     return (
@@ -73,7 +72,7 @@ export function ViewCart(props) {
 
         
         if (!cartIcon) {
-            setCartIcon(document.querySelector("#cart-icon"));
+            setCartIcon(document.querySelector(".cart-icon"));
             return;
         }
 
@@ -84,7 +83,7 @@ export function ViewCart(props) {
 
         if (!listenerAdded) {
             window.addEventListener("resize", () => {
-                setCartIcon(document.querySelector("#cart-icon"));
+                setCartIcon(document.querySelector(".cart-icon"));
                 
                 if (!cartIcon) return;
         
@@ -98,7 +97,6 @@ export function ViewCart(props) {
 
     function clearCart() {
         ShoppingCartManager.clearCart();
-        ShoppingCartManager.updateCartNotification();
     }
 
     if (!cartRect || !cartItems) return;
@@ -137,10 +135,13 @@ export function ViewCart(props) {
 export function ShoppingCart(props) {
     const [isViewing, setIsViewing] = useState(false);
     const [listenerAdded, setListenerAdded] = useState(false);
+    const [itemCount, setItemCount] = useState(null);
 
     
     useEffect(() => {
+        
         async function wrapper() {
+            setItemCount(await ShoppingCartManager.itemCount());
             if (!listenerAdded) {
                 window.addEventListener("click", () => {
                     setIsViewing(false);
@@ -149,8 +150,6 @@ export function ShoppingCart(props) {
                 setListenerAdded(true);
             }
         }
-
-        ShoppingCartManager.updateCartNotification();
         
         wrapper();
 
@@ -165,9 +164,10 @@ export function ShoppingCart(props) {
     }
 
     return (
-        <div id="cart-icon" className="relative w-fit" onClick={ handleClick }>
+        <div className="relative w-fit cart-icon" onClick={ handleClick }>
             { isViewing ? <ViewCart onClick={ preventDefaults }/>: "" }
             <img src={ `${ process.env.PUBLIC_URL }/icons/cart.svg` } className={ `w-7 interactive-hover cursor-pointer ${props.className}` }/>
+            <span className="cart-notification">{ itemCount == 0 ? "": itemCount }</span>
         </div>
     );
 }

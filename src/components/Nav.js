@@ -2,17 +2,25 @@ import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import "../css/nav.css";
 import { ShoppingCart } from "./ShoppingCart";
+import ShoppingCartManager from "../shoppingCartManager";
 
 export default function Nav() {
     const [mqMatches, setMqMatches] = useState(
         window.matchMedia("(min-width: 768px)").matches
     );
 
+    const [itemCount, setItemCount] = useState(null);
+
     const [collapsingContent, setCollapsingContent] = useState(
         document.querySelector(".collapsing-nav-content")
     );
 
     useEffect(() => {
+        async function wrapper() {
+            setItemCount(await ShoppingCartManager.itemCount());
+        }
+        wrapper();
+
         window.matchMedia("(min-width: 768px)").addEventListener('change', e => setMqMatches( e.matches ));
         setCollapsingContent(document.querySelector(".collapsing-nav-content"));
         if (mqMatches && collapsingContent) collapsingContent.classList.remove("nav-expanded");
@@ -59,11 +67,16 @@ export default function Nav() {
                 
             </div>
             
-            <svg 
-                fill="currentColor" viewBox="0 0 16 16" 
-                className="collapse-btn h-10 w-10 hover:bg-slate-200 active:bg-slate-300 transition-colors rounded cursor-pointer" onClick={ handleCollapse } xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-            </svg>
+            <div className="relative w-fit collapse-btn ">
+                <svg 
+                    fill="currentColor" viewBox="0 0 16 16" id="nav-btn"
+                    className="h-10 w-10 hover:bg-slate-200 active:bg-slate-300 transition-colors rounded cursor-pointer" onClick={ handleCollapse } xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>    
+                </svg>
+
+                <span className="cart-notification">{ itemCount == 0 ? "": itemCount }</span>
+            </div>
+            
         </nav>
     );
 }
