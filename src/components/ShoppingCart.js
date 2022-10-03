@@ -62,7 +62,7 @@ export function ViewCart(props) {
             }
 
             for (let itemName in parsedItems) {
-                itemComponents.push(<Item item={ parsedItems[itemName] } />)
+                itemComponents.push(<Item key={ itemName } item={ parsedItems[itemName] } />)
             }
 
             setCartItems(itemComponents);
