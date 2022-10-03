@@ -64,7 +64,7 @@ export default function ProductDetails(props) {
                     </p>
 
                     <div className="flex items-center gap-5 ">
-                        <button onClick={ addToCart } href="#add-to-cart" className="px-3 py-2 bg-green-600 text-lg text-white rounded">Add to Cart</button>
+                        <button onClick={ addToCart } href="#add-to-cart" className="px-3 py-2 transition-colors active:bg-green-600 hover:bg-green-500 bg-green-600 text-lg text-white rounded">Add to Cart</button>
                         <h2 className="text-2xl text-green-900 font-bold">${ price }</h2>
                     </div>
                 </div>
