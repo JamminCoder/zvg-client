@@ -2,6 +2,15 @@ import { slugify } from "./utils";
 import { db } from "./db";
 
 export default class ShoppingCartManager {
+    static async updateNotifications() {
+        const notifications = document.querySelectorAll(".cart-notification");
+        const itemCount = await ShoppingCartManager.itemCount();
+
+        notifications.forEach(noti => {
+            noti.innerHTML = itemCount == 0 ? "": itemCount;
+        });
+    }
+
     static async addItem(name, price, count) {
         try {
             await db.items.add({
@@ -10,6 +19,8 @@ export default class ShoppingCartManager {
                 count: count
             });
 
+            ShoppingCartManager.updateNotifications();
+
         } catch (e) {
             console.log(`error inserting item: {name: "${name}", price: "${price}", count: ${count}}`);
         }   
@@ -17,6 +28,7 @@ export default class ShoppingCartManager {
 
     static async deleteItem(name) {
         let deleteCount = await db.items.where("name").equals(name).delete();
+        ShoppingCartManager.updateNotifications();
         // console.log(`Deleted ${deleteCount} items from ${name}.`)
     }
 
@@ -34,6 +46,7 @@ export default class ShoppingCartManager {
 
     static async clearCart() {
         await db.items.clear();
+        ShoppingCartManager.updateNotifications();
     }
 
     static async totalPrice() {

@@ -166,7 +166,7 @@ export function ShoppingCart(props) {
     return (
         <div className="relative w-fit cart-icon" onClick={ handleClick }>
             { isViewing ? <ViewCart onClick={ preventDefaults }/>: "" }
-            <img src={ `${ process.env.PUBLIC_URL }/icons/cart.svg` } className={ `w-7 interactive-hover cursor-pointer ${props.className}` }/>
+            <img src={ `${ process.env.PUBLIC_URL }/icons/cart.svg` } className={ `w-7 interactive-hover cursor-pointer ${ props.className }` }/>
             <span className="cart-notification">{ itemCount == 0 ? "": itemCount }</span>
         </div>
     );
