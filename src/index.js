@@ -15,6 +15,7 @@ import Home from './pages/Home';
 import ProductsPage from "./pages/ProductsPage";
 import ProductDetails from "./pages/ProductDetails";
 import ReservationPage from "./pages/ReservationPage";
+import Login from "./pages/Login";
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -32,6 +33,8 @@ root.render(
         
 
         <Route path="/campground" element={ <ReservationPage/> } />
+
+        <Route path="/login" element={ <Login/> } />
 
       </Routes>
     </HashRouter>
