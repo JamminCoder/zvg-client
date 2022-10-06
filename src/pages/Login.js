@@ -3,11 +3,14 @@ import { Link } from 'react-router-dom';
 import Form from '../components/Form';
 import CenterPage from '../components/CenterPage';
 import { API_LOGIN } from "../apiConfig";
+import { useNavigate } from "react-router-dom"; 
+
 const axios = require('axios').default;
 
 
 export default function Login(props) {
     const [message, setMessage] = useState({ color: null, text: "" });
+    const navigate = useNavigate();
 
     function onSubmit(e) {
         e.preventDefault();
@@ -25,6 +28,8 @@ export default function Login(props) {
                 setMessage({ color: "green", text: "Success!" });
                 localStorage.setItem("jwt", res.data.jwt);
                 localStorage.setItem("email", email);
+
+                navigate("/dashboard");
 
             } else {
                 // No JWT in response, display the response error message.
