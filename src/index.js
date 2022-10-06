@@ -16,6 +16,7 @@ import ProductsPage from "./pages/ProductsPage";
 import ProductDetails from "./pages/ProductDetails";
 import ReservationPage from "./pages/ReservationPage";
 import Login from "./pages/Login";
+import NewProduct from "./pages/products/NewProduct";
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -35,6 +36,7 @@ root.render(
         <Route path="/campground" element={ <ReservationPage/> } />
 
         <Route path="/login" element={ <Login/> } />
+        <Route path="/products/new" element={ <NewProduct/> }/>
 
       </Routes>
     </HashRouter>
