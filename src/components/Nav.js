@@ -3,6 +3,8 @@ import { Link, NavLink } from "react-router-dom";
 import "../css/nav.css";
 import { ShoppingCart } from "./ShoppingCart";
 import ShoppingCartManager from "../shoppingCartManager";
+import IfAuth from "./IfAuth";
+import { logout } from "../auth";
 
 export default function Nav() {
     const [mqMatches, setMqMatches] = useState(
@@ -43,6 +45,16 @@ export default function Nav() {
             </div>
 
             <div className="collapsing-nav-content">
+
+                <IfAuth>
+                    <NavLink to="/dashboard" className="font-semibold text-xl block text-gray-800 interactive-hover" 
+                        style={({ isActive }) =>
+                        isActive ? activeLinkStyle : undefined
+                    }>Dashboard</NavLink>
+
+                    <a href="#" onClick={ logout }>Logout</a>
+                </IfAuth>
+
                 <NavLink to="/shop" className="text-xl block text-gray-800 interactive-hover" 
                     style={({ isActive }) =>
                     isActive ? activeLinkStyle : undefined

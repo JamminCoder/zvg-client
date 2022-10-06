@@ -17,6 +17,8 @@ import ProductDetails from "./pages/ProductDetails";
 import ReservationPage from "./pages/ReservationPage";
 import Login from "./pages/Login";
 import NewProduct from "./pages/products/NewProduct";
+import Dashboard from "./pages/Dashboard";
+
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -36,6 +38,7 @@ root.render(
         <Route path="/campground" element={ <ReservationPage/> } />
 
         <Route path="/login" element={ <Login/> } />
+        <Route path="/dashboard" element={ <Dashboard/> } />
         <Route path="/products/new" element={ <NewProduct/> }/>
 
       </Routes>
