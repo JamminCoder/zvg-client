@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { isVerified, hasJwt } from "../auth";
+import GridEvenContainer from "../components/GridEvenContainer";
+import { Sidebar, SidebarItem } from "../components/Sidebar";
 
 
 export default function Dashboard(props) {
@@ -14,5 +16,17 @@ export default function Dashboard(props) {
 
     if (!hasJwt() || !verified) return <Navigate to="/login"/>;
 
-    return <h1 className="text-4xl font-bold">Dashboard</h1>;
+    return (
+        <div className="relative">
+            <Sidebar>
+                <SidebarItem>All Products</SidebarItem>
+                <SidebarItem>Stock</SidebarItem>
+                <SidebarItem>Income</SidebarItem>
+            </Sidebar>
+
+            <GridEvenContainer itemMin="12rem">
+                DASHBOARD
+            </GridEvenContainer>
+        </div>
+    );
 }
