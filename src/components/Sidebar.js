@@ -1,6 +1,10 @@
 export function SidebarItem(props) {
+    function handleClick() {
+        if (props.onClick) props.onClick();
+    }
+
     return (
-        <div className="sidebar-item">
+        <div className="sidebar-item" onClick={ handleClick }>
             { props.children }
         </div>
     );
@@ -8,10 +12,12 @@ export function SidebarItem(props) {
 
 export function Sidebar(props) {
     return (
-        <div className="h-[100vh] w-48 top-0 left-0 sticky shadow-lg pt-24 p-4">
+        <div className="h-[100vh] w-52 top-0 left-0 sticky shadow-lg pt-24 p-4">
             <h3 className="text-2xl">Admin Actions</h3>
             <div className="mt-5 grid gap-5">
-                { props.children }
+                <SidebarItem>All Products</SidebarItem>
+                <SidebarItem>Stock</SidebarItem>
+                <SidebarItem>Income</SidebarItem>
             </div>
         </div>
     );

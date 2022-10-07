@@ -5,7 +5,7 @@ export default function GridEvenContainer(props) {
     }
 
     return (
-        <div className={ `py-24 px-2 md:px-10 gap-5 place-items-center ${props.className}` } style={ productsSectionStyle }>
+        <div className={ `py-24 px-2 md:px-10 gap-5 place-content-center ${props.className}` } style={ productsSectionStyle }>
             { props.children }
         </div>
     );
