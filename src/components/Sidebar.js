@@ -1,24 +1,6 @@
-import { useState } from "react";
-
 export function SidebarItem(props) {
-    const [className, setClassName] = useState("sidebar-item");
-
-
-    function handleClick(e) {
-        if (className === "sidebar-item") {
-            setClassName("sidebar-item--active");
-        } else {
-            setClassName("sidebar-item");
-        }
-
-        if (props.onClick) props.onClick();
-    }
-
     return (
-        <div 
-            onClick={ handleClick }
-            className={ className }>
-            
+        <div className="sidebar-item">
             { props.children }
         </div>
     );
