@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import Form from '../components/Form';
 import CenterPage from '../components/CenterPage';
 import { API_LOGIN } from "../apiConfig";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
+import { xsrf } from "../utils";
 
 const axios = require('axios').default;
 
@@ -14,29 +15,20 @@ export default function Login(props) {
 
     function onSubmit(e) {
         e.preventDefault();
+        xsrf().then(() => {
 
-        const password = document.querySelector("#password").value;
-        const email = document.querySelector("#email").value;
-        
-        // Submit POST request to login-endpoint. 
-        // On success, store JWT in localStorage
-        // On fail display error message
-        axios.post(API_LOGIN, {email: email, password: password})
-            .then(res => {
-            if (res.data.jwt) {
-                // Server returned a JWT, that means the login was successful.
-                setMessage({ color: "green", text: "Success!" });
-                localStorage.setItem("jwt", res.data.jwt);
-                localStorage.setItem("email", email);
-
-                navigate("/dashboard");
-
-            } else {
-                // No JWT in response, display the response error message.
-                setMessage({ color: "red", text: res.data });
-            }
-            console.log(res);
-        })
+            const password = document.querySelector("#password").value;
+            const email = document.querySelector("#email").value;
+            
+            axios.post(API_LOGIN, {
+                email: email, 
+                password: password,
+                remember_me: false,
+            }, { withCredentials: true }
+            ).then(res => {
+                console.log(res);
+            });
+        });
     }
 
     return (
