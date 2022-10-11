@@ -18,8 +18,10 @@ import ReservationPage from "./pages/ReservationPage";
 import Login from "./pages/Login";
 import NewProduct from "./pages/products/NewProduct";
 import Dashboard from "./pages/Dashboard";
+import { xsrf } from "./utils";
 
-
+(async () => {
+await xsrf();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -51,3 +53,5 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+})();
