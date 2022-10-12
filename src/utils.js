@@ -1,3 +1,5 @@
+import { SERVER_URL } from "./apiConfig";
+
 const axios = require("axios").default;
 
 export function capatalizeFirstLetter(string) {
@@ -45,11 +47,13 @@ export function getCookie(name) {
 
 
 export async function xsrf() {
-    const res = await axios.options("http://localhost:8000/sanctum/csrf-cookie");
+    console.log("Getting XSRF");
+    await axios.get(`${ SERVER_URL }/sanctum/csrf-cookie`, { withCredentials: true });
+
 
     const token = getCookie("XSRF-TOKEN");
 
-    if (!document.querySelector("meta[name=csrf-token]")) {
+    if (!document.querySelector("meta[name=csrf-token]") && token) {
         const meta = document.createElement("meta");
         meta.setAttribute("content", token);
         meta.setAttribute("name", "csrf-token");
