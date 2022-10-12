@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Form from '../components/Form';
 import CenterPage from '../components/CenterPage';
-import { API_LOGIN, SERVER_URL } from "../apiConfig";
+import { API_LOGIN } from "../apiConfig";
 import { useNavigate } from "react-router-dom";
+import { getCookie } from "../utils";
 
 const axios = require('axios').default;
 
@@ -59,6 +60,39 @@ export default function Login(props) {
                 <p className='mt-5'>Don't have an account? <Link to='/register' className='text-blue-600'>Create one.</Link></p>
 
             </Form>
+            <button className="border border-gray-500 px-2 py-1 rounded my-5"
+            onClick={() => {
+                axios.post(
+                    "http://localhost:8000/api/logout",
+                    { withCredentials: true },
+                    {
+                        headers: {
+                            "X-XSRF-TOKEN": getCookie("XSRF-TOKEN")
+                        }
+                    }
+                )
+                .then(res => console.log(res))
+                .catch(err => console.log(err));
+
+            }}>Log Out</button>
+
+            <button className="border border-gray-500 px-2 py-1 rounded"
+            onClick={() => {
+                axios.get(
+                    "http://localhost:8000/api/user",
+                    { withCredentials: true },
+                    {
+                        headers: {
+                            "X-XSRF-TOKEN": getCookie("XSRF-TOKEN")
+                        }
+                    }
+                )
+                .then(res => console.log(res))
+                .catch(err => console.log(err));
+
+            }}>Check User</button>
+
+
 
         </CenterPage>
     );
