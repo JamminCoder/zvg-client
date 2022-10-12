@@ -4,7 +4,6 @@ import Form from '../components/Form';
 import CenterPage from '../components/CenterPage';
 import { API_LOGIN, SERVER_URL } from "../apiConfig";
 import { useNavigate } from "react-router-dom";
-import { xsrf } from "../utils";
 
 const axios = require('axios').default;
 
@@ -17,16 +16,21 @@ export default function Login(props) {
         e.preventDefault();
         const email = document.querySelector("#email").value;
         const password = document.querySelector("#password").value;
-
-        axios.post(API_LOGIN, {
+        const formData = {
             email: email,
             password: password
-        }, {
-            withCredentials: true
-        }).then(res => {
+        };
+        const headers = { withCredentials: true };
+
+        axios.post(API_LOGIN, formData, headers).then(res => {
             console.log(res.data);
+
+            // Just for the front-end to control rendering 
+            localStorage.setItem("logged_in", true);
+
         }).catch(err => {
-            console.log(err.response.data.message);
+            const message = err.response.data.message;
+            console.log("ERROR:\n" + message);
         })
     }
 
