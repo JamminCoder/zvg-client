@@ -1,4 +1,4 @@
-import { SERVER_URL } from "./apiConfig";
+import { API_XSRF, SERVER_URL } from "./apiConfig";
 
 const axios = require("axios").default;
 
@@ -47,22 +47,11 @@ export function getCookie(name) {
 
 
 export async function xsrf() {
-    console.log("Getting XSRF");
-    await axios.get(`${ SERVER_URL }/sanctum/csrf-cookie`, { withCredentials: true });
-
+    console.log("Getting XSRF cookie.");
+    await axios.get(API_XSRF, { withCredentials: true });
 
     const token = getCookie("XSRF-TOKEN");
-
-    if (!document.querySelector("meta[name=csrf-token]") && token) {
-        const meta = document.createElement("meta");
-        meta.setAttribute("content", token);
-        meta.setAttribute("name", "csrf-token");
-
-        document.head.appendChild(meta);
-    };
-
     
-    console.log(token);
-
-    return token;
+    if (!token) console.log("Failed to get XSRF cookie.");
+    else console.log("Got XSRF cookie.");
 }

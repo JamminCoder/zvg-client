@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Form from '../components/Form';
 import CenterPage from '../components/CenterPage';
-import { API_LOGIN } from "../apiConfig";
+import { API_LOGIN, SERVER_URL } from "../apiConfig";
 import { useNavigate } from "react-router-dom";
 import { xsrf } from "../utils";
 
@@ -15,20 +15,19 @@ export default function Login(props) {
 
     function onSubmit(e) {
         e.preventDefault();
-        xsrf().then(() => {
+        const email = document.querySelector("#email").value;
+        const password = document.querySelector("#password").value;
 
-            const password = document.querySelector("#password").value;
-            const email = document.querySelector("#email").value;
-            
-            axios.post(API_LOGIN, {
-                email: email, 
-                password: password,
-                remember_me: false,
-            }, { withCredentials: true }
-            ).then(res => {
-                console.log(res);
-            });
-        });
+        axios.post(API_LOGIN, {
+            email: email,
+            password: password
+        }, {
+            withCredentials: true
+        }).then(res => {
+            console.log(res.data);
+        }).catch(err => {
+            console.log(err.response.data.message);
+        })
     }
 
     return (
@@ -46,16 +45,17 @@ export default function Login(props) {
 
                     <div className="mb-4">
                         <label htmlFor="password">Password</label><br/>
-                        <input className="border" type="password" name="password" id="password"/>
+                        <input className="border" type="text" name="password" id="password"/>
                     </div>
 
                 </div>
                 
                 <button className="border border-gray-500 px-2 py-1 rounded">Login</button>
-
+            
                 <p className='mt-5'>Don't have an account? <Link to='/register' className='text-blue-600'>Create one.</Link></p>
 
             </Form>
+
         </CenterPage>
     );
 }
