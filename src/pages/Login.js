@@ -64,12 +64,13 @@ export default function Login(props) {
             onClick={() => {
                 axios.post(
                     "http://localhost:8000/api/logout",
-                    { withCredentials: true },
                     {
                         headers: {
                             "X-XSRF-TOKEN": getCookie("XSRF-TOKEN")
                         }
-                    }
+                    },
+
+                    { withCredentials: true }
                 )
                 .then(res => console.log(res))
                 .catch(err => console.log(err));
@@ -81,11 +82,6 @@ export default function Login(props) {
                 axios.get(
                     "http://localhost:8000/api/user",
                     { withCredentials: true },
-                    {
-                        headers: {
-                            "X-XSRF-TOKEN": getCookie("XSRF-TOKEN")
-                        }
-                    }
                 )
                 .then(res => console.log(res))
                 .catch(err => console.log(err));
