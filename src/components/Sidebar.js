@@ -18,6 +18,10 @@ export function Sidebar(props) {
                 <SidebarItem>All Products</SidebarItem>
                 <SidebarItem>Stock</SidebarItem>
                 <SidebarItem>Income</SidebarItem>
+
+                <SidebarItem onClick={ () => {
+                    document.querySelector("#new_item_modal").style.display = "block";
+                } }>Create New Product</SidebarItem>
             </div>
         </div>
     );

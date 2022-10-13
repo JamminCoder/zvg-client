@@ -5,8 +5,15 @@ import GridEvenContainer from "../components/GridEvenContainer";
 import { Sidebar } from "../components/Sidebar";
 import { API_PRODUCT_NEW } from "../apiConfig";
 import { getCookie, preventDefaults } from "../utils";
+import CloseIcon from "../components/icons/Close";
 import axios from "axios";
 
+function closeActiveModals() {
+    const modals = document.querySelectorAll(".modal");
+    modals.forEach(modal => {
+        modal.style.display = "none";
+    });
+}
 
 export function NewItemModal(props) {
     const [error, setError] = useState("");
@@ -41,12 +48,20 @@ export function NewItemModal(props) {
     }
 
     return (
-        <div className="fixed z-50">
+        <div id="new_item_modal" className="fixed z-50 modal" style={{ display: "none" }}>
             <div className="fixed bg-black opacity-25 w-full h-full"></div>
             <div className="fixed grid place-content-center w-full h-full">
                 
-                {/* Main model */}
-                <div className="shadow bg-white p-8 rounded">
+                {/* Main modal */}
+                <div className="shadow bg-white p-8 rounded relative">
+                    
+                    <span 
+                      className="absolute right-0 top-0 p-1 m-1 shadow rounded-full bg-slate-50 hover:bg-slate-100"
+                      onClick={ closeActiveModals }>
+                      
+                        <CloseIcon size={ 32 }/>
+                    </span>
+
                     <h1 className="text-black font-medium text-3xl">Upload new product</h1>
                     
                     <p className="text-green-600"> { success } </p>
