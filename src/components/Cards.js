@@ -1,6 +1,15 @@
 import { Link, useParams } from 'react-router-dom';
-import Card from "./Card";
 import ShoppingCartManager from "../lib/shoppingCartManager";
+
+
+export function Card(props) {
+    return (
+        <Link to={ props.to } className={ `w-[100%] max-w-[20rem] border shadow-lg ${ props.className }` }>
+             { props.children }
+        </Link>
+    );
+}
+
 
 export function ProductCard({ name, description, price }) {
     const type = useParams().productType;
