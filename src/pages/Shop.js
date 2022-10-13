@@ -1,6 +1,6 @@
-import HeroSection from "../components/HeroSection";
+import HeroSection from "../components/layouts/HeroSection";
 import "../css/shop.css";
-import GridEvenContainer from '../components/GridEvenContainer';
+import GridEvenContainer from '../components/layouts/GridEvenContainer';
 import { CatagoryListingCard } from '../components/Cards';
 
 

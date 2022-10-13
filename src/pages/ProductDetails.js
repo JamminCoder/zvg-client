@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { Children, useState } from "react";
 import { ProductCard } from '../components/Cards';
-import GridEvenContainer from '../components/GridEvenContainer';
+import GridEvenContainer from '../components/layouts/GridEvenContainer';
 import ShoppingCartManager from "../lib/shoppingCartManager";
 
 function ImagePreview(props) {

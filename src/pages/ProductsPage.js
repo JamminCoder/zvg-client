@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import { capatalizeFirstLetter } from "../lib/utils";
-import HeroSection  from "../components/HeroSection";
+import HeroSection  from "../components/layouts/HeroSection";
 import { ProductCard } from '../components/Cards';
-import GridEvenContainer from '../components/GridEvenContainer';
+import GridEvenContainer from '../components/layouts/GridEvenContainer';
 import "../css/shop.css";
 import "../css/app.css"
 

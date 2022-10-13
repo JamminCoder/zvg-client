@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { isVerified, isLoggedIn } from "../lib/auth";
-import GridEvenContainer from "../components/GridEvenContainer";
+import GridEvenContainer from "../components/layouts/GridEvenContainer";
 import { Sidebar } from "../components/Sidebar";
 import { API_PRODUCT_NEW } from "../apiConfig";
 import { getCookie, preventDefaults } from "../lib/utils";

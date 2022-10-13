@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Form from '../components/Form';
-import CenterPage from '../components/CenterPage';
+import CenterPage from '../components/layouts/CenterPage';
 import { API_LOGIN } from "../apiConfig";
 import { useNavigate } from "react-router-dom";
 
