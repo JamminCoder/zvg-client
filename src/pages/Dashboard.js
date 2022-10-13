@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { isVerified, hasJwt } from "../auth";
+import { isVerified, isLoggedIn } from "../auth";
 import GridEvenContainer from "../components/GridEvenContainer";
 import { Sidebar } from "../components/Sidebar";
 import { API_PRODUCT_NEW } from "../apiConfig";
@@ -78,7 +78,7 @@ export default function Dashboard(props) {
         })
     });
 
-    if (!hasJwt() || !verified) return <Navigate to="/login"/>;
+    if (!isLoggedIn() || !verified) return <Navigate to="/login"/>;
 
     return (
         <div className="relative flex bg-slate-50">

@@ -1,8 +1,8 @@
-import { hasJwt} from "../auth";
+import { isLoggedIn } from "../auth";
 
 export default function IfAuth(props) {
     let content;
-    hasJwt() ? content = props.children: content = "";
+    isLoggedIn() ? content = props.children: content = "";
 
     return content;
 }

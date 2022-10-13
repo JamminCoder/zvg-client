@@ -21,10 +21,10 @@ export default function Login(props) {
             email: email,
             password: password
         };
-        const headers = { withCredentials: true };
 
-        axios.post(API_LOGIN, formData, headers).then(res => {
+        axios.post(API_LOGIN, formData, { withCredentials: true }).then(res => {
             console.log(res.data);
+            navigate("/dashboard");
 
             // Just for the front-end to control rendering 
             localStorage.setItem("logged_in", true);
@@ -60,36 +60,6 @@ export default function Login(props) {
                 <p className='mt-5'>Don't have an account? <Link to='/register' className='text-blue-600'>Create one.</Link></p>
 
             </Form>
-            <button className="border border-gray-500 px-2 py-1 rounded my-5"
-            onClick={() => {
-                axios.post(
-                    "http://localhost:8000/api/logout",
-                    {
-                        headers: {
-                            "X-XSRF-TOKEN": getCookie("XSRF-TOKEN")
-                        }
-                    },
-
-                    { withCredentials: true }
-                )
-                .then(res => console.log(res))
-                .catch(err => console.log(err));
-
-            }}>Log Out</button>
-
-            <button className="border border-gray-500 px-2 py-1 rounded"
-            onClick={() => {
-                axios.get(
-                    "http://localhost:8000/api/user",
-                    { withCredentials: true },
-                )
-                .then(res => console.log(res))
-                .catch(err => console.log(err));
-
-            }}>Check User</button>
-
-
-
         </CenterPage>
     );
 }
