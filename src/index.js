@@ -18,7 +18,7 @@ import ReservationPage from "./pages/ReservationPage";
 import Login from "./pages/Login";
 import NewProduct from "./pages/products/NewProduct";
 import Dashboard from "./pages/Dashboard";
-import { xsrf } from "./utils";
+import { xsrf } from "./lib/utils";
 
 (async () => {
 await xsrf();

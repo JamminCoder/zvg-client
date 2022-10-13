@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { Children, useState } from "react";
 import { ProductCard } from '../components/Cards';
 import GridEvenContainer from '../components/GridEvenContainer';
-import ShoppingCartManager from "../shoppingCartManager";
+import ShoppingCartManager from "../lib/shoppingCartManager";
 
 function ImagePreview(props) {
     const children = Children.toArray(props.children);

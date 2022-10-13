@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import ShoppingCartManager from "../shoppingCartManager";
-import { capatalizeFirstLetter, preventDefaults } from "../utils";
+import ShoppingCartManager from "../lib/shoppingCartManager";
+import { capatalizeFirstLetter, preventDefaults } from "../lib/utils";
 
 export function Item({ item }) {
 

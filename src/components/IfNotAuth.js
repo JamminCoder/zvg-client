@@ -1,4 +1,4 @@
-import { isLoggedIn } from "../auth";
+import { isLoggedIn } from "../lib/auth";
 
 export default function IfNotAuth(props) {
     let content;

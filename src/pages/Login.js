@@ -4,7 +4,6 @@ import Form from '../components/Form';
 import CenterPage from '../components/CenterPage';
 import { API_LOGIN } from "../apiConfig";
 import { useNavigate } from "react-router-dom";
-import { getCookie } from "../utils";
 
 const axios = require('axios').default;
 

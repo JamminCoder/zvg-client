@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import Card from "./Card";
-import ShoppingCartManager from "../shoppingCartManager";
+import ShoppingCartManager from "../lib/shoppingCartManager";
 
 export function ProductCard({ name, description, price }) {
     const type = useParams().productType;

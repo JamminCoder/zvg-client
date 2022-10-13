@@ -1,4 +1,4 @@
-import { API_XSRF, SERVER_URL } from "./apiConfig";
+import { API_XSRF, SERVER_URL } from "../apiConfig";
 
 const axios = require("axios").default;
 

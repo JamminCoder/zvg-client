@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import "../css/nav.css";
 import { ShoppingCart } from "./ShoppingCart";
-import ShoppingCartManager from "../shoppingCartManager";
+import ShoppingCartManager from "../lib/shoppingCartManager";
 import IfAuth from "./IfAuth";
-import { logout } from "../auth";
+import { logout } from "../lib/auth";
 
 export default function Nav() {
     const [mqMatches, setMqMatches] = useState(
