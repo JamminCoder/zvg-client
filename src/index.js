@@ -4,8 +4,8 @@ import reportWebVitals from './reportWebVitals';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 
 // CSS
-import './index.css';
-import "./css/reset.css"
+import './css/index.css';
+import "./css/reset.css";
 
 import Nav from "./components/Nav";
 
