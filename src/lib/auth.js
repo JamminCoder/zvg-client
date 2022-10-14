@@ -18,7 +18,8 @@ export async function isVerified() {
 export function logout() {
     axios.post(API_LOGOUT, { headers: XSRF_HEADER }, WITH_CREDENTIALS).then(res => {
         localStorage.clear();
-        window.location.href = "/#/";
+        window.location.href = "/#/login";
+        window.location.reload();
         console.log("Logged out.")
         
     }).catch(err => {

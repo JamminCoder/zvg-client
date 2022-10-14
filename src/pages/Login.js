@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Form from '../components/Form';
 import CenterPage from '../components/layouts/CenterPage';
 import { API_LOGIN } from "../apiConfig";
 import { useNavigate } from "react-router-dom";
@@ -25,6 +23,7 @@ export default function Login(props) {
         axios.post(API_LOGIN, formData, WITH_CREDENTIALS).then(res => {
             console.log(res.data);
             navigate("/dashboard");
+            window.location.reload();
 
             // Just for the front-end to control rendering 
             localStorage.setItem("logged_in", true);
@@ -37,8 +36,8 @@ export default function Login(props) {
     }
 
     return (
-        <CenterPage>
-            <Form id="loginForm" method="POST" action={ API_LOGIN } onSubmit={ (e) => onSubmit(e) }>
+        <CenterPage className="bg-slate-50">
+            <form id="loginForm" method="POST" className="p-5 shadow-md bg-white rounded" action={ API_LOGIN } onSubmit={ (e) => onSubmit(e) }>
                 <h1 className="text-3xl">Login</h1>
 
                 <p className='text-center mt-2 h-3' style={{ color: message.color }}>{ message.text }</p>
@@ -57,10 +56,7 @@ export default function Login(props) {
                 </div>
                 
                 <button className="border border-gray-500 px-2 py-1 rounded">Login</button>
-            
-                <p className='mt-5'>Don't have an account? <Link to='/register' className='text-blue-600'>Create one.</Link></p>
-
-            </Form>
+            </form>
         </CenterPage>
     );
 }
