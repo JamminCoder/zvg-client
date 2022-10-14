@@ -4,12 +4,13 @@ import Form from '../components/Form';
 import CenterPage from '../components/layouts/CenterPage';
 import { API_LOGIN } from "../apiConfig";
 import { useNavigate } from "react-router-dom";
+import { WITH_CREDENTIALS } from "../lib/auth";
 
 const axios = require('axios').default;
 
 
 export default function Login(props) {
-    const [message, setMessage] = useState({ color: null, text: "" });
+    const [message, setMessage] = useState({ color: "", text: "" });
     const navigate = useNavigate();
 
     function onSubmit(e) {
@@ -21,7 +22,7 @@ export default function Login(props) {
             password: password
         };
 
-        axios.post(API_LOGIN, formData, { withCredentials: true }).then(res => {
+        axios.post(API_LOGIN, formData, WITH_CREDENTIALS).then(res => {
             console.log(res.data);
             navigate("/dashboard");
 
@@ -30,6 +31,7 @@ export default function Login(props) {
 
         }).catch(err => {
             const message = err.response.data.message;
+            setMessage({ color: "red", text: message });
             console.log("ERROR:\n" + message);
         })
     }
