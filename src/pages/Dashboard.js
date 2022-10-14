@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { isVerified, isLoggedIn } from "../lib/auth";
+import { isVerified, isLoggedIn, XSRF_HEADER, WITH_CREDENTIALS } from "../lib/auth";
 import GridEvenContainer from "../components/layouts/GridEvenContainer";
 import { Sidebar, SidebarItem } from "../components/layouts/Sidebar";
 import { API_PRODUCT_NEW } from "../apiConfig";
-import { getCookie, preventDefaults } from "../lib/utils";
+import { preventDefaults } from "../lib/utils";
 import CloseIcon from "../components/icons/Close";
 import axios from "axios";
 
@@ -25,8 +25,8 @@ export function NewItemModal(props) {
         const formData = new FormData(document.querySelector("#new_product_form"));
         
         const requestOptions = { 
-            headers: { "X-XSRF-TOKEN": getCookie("XSRF-TOKEN") }, 
-            withCredentials: true 
+            headers: XSRF_HEADER, 
+            ...WITH_CREDENTIALS 
         };
 
         axios.post(API_PRODUCT_NEW, formData, requestOptions).then(res => {

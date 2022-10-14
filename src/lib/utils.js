@@ -1,4 +1,5 @@
-import { API_XSRF, SERVER_URL } from "../apiConfig";
+import { API_XSRF } from "../apiConfig";
+import { WITH_CREDENTIALS } from "./auth";
 
 const axios = require("axios").default;
 
@@ -48,7 +49,7 @@ export function getCookie(name) {
 
 export async function xsrf() {
     console.log("Getting XSRF cookie.");
-    await axios.get(API_XSRF, { withCredentials: true });
+    await axios.get(API_XSRF, WITH_CREDENTIALS);
 
     const token = getCookie("XSRF-TOKEN");
     
