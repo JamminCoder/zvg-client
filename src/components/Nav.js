@@ -7,8 +7,9 @@ import IfAuth from "./IfAuth";
 import { logout } from "../lib/auth";
 
 export default function Nav() {
+    const breakpoint = "1000px";
     const [mqMatches, setMqMatches] = useState(
-        window.matchMedia("(min-width: 768px)").matches
+        window.matchMedia(`(min-width: ${ breakpoint })`).matches
     );
 
     const [itemCount, setItemCount] = useState(null);
@@ -23,7 +24,7 @@ export default function Nav() {
         }
         wrapper();
 
-        window.matchMedia("(min-width: 768px)").addEventListener('change', e => setMqMatches( e.matches ));
+        window.matchMedia(`(min-width: ${ breakpoint })`).addEventListener('change', e => setMqMatches( e.matches ));
         setCollapsingContent(document.querySelector(".collapsing-nav-content"));
         if (mqMatches && collapsingContent) collapsingContent.classList.remove("nav-expanded");
     });
@@ -42,18 +43,22 @@ export default function Nav() {
             <div className="flex gap-4 items-center">
                 <img src={ `${ process.env.PUBLIC_URL }/icons/zvg-logo.svg` } alt="logo" className="w-16"/>
                 <Link to="/" className="text-2xl underline interactive-hover">Zoar Valley Gifts</Link>
+                <IfAuth>
+                    <div className="flex items-center gap-4 ml-4">
+                        <NavLink to="/dashboard" className="font-semibold text-xl block text-gray-800 interactive-hover" 
+                            style={({ isActive }) =>
+                            isActive ? activeLinkStyle : undefined
+                        }>Dashboard</NavLink>
+
+                        <a href="#" onClick={ logout }>Logout</a>
+                    </div>
+                    
+                </IfAuth>
             </div>
 
+            
+
             <div className="collapsing-nav-content">
-
-                <IfAuth>
-                    <NavLink to="/dashboard" className="font-semibold text-xl block text-gray-800 interactive-hover" 
-                        style={({ isActive }) =>
-                        isActive ? activeLinkStyle : undefined
-                    }>Dashboard</NavLink>
-
-                    <a href="#" onClick={ logout }>Logout</a>
-                </IfAuth>
 
                 <NavLink to="/shop" className="text-xl block text-gray-800 interactive-hover" 
                     style={({ isActive }) =>
