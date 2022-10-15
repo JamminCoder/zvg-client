@@ -14,6 +14,9 @@ export default function NewItemModal(props) {
     function submit(e) {
         preventDefaults(e);
 
+        setError("");
+        setSuccess("");
+
         const formData = new FormData(document.querySelector("#new_product_form"));
         
         const requestOptions = { 
@@ -22,8 +25,9 @@ export default function NewItemModal(props) {
         };
 
         axios.post(API_PRODUCT_NEW, formData, requestOptions).then(res => {
+            console.log(res.data);
             if (res.status === 200) {
-                setSuccess("Successfully created new product");
+                setSuccess(`Successfully created new product with these images: ${ res.data.images }`);
             }
 
         }).catch(err => {
@@ -34,7 +38,7 @@ export default function NewItemModal(props) {
                 break;
             }
 
-            console.log(errors);
+            console.log(err);
         });
 
     }
@@ -62,7 +66,7 @@ export default function NewItemModal(props) {
                     <form id="new_product_form" action={ API_PRODUCT_NEW } method="POST" encType="multipart/form-data" className="py-2 flex flex-col gap-4" onSubmit={ submit }>
                         <div>
                             <label htmlFor="images" className="text-lg">Product Images</label><br/>
-                            <input type="file" id="images" name="images" multiple required/>
+                            <input type="file" id="images" name="images[]" multiple required/>
                         </div>
 
                         <div>
@@ -73,11 +77,6 @@ export default function NewItemModal(props) {
                         <div>
                             <label htmlFor="name" className="text-lg">Product Name</label><br/>
                             <input type="text" id="name" name="name" className="border" required/>
-                        </div>
-
-                        <div>
-                            <label htmlFor="sku" className="text-lg">SKU (Stock Keeping Unit)</label><br/>
-                            <input type="text" id="sku" name="sku" className="border" required/>
                         </div>
 
                         <div>
