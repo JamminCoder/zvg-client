@@ -28,7 +28,7 @@ export default function ProductsPage(props) {
             </HeroSection>
 
 
-            <GridEvenContainer>
+            <GridEvenContainer className="py-24 px-2 md:px-10">
                 <ProductCard
                     name="Product"
                     description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
