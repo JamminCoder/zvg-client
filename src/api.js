@@ -3,6 +3,7 @@ import {
     API_LOGOUT,
     API_PRODUCTS_ALL,
     API_VERIFY_AUTH,
+    API_PRODUCTS_DELETE_SKU
 } from "./apiRoutes";
 
 import { WITH_CREDENTIALS, XSRF_HEADER } from "./lib/auth";
@@ -26,4 +27,8 @@ export async function getAllProducts() {
     const products = res.data;
     console.log(products);
     return products;
+}
+
+export async function deleteProductBySKU(sku) {
+    return await axios.post(API_PRODUCTS_DELETE_SKU(sku), { headers: XSRF_HEADER }, WITH_CREDENTIALS);
 }

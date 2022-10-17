@@ -4,19 +4,19 @@ import { isVerified, isLoggedIn } from "../lib/auth";
 import GridEvenContainer from "../components/layouts/GridEvenContainer";
 import { Sidebar, SidebarItem } from "../components/layouts/Sidebar";
 import NewItemModal from "../components/modals/NewItemModal";
-import { getAllProducts } from "../api";
-import { SERVER_URL } from "../apiRoutes";
+import { deleteProductBySKU, getAllProducts } from "../api";
+import { API_PRODUCTS_DELETE_SKU, SERVER_URL } from "../apiRoutes";
 
 export default function Dashboard(props) {
     const [verified, setVerified] = useState("FILLER VALUE");
-    const [products, setProducts] = useState(null);
+    const [products, setProducts] = useState([]);
 
     useEffect(() => {
         isVerified().then(result => {
             setVerified(result);
         })
 
-        if (!products) {
+        if (products.length === 0) {
             getAllProducts().then(productArray => {
                 const productDisplay = [];
                 productArray.forEach(product => {
@@ -25,6 +25,18 @@ export default function Dashboard(props) {
                             <img src={ `${ SERVER_URL }/product_images/${ product.images[0] }` } />
                             <h3>Name: { product.name }</h3>
                             <p>ID: { product.id }</p>
+                            <button onClick={ () => {
+                                
+                                deleteProductBySKU(product.sku)
+                                .then(res => {
+                                    console.log(res);
+                                    window.location.reload();
+                                })
+                                .catch(err => {
+                                    console.log(err);
+                                });
+
+                            } } className="bg-red-500">DELETE</button>
                         </div>
                     );
                 });
@@ -59,7 +71,7 @@ export default function Dashboard(props) {
                 <h1 className="text-3xl pb-5">Products</h1>
 
                 <GridEvenContainer itemMin="12rem" className="w-[100%] place-content-start">
-                    { products || "No products yet"}
+                    { products.length ? products: "No products yet" }
                 </GridEvenContainer>
 
             </main>
