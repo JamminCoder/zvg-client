@@ -1,7 +1,11 @@
-import { API_XSRF } from "../apiRoutes";
+import { API_XSRF, SERVER_URL } from "../apiRoutes";
 import { WITH_CREDENTIALS } from "./auth";
 
 const axios = require("axios").default;
+
+export function imageURL(imgName) {
+    return `${SERVER_URL}/product_images/${imgName}`;
+}
 
 export function capatalizeFirstLetter(string) {
     return string[0].toUpperCase() + string.slice(1);

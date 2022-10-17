@@ -6,6 +6,7 @@ import { Sidebar, SidebarItem } from "../components/layouts/Sidebar";
 import NewItemModal from "../components/modals/NewItemModal";
 import { deleteProductBySKU, getAllProducts } from "../api";
 import { API_PRODUCTS_DELETE_SKU, SERVER_URL } from "../apiRoutes";
+import { AdminProductCard } from "../components/Cards";
 
 export default function Dashboard(props) {
     const [verified, setVerified] = useState("FILLER VALUE");
@@ -21,23 +22,7 @@ export default function Dashboard(props) {
                 const productDisplay = [];
                 productArray.forEach(product => {
                     productDisplay.push(
-                        <div key={ product.id } className="shadow p-4">
-                            <img src={ `${ SERVER_URL }/product_images/${ product.images[0] }` } />
-                            <h3>Name: { product.name }</h3>
-                            <p>ID: { product.id }</p>
-                            <button onClick={ () => {
-                                
-                                deleteProductBySKU(product.sku)
-                                .then(res => {
-                                    console.log(res);
-                                    window.location.reload();
-                                })
-                                .catch(err => {
-                                    console.log(err);
-                                });
-
-                            } } className="bg-red-500">DELETE</button>
-                        </div>
+                        <AdminProductCard product={ product } />
                     );
                 });
 
@@ -70,9 +55,9 @@ export default function Dashboard(props) {
             <main className="p-10 w-[100%]">
                 <h1 className="text-3xl pb-5">Products</h1>
 
-                <GridEvenContainer itemMin="12rem" className="w-[100%] place-content-start">
+                <div className="flex flex-wrap gap-8">
                     { products.length ? products: "No products yet" }
-                </GridEvenContainer>
+                </div>
 
             </main>
             
