@@ -5,6 +5,7 @@ import GridEvenContainer from "../components/layouts/GridEvenContainer";
 import { Sidebar, SidebarItem } from "../components/layouts/Sidebar";
 import NewItemModal from "../components/modals/NewItemModal";
 import { getAllProducts } from "../api";
+import { SERVER_URL } from "../apiRoutes";
 
 export default function Dashboard(props) {
     const [verified, setVerified] = useState("FILLER VALUE");
@@ -21,13 +22,9 @@ export default function Dashboard(props) {
                 productArray.forEach(product => {
                     productDisplay.push(
                         <div key={ product.id } className="shadow p-4">
+                            <img src={ `${ SERVER_URL }/product_images/${ product.images[0] }` } />
                             <h3>Name: { product.name }</h3>
                             <p>ID: { product.id }</p>
-                            
-                            <div>Images: { product.images.map(img => {
-                                return <p key={ img }>{ img }</p>
-                            })}</div>
-                            
                         </div>
                     );
                 });
