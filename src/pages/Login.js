@@ -2,7 +2,7 @@ import { useState } from 'react';
 import CenterPage from '../components/layouts/CenterPage';
 import { API_LOGIN } from "../apiRoutes";
 import { useNavigate } from "react-router-dom";
-import { WITH_CREDENTIALS } from "../lib/auth";
+import { login } from "../api";
 
 const axios = require('axios').default;
 
@@ -15,12 +15,12 @@ export default function Login(props) {
         e.preventDefault();
         const email = document.querySelector("#email").value;
         const password = document.querySelector("#password").value;
-        const formData = {
+        const userInfo = {
             email: email,
             password: password
         };
 
-        axios.post(API_LOGIN, formData, WITH_CREDENTIALS).then(res => {
+        login(userInfo).then(res => {
             console.log(res.data);
             navigate("/dashboard");
             window.location.reload();

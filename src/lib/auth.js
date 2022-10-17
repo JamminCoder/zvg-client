@@ -1,5 +1,6 @@
-import { API_LOGOUT, API_VERIFY_AUTH } from "../apiRoutes";
+import { API_VERIFY_AUTH } from "../apiRoutes";
 import { getCookie } from "./utils";
+import { checkAuth, logout } from "../api";
 
 const axios = require("axios").default;
 
@@ -11,12 +12,12 @@ export function isLoggedIn() {
 }
 
 export async function isVerified() {
-    const res = await axios.get(API_VERIFY_AUTH, WITH_CREDENTIALS);
+    const res = await checkAuth();
     return res.status === 200;
 }
 
-export function logout() {
-    axios.post(API_LOGOUT, { headers: XSRF_HEADER }, WITH_CREDENTIALS).then(res => {
+export function destroy_login_info() {
+    logout().then(res => {
         localStorage.clear();
         window.location.href = "/#/login";
         window.location.reload();

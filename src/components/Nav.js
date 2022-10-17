@@ -4,7 +4,7 @@ import "../css/nav.css";
 import { ShoppingCart } from "./ShoppingCart";
 import ShoppingCartManager from "../lib/shoppingCartManager";
 import IfAuth from "./IfAuth";
-import { logout } from "../lib/auth";
+import { destroy_login_info } from "../lib/auth";
 
 export default function Nav() {
     const breakpoint = "1000px";
@@ -50,7 +50,7 @@ export default function Nav() {
                             isActive ? activeLinkStyle : undefined
                         }>Dashboard</NavLink>
 
-                        <a href="#" onClick={ logout }>Logout</a>
+                        <a href="#" onClick={ destroy_login_info }>Logout</a>
                     </div>
                     
                 </IfAuth>
