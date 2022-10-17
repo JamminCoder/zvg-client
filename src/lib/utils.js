@@ -1,4 +1,4 @@
-import { API_XSRF } from "../apiConfig";
+import { API_XSRF } from "../apiRoutes";
 import { WITH_CREDENTIALS } from "./auth";
 
 const axios = require("axios").default;

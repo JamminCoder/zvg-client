@@ -1,4 +1,4 @@
-import { API_PRODUCT_NEW } from "../../apiConfig";
+import { API_PRODUCT_NEW } from "../../apiRoutes";
 import { XSRF_HEADER, WITH_CREDENTIALS } from "../../lib/auth";
 import { preventDefaults } from "../../lib/utils";
 import CloseIcon from "../icons/Close";

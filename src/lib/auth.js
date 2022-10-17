@@ -1,4 +1,4 @@
-import { API_LOGOUT, API_VERIFY_AUTH } from "../apiConfig";
+import { API_LOGOUT, API_VERIFY_AUTH } from "../apiRoutes";
 import { getCookie } from "./utils";
 
 const axios = require("axios").default;

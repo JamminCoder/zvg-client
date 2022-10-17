@@ -1,4 +1,4 @@
-import { API_PRODUCTS_ALL } from "./apiConfig";
+import { API_PRODUCTS_ALL } from "./apiRoutes";
 import { XSRF_HEADER } from "./lib/auth";
 
 const axios = require("axios").default;

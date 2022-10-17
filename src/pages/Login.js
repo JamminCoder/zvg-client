@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import CenterPage from '../components/layouts/CenterPage';
-import { API_LOGIN } from "../apiConfig";
+import { API_LOGIN } from "../apiRoutes";
 import { useNavigate } from "react-router-dom";
 import { WITH_CREDENTIALS } from "../lib/auth";
 
