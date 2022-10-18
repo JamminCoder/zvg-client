@@ -2,6 +2,10 @@ import { Link, useParams } from 'react-router-dom';
 import ShoppingCartManager from "../lib/shoppingCartManager";
 import { deleteProductBySKU } from "../api";
 import { imageURL } from "../lib/utils";
+import { useState } from "react";
+import Overlay from "./modals/Overlay";
+import { preventDefaults } from "../lib/utils";
+import UpdateItemModal from "./modals/UpdateItemModal";
 
 
 export function LinkCard(props) {
@@ -14,7 +18,7 @@ export function LinkCard(props) {
 
 export function Card(props) {
     return (
-        <div to={ props.to } className={ `w-[100%] max-w-[20rem] border shadow-lg ${ props.className }` }>
+        <div onClick={ props.onClick } className={ `w-[100%] max-w-[20rem] border shadow-lg ${ props.className }` }>
              { props.children }
         </div>
     );
@@ -77,19 +81,19 @@ export function CatagoryListingCard({ name, description }) {
 }
 
 export function AdminProductCard({ product }) {
+    const [modal, setModal] = useState(null);
 
-    async function deleteProduct() {
-        try {   
-            const res = await deleteProductBySKU(product.sku);
-            console.log(res);
-            window.location.reload();
-        } catch (err) {
-            console.log(err);
+    function handleModal() {
+        if (!modal) {
+            setModal(<UpdateItemModal product={ product }/>);
+        } else {
+            setModal(null);
         }
     }
 
     return (
-        <Card className="w-64 rounded overflow-hidden">
+        <Card className="w-64 rounded overflow-hidden" onClick={ handleModal }>
+            { modal }
             <div>
                 <img className="bg-gray-400 w-[100%] aspect-square object-cover object-top" src={  imageURL(product.images[0]) }/>
             </div>
@@ -99,11 +103,6 @@ export function AdminProductCard({ product }) {
                     <small>Catagory: { product.catagory }</small>
                     <h2 className="font-medium text-xl">{ product.name }</h2>
                     <p>${ product.price }</p>
-                </div>
-                
-                <div className="grid gap-4">
-                    <button className="bg-gray-800 p-1 rounded text-white text-xs w-fit">Modify Product Info</button>
-                    <button onClick={ () => deleteProduct() } className="bg-red-500 p-1 rounded text-white text-xs w-fit">DELETE</button>
                 </div>
             </div>
         </Card>
