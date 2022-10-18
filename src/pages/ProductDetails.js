@@ -3,6 +3,9 @@ import { Children, useState } from "react";
 import { ProductCard } from '../components/Cards';
 import GridEvenContainer from '../components/layouts/GridEvenContainer';
 import ShoppingCartManager from "../lib/shoppingCartManager";
+import { imageURL } from "../lib/utils";
+import { useEffect } from "react";
+import { getAllProducts, getProductBySKU } from "../api";
 
 function ImagePreview(props) {
     const children = Children.toArray(props.children);
@@ -16,7 +19,7 @@ function ImagePreview(props) {
             onClick={() => {
                 setCurrentImage(child.props.src)
             }}
-            key={ i } className="w-12 transition-all hover:-translate-y-2" src={ child.props.src }/>
+            key={ i } className="w-12 aspect-square object-cover object-top transition-all hover:-translate-y-2" src={ child.props.src }/>
         );
     }
 
@@ -33,18 +36,37 @@ function ImagePreview(props) {
     );
 }
 
-export default function ProductDetails(props) {
-    const productName = useParams().productName;
+export default function ProductDetails() {
+    const sku = useParams().sku;
+    const [product, setProduct] = useState(null);
+    const [products, setProducts] = useState([]);
 
-    // These values will be extracted from the product API
-    const price = 15.99;
-    const description = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Culpa repellendus velit voluptate assumenda beatae debitis dignissimos consectetur, tenetur, ea atque magni sit delectus cum dolorem? Mollitia voluptates dolores vel cue.";
-    
     function addToCart(e) {
-        ShoppingCartManager.addItem(productName, price, 1);
+        ShoppingCartManager.addItem(product.name, product.price, 1);
         e.stopPropagation();
         e.preventDefault(); 
     }
+
+    useEffect(() => {
+        if (!product) {
+            getProductBySKU(sku).then(product => {
+                setProduct(product);
+            });
+        }
+
+        if (products.length === 0) {
+            getAllProducts().then(productsArray => {
+                const productDisplay = [];
+                productsArray.forEach(product => {
+                    productDisplay.push( <ProductCard key={ product.id } product={ product } /> );
+                });
+    
+                setProducts(productDisplay);
+            });
+        }
+    });
+
+    if (!product) return "loading...";
 
     return (
         <div className="mx-auto px-4 py-24">
@@ -52,20 +74,21 @@ export default function ProductDetails(props) {
                 
                 
                 <ImagePreview>
-                    <img src={`${process.env.PUBLIC_URL}/img/candles1.jpg`} />
-                    <img src={`${process.env.PUBLIC_URL}/img/placeholder-square-1024.png`} />
+                    { product.images.map(img => {
+                        return <img key={ product.img } src={ imageURL(img) } />
+                    }) }
                 </ImagePreview>
 
 
                 <div className="flex flex-col justify-center gap-5">
-                    <h1 className="text-4xl">{ productName }</h1>
+                    <h1 className="text-4xl">{ product.name }</h1>
                     <p>
-                        { description }
+                        { product.name }
                     </p>
 
                     <div className="flex items-center gap-5 ">
                         <button onClick={ addToCart } href="#add-to-cart" className="px-3 py-2 transition-colors active:bg-green-600 hover:bg-green-500 bg-green-600 text-lg text-white rounded">Add to Cart</button>
-                        <h2 className="text-2xl text-green-900 font-bold">${ price }</h2>
+                        <h2 className="text-2xl text-green-900 font-bold">${ product.price }</h2>
                     </div>
                 </div>
             </main>
@@ -75,30 +98,7 @@ export default function ProductDetails(props) {
             </div>
 
             <GridEvenContainer className="py-24 px-2 md:px-10">
-                <ProductCard
-                    name="Product"
-                    description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
-                    price="19.99"
-                />
-
-                <ProductCard
-                    name="Awesome"
-                    description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
-                    price="19.99"
-                />
-
-                <ProductCard
-                    name="Chickens"
-                    description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
-                    price="19.99"
-                />
-
-                <ProductCard
-                    name="Flowers"
-                    description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
-                    price="19.99"
-                />
-
+                { products }
             </GridEvenContainer>
                 
         </div>

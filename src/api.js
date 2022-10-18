@@ -3,7 +3,8 @@ import {
     API_LOGOUT,
     API_PRODUCTS_ALL,
     API_VERIFY_AUTH,
-    API_PRODUCTS_DELETE_SKU
+    API_PRODUCTS_DELETE_SKU,
+    API_PRODUCTS_GET_BY_SKU
 } from "./apiRoutes";
 
 import { WITH_CREDENTIALS, XSRF_HEADER } from "./lib/auth";
@@ -25,8 +26,13 @@ export function checkAuth() {
 export async function getAllProducts() {
     const res = await axios.get(API_PRODUCTS_ALL);
     const products = res.data;
-    console.log(products);
     return products;
+}
+
+export async function getProductBySKU(sku) {
+    const res = await axios.get(API_PRODUCTS_GET_BY_SKU(sku));
+    const product = res.data;
+    return product;
 }
 
 export async function deleteProductBySKU(sku) {
