@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { isVerified, isLoggedIn } from "../lib/auth";
-import GridEvenContainer from "../components/layouts/GridEvenContainer";
 import { Sidebar, SidebarItem } from "../components/layouts/Sidebar";
 import NewItemModal from "../components/modals/NewItemModal";
-import { deleteProductBySKU, getAllProducts } from "../api";
-import { API_PRODUCTS_DELETE_SKU, SERVER_URL } from "../apiRoutes";
+import { getAllProducts } from "../api";
 import { AdminProductCard } from "../components/Cards";
 
 export default function Dashboard(props) {
@@ -31,7 +29,6 @@ export default function Dashboard(props) {
             }).catch(err => {
                 console.log("Something went wrong fetching products");
             });
-            
         }
     });
 

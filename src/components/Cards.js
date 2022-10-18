@@ -21,11 +21,11 @@ export function Card(props) {
 }
 
 
-export function ProductCard({ name, description, price }) {
+export function ProductCard({ product }) {
     const type = useParams().productType;
-    const productUrl = `/shop/${type}/${name}`;
+    const productUrl = `/shop/${type}/${product.sku}`;
     function handleClick(e) {
-        ShoppingCartManager.addItem(name, price, 1);
+        ShoppingCartManager.addItem(product.name, product.price, 1);
         e.stopPropagation();
         e.preventDefault(); 
     }
@@ -35,14 +35,14 @@ export function ProductCard({ name, description, price }) {
         to={ productUrl }
         className="hover:-translate-y-[2px] transition-all hover:shadow-xl cursor-pointer">
             <div>
-                <img className="bg-gray-400 w-[100%] aspect-video"/>
+                <img className="bg-gray-400 w-[100%] aspect-video object-cover object-top" src={  imageURL(product.images[0]) }/>
             </div>
 
             <div className="px-2 py-2">
-                <h2 className="font-medium text-xl">{ name }</h2>
-                <h3 className="mb-2">${ price }</h3>
+                <h2 className="font-medium text-xl">{ product.name }</h2>
+                <h3 className="mb-2">${ product.price }</h3>
 
-                { description ? <p className="text-xs mb-4">{ description }</p>: "" }
+                { product.description ? <p className="text-xs mb-4">{ product.description }</p>: "" }
 
                 <button  
                     onClick={ handleClick }
@@ -61,7 +61,7 @@ export function CatagoryListingCard({ name, description }) {
         to={ catagoryUrl }
         className="hover:-translate-y-[3px] transition-all hover:shadow-xl cursor-pointer">
             <div>
-                <img className="bg-gray-400 w-[100%] aspect-video"/>
+                <img className="bg-gray-400 w-[100%] aspect-video object-cover object-top"/>
             </div>
 
             <div className="px-2 py-2">

@@ -5,12 +5,29 @@ import { ProductCard } from '../components/Cards';
 import GridEvenContainer from '../components/layouts/GridEvenContainer';
 import "../css/shop.css";
 import "../css/app.css"
+import { useEffect, useState } from "react";
+import { getAllProducts } from "../api";
 
 
 export default function ProductsPage(props) {
     const productType = useParams().productType;
     const properType = capatalizeFirstLetter(productType);
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        if (products.length === 0) {
+            getAllProducts().then(productsArray => {
+                const productDisplay = [];
+                productsArray.forEach(product => {
+                    productDisplay.push( <ProductCard product={ product } /> );
+                });
     
+                setProducts(productDisplay);
+            });
+        }
+    })
+    
+    if (products.length === 0) return "loading...";
 
     return (
         <div>
@@ -28,31 +45,8 @@ export default function ProductsPage(props) {
             </HeroSection>
 
 
-            <GridEvenContainer className="py-24 px-2 md:px-10">
-                <ProductCard
-                    name="Product"
-                    description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
-                    price="19.99"
-                />
-
-                <ProductCard
-                    name="Awesome"
-                    description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
-                    price="19.99"
-                />
-
-                <ProductCard
-                    name="Chickens"
-                    description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
-                    price="19.99"
-                />
-
-                <ProductCard
-                    name="Flowers"
-                    description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
-                    price="19.99"
-                />
-
+            <GridEvenContainer className="py-24 px-2 md:px-10 place-items-center">
+                { products }
             </GridEvenContainer>
                 
 
