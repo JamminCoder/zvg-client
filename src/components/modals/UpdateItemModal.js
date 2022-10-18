@@ -41,7 +41,7 @@ export default function UpdateItemModal({ product }) {
 
                     <div>
                         <label htmlFor="description">Description: </label><br/>
-                        <textarea className="w-[100%] h-32 border" name="description" id="description">{ product.description }</textarea>
+                        <textarea className="w-[100%] h-32 border" name="description" id="description" defaultValue={ product.description }></textarea>
                     </div>
                 </div>
                 
