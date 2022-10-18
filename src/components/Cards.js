@@ -89,7 +89,7 @@ export function AdminProductCard({ product }) {
     }
 
     return (
-        <Card className="w-64">
+        <Card className="w-64 rounded overflow-hidden">
             <div>
                 <img className="bg-gray-400 w-[100%] aspect-square object-cover object-top" src={  imageURL(product.images[0]) }/>
             </div>
