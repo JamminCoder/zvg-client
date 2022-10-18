@@ -9,6 +9,20 @@ import { AdminProductCard } from "../components/Cards";
 export default function Dashboard(props) {
     const [verified, setVerified] = useState("FILLER VALUE");
     const [products, setProducts] = useState([]);
+    const [modal, setModal] = useState(null);
+    
+    function handleNewItemModal() {
+        if (!modal) {
+            setModal(<NewItemModal close={ () => setModal(null) }/>);
+        } else {
+            setModal(null);
+        }
+    }
+
+    function closeModalIfExists() {
+        if (modal) setModal(null);
+    }
+
 
     useEffect(() => {
         isVerified().then(result => {
@@ -35,7 +49,8 @@ export default function Dashboard(props) {
     if (!isLoggedIn() || !verified) return <Navigate to="/login"/>;
 
     return (
-        <div className="relative flex bg-slate-50">
+        <div className="relative flex bg-slate-50" onClick={ closeModalIfExists }>
+            { modal }
             <Sidebar>
                 <h3 className="text-2xl">Admin Actions</h3>
                 <div className="mt-5 grid gap-5">
@@ -43,9 +58,7 @@ export default function Dashboard(props) {
                     <SidebarItem>Stock</SidebarItem>
                     <SidebarItem>Income</SidebarItem>
 
-                    <SidebarItem onClick={ () => {
-                        document.querySelector("#new_item_modal").style.display = "block";
-                    } }>Create New Product</SidebarItem>
+                    <SidebarItem onClick={ handleNewItemModal }>Create New Product</SidebarItem>
                 </div>
             </Sidebar>
             
@@ -57,9 +70,6 @@ export default function Dashboard(props) {
                 </div>
 
             </main>
-            
-
-            <NewItemModal/>
         </div>
     );
 }
