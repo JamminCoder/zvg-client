@@ -45,7 +45,7 @@ export default function NewItemModal(props) {
     return (
     <Overlay>
         {/* Main modal */}
-        <div className="shadow bg-white p-8 rounded relative" onClick={ preventDefaults }>
+        <div className="shadow bg-white p-8 rounded relative" onClick={ (e) => { e.stopPropagation() } }>
             
             <span 
                 className="absolute right-0 top-0 p-1 m-1 shadow rounded-full bg-slate-50 hover:bg-slate-100"
