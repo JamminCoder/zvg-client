@@ -68,11 +68,12 @@ export default function UpdateItemModal({ product }) {
                 <p className="text-red-600"> { error } </p>
                 
                 <form id="update_product_form" action={ API_PRODUCTS_UPDATE } method="POST" onSubmit={ submit }>
+                    <input type="hidden" name="sku" id="sku" defaultValue={ product.sku }/>
                     <div className="flex flex-col gap-2 mb-4">
                         
                         <div className="mb-2">
                             <label htmlFor="images" className="text-lg">Product Images</label><br/>
-                            <input type="file" id="images" name="images[]" multiple required/>
+                            <input type="file" id="images" name="images[]" multiple/>
                         </div>
 
                         <div className="flex gap-2">
