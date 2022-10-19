@@ -6,7 +6,7 @@ import { CatagoryListingCard } from '../components/Cards';
 
 function Catagories(props) {
     return (
-        <GridEvenContainer>
+        <GridEvenContainer className="py-24 px-2 md:px-10 place-items-center">
                 <CatagoryListingCard
                     name="Gifts"
                     description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
