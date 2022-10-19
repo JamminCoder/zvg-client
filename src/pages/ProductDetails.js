@@ -26,7 +26,7 @@ function ImagePreview(props) {
     return (
         <div className={`w-[100%] max-w-[30rem] place-self-center ${props.className}`}>
             <div>
-                <img src={ currentImage } />
+                <img src={ currentImage } className="aspect-square object-cover"/>
             </div>
 
             <div className="flex gap-2 mt-4">
