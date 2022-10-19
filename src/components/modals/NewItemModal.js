@@ -9,6 +9,11 @@ import Overlay from "./Overlay";
 export default function NewItemModal(props) {
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
+    const [catagories, setCatagories] = useState([
+        "Gifts",
+        "Jewelry",
+        "Clothing"
+    ]);
 
     function submit(e) {
         preventDefaults(e);
@@ -67,7 +72,12 @@ export default function NewItemModal(props) {
 
                 <div>
                     <label htmlFor="catagory" className="text-lg">Catagory</label><br/>
-                    <input type="text" id="catagory" name="catagory" className="border" required/>
+                    <select name="catagory" id="catagory">
+                        { catagories.map(c => {
+                            return <option key={ c } value={ c }>{ c }</option>
+                        }) }
+                    </select>
+                    {/* <input type="text" id="catagory" name="catagory" className="border" required/> */}
                 </div>
 
                 <div>
