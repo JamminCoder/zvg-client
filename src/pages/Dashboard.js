@@ -3,8 +3,9 @@ import { Navigate } from "react-router-dom";
 import { isVerified, isLoggedIn } from "../lib/auth";
 import { Sidebar, SidebarItem } from "../components/layouts/Sidebar";
 import NewItemModal from "../components/modals/NewItemModal";
-import { getAllProducts, getAllProductsWithCatagories } from "../api";
+import { deleteCatagoryByName, getAllProducts, getAllProductsWithCatagories } from "../api";
 import { AdminProductCard } from "../components/Cards";
+import axios from "axios";
 
 
 export function CatagoryDisplay({ catagory, catagoryName }) {
@@ -24,6 +25,7 @@ export function CatagoryDisplay({ catagory, catagoryName }) {
 
 export default function Dashboard(props) {
     const [verified, setVerified] = useState("FILLER VALUE");
+    const [catagoriesWithProducts, setCatagoriesWithProducts] = useState([]);
     const [catagories, setCatagories] = useState([]);
     const [modal, setModal] = useState(null);
     
@@ -48,12 +50,14 @@ export default function Dashboard(props) {
         if (catagories.length === 0) {
             getAllProductsWithCatagories().then(cats => {
                 const catagoryDisplay = [];
+                const catagoriesArray = [];
                 for (let catagoryName in cats) {
                     const catagory = cats[catagoryName];
+                    catagoriesArray.push(catagoryName);
                     catagoryDisplay.push(<CatagoryDisplay key={ catagoryName } catagory={ catagory } catagoryName={ catagoryName } />)
                 }
-
-                setCatagories(catagoryDisplay);
+                setCatagories(catagoriesArray);
+                setCatagoriesWithProducts(catagoryDisplay);
             });
         }
     });
@@ -77,10 +81,24 @@ export default function Dashboard(props) {
             <main className="p-10 w-[100%]">
                 <h1 className="text-3xl pb-5">Products</h1>
 
-                <div className="grid gap-24">
-                    { catagories.length ? catagories: "No products yet" }
+                <div className="grid gap-24 mb-10">
+                    { catagoriesWithProducts.length ? catagoriesWithProducts: "No products yet" }
                 </div>
 
+                <div>
+                    <h3 className="text-xl">Catagories</h3>
+                    <div className="flex gap-4 flex-wrap">
+                        { catagories.map(cat => {
+                            return <div className="shadow p-2">
+                                <p>{ cat }</p>
+                                <button onClick={() => {
+                                    deleteCatagoryByName(cat).then(res => console.log(res));
+                                }} className="bg-red-500 text-white p-1">Delete catagory</button>
+                            </div>
+                        })}
+                    </div>
+                    
+                </div>
             </main>
         </div>
     );
