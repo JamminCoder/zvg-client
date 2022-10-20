@@ -4,7 +4,8 @@ import {
     API_PRODUCTS_ALL,
     API_VERIFY_AUTH,
     API_PRODUCTS_DELETE_SKU,
-    API_PRODUCTS_GET_BY_SKU
+    API_PRODUCTS_GET_BY_SKU,
+    API_PRODUCTS_ALL_WITH_CATAGORY
 } from "./apiRoutes";
 
 import { WITH_CREDENTIALS, XSRF_HEADER } from "./lib/auth";
@@ -27,6 +28,11 @@ export async function getAllProducts() {
     const res = await axios.get(API_PRODUCTS_ALL);
     const products = res.data;
     return products;
+}
+
+export async function getAllProductsWithCatagories() {
+    const res = await axios.get(API_PRODUCTS_ALL_WITH_CATAGORY);
+    return res.data;
 }
 
 export async function getProductBySKU(sku) {

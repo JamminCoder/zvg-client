@@ -4,6 +4,7 @@ export const API_URL = `${ SERVER_URL }/api`;
 
 export const API_PRODUCT_NEW = `${ API_URL }/products/new`;
 export const API_PRODUCTS_ALL = `${ API_URL }/products/all`;
+export const API_PRODUCTS_ALL_WITH_CATAGORY = `${ API_URL }/products/all/catagories`;
 export const API_PRODUCTS_UPDATE = `${ API_URL }/products/update`;
 export const API_PRODUCTS_GET_BY_SKU = sku => `${ API_URL }/products/sku/${ sku }`;
 export const API_PRODUCTS_DELETE_SKU = sku => `${ API_URL }/products/delete/sku/${ sku }`;
