@@ -8,7 +8,7 @@ import { AdminProductCard } from "../components/Cards";
 import DashboardLayout from "../components/layouts/DashboardLayout";
 
 
-export function CatagoryDisplay(props) {
+export function CatagoriesWithProducts(props) {
     const [catagories, setCatagories] = useState([]);
 
     useEffect(() => {
@@ -95,7 +95,7 @@ export default function Dashboard(props) {
                 <h1 className="text-3xl pb-5">Products</h1>
 
                 <div className="grid gap-24 mb-10">
-                    <CatagoryDisplay/>
+                    <CatagoriesWithProducts/>
                 </div>
             </main>
         </DashboardLayout>
