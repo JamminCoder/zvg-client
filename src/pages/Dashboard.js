@@ -14,15 +14,7 @@ export function CatagoriesWithProducts(props) {
     useEffect(() => {
         if (!catagories.length) {
             getAllProductsWithCatagories().then(cats => {
-                const catagoriesArray = [];
-                
-                for (let catagoryName in cats) {
-                    const catagory = cats[catagoryName];
-                    catagory.name = catagoryName;
-                    catagoriesArray.push(catagory);
-                }
-    
-                setCatagories(catagoriesArray);
+                setCatagories(cats);
             });
         }
     });
@@ -35,7 +27,7 @@ export function CatagoriesWithProducts(props) {
             <div>
                 <h2 className="text-2xl mb-5">{ catagory.name }</h2>
                 <div className="flex flex-wrap gap-8 mb-4">
-                { catagory.map(product => {
+                { catagory.products.map(product => {
                     return <AdminProductCard key={ product.sku } product={ product } />
                 }) }
                 </div>
