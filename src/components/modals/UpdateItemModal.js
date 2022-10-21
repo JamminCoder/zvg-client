@@ -11,14 +11,10 @@ const axios = require("axios").default;
 
 export default function UpdateItemModal({ product }) {
     const [error, setError] = useState("");
-    const [success, setSuccess] = useState("");
-
 
     function submit(e) {
         preventDefaults(e);
-
         setError("");
-        setSuccess("");
 
         const formData = new FormData(document.querySelector("#update_product_form"));
         
@@ -28,11 +24,7 @@ export default function UpdateItemModal({ product }) {
         };
         console.log(formData);
         axios.post(API_PRODUCTS_UPDATE, formData, requestOptions).then(res => {
-            console.log(res.data);
-            if (res.status === 200) {
-                setSuccess(`Successfully updated product ${ res.data.images }`);
-            }
-
+            console.log("Updated product.");
         }).catch(err => {
             const errors = err.response.data.errors;
             
@@ -64,7 +56,6 @@ export default function UpdateItemModal({ product }) {
             </div>
 
             <div className="py-2">
-                <p className="text-green-600"> { success } </p>
                 <p className="text-red-600"> { error } </p>
                 
                 <form id="update_product_form" action={ API_PRODUCTS_UPDATE } method="POST" onSubmit={ submit }>
