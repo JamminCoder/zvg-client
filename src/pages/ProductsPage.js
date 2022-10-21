@@ -6,7 +6,7 @@ import GridEvenContainer from '../components/layouts/GridEvenContainer';
 import "../css/shop.css";
 import "../css/app.css"
 import { useEffect, useState } from "react";
-import { getAllProducts } from "../api";
+import { getAllProducts, getProductsFromCatagory } from "../api";
 
 
 export default function ProductsPage(props) {
@@ -16,7 +16,7 @@ export default function ProductsPage(props) {
 
     useEffect(() => {
         if (products.length === 0) {
-            getAllProducts().then(productsArray => {
+            getProductsFromCatagory(productType).then(productsArray => {
                 const productDisplay = [];
                 productsArray.forEach(product => {
                     productDisplay.push( <ProductCard product={ product } /> );
@@ -26,8 +26,6 @@ export default function ProductsPage(props) {
             });
         }
     })
-    
-    if (products.length === 0) return "loading...";
 
     return (
         <div>
@@ -46,7 +44,7 @@ export default function ProductsPage(props) {
 
 
             <GridEvenContainer className="py-24 px-2 md:px-10 place-items-center">
-                { products }
+                { products.length ? products: "No products" }
             </GridEvenContainer>
                 
 

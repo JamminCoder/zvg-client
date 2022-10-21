@@ -2,32 +2,36 @@ import HeroSection from "../components/layouts/HeroSection";
 import "../css/shop.css";
 import GridEvenContainer from '../components/layouts/GridEvenContainer';
 import { CatagoryListingCard } from '../components/Cards';
+import { useEffect, useState } from "react";
+import { getCatagoriesInfo } from "../api";
 
 
 function Catagories(props) {
+    const [catagories, setCatagories] = useState([]);
+
+    useEffect(() => {
+        if (!catagories.length) {
+            getCatagoriesInfo().then(cats => {
+                console.log(cats);
+                const infoArray = [];
+                cats.forEach(info => {
+                    infoArray.push(
+                        <CatagoryListingCard
+                            name={ info.catagory }
+                            description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
+                        />
+                    );
+                })
+    
+                setCatagories(infoArray);
+            })
+        }
+    });
+
     return (
         <GridEvenContainer className="py-24 px-2 md:px-10 place-items-center">
-                <CatagoryListingCard
-                    name="Gifts"
-                    description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
-                />
-
-                <CatagoryListingCard
-                    name="Jewelry"
-                    description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
-                />
-
-                <CatagoryListingCard
-                    name="Apparel"
-                    description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
-                />
-
-                <CatagoryListingCard
-                    name="Candles"
-                    description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
-                />
-
-            </GridEvenContainer>
+            { catagories.length ? catagories: "No products" }
+        </GridEvenContainer>
     );
 }
 
