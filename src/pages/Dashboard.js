@@ -3,9 +3,69 @@ import { Navigate } from "react-router-dom";
 import { isVerified, isLoggedIn } from "../lib/auth";
 import { Sidebar, SidebarItem } from "../components/layouts/Sidebar";
 import NewItemModal from "../components/modals/NewItemModal";
-import { deleteCatagoryByName, getAllProductsWithCatagories, getCatagoriesInfo } from "../api";
+import { deleteCatagoryByName, getAllProductsWithCatagories } from "../api";
 import { AdminProductCard } from "../components/Cards";
 import DashboardLayout from "../components/layouts/DashboardLayout";
+import Overlay from "../components/modals/Overlay";
+
+export function ProductsList({ products, catagory }) {
+    const [display, setDisplay] = useState(true);
+    const [modal, setModal] = useState(null);
+
+    function handleConfirmDelete() {
+        if (!modal) {
+            setModal(
+                <Overlay onClick={() => setModal(null)}>
+                    <div className="bg-white p-5 grid gap-5" onClick={ (e) => { e.stopPropagation() }}>
+                        <h1 className="text-3xl font-bold max-w-[30ch]">Are you sure you want to delete this catagory and ALL of its products?</h1>
+                        <h2 className="text-2xl">Catagory: <span className="text-red-500 font-bold">{ catagory.name }</span></h2>
+                        <button 
+                            className="p-2 text-white bg-green-500 font-bold rounded hover:brightness-105 active:brightness-90" 
+                            onClick={ () => { setModal(null) } }>                            
+                            Cancel
+                        </button>
+
+                        <button 
+                            className="p-2 text-white bg-red-500 font-bold rounded hover:brightness-105 active:brightness-90" 
+                            onClick={ deleteCatagoryForReal }>
+                            
+                            Delete { catagory.name } Catagory
+                        </button>
+                    </div>
+                </Overlay>
+            )
+        } else {
+            setModal(null);
+        }
+    }
+
+    function deleteCatagoryForReal() {
+        deleteCatagoryByName(catagory.name);
+        setDisplay(null);
+    }
+
+
+    if (!display) return;
+
+    return (
+    <div>
+        { modal }
+        <h2 className="text-2xl mb-5">{ catagory.name }</h2>
+        <div className="flex flex-wrap gap-8 mb-4">
+            { products.map(product => {
+                return <AdminProductCard key={ product.sku } product={ product } />
+            })}
+        </div>
+
+        <button 
+            className="p-2 text-white bg-red-500 text-xs rounded hover:brightness-105 active:brightness-90" 
+            onClick={ handleConfirmDelete }>
+            
+            Delete { catagory.name } Catagory
+        </button>
+    </div>
+    );
+}
 
 
 export function CatagoriesWithProducts(props) {
@@ -19,28 +79,11 @@ export function CatagoriesWithProducts(props) {
         }
     });
 
-    return (
-        <>
-        {
-        catagories.map(catagory => {
-            return (
-            <div>
-                <h2 className="text-2xl mb-5">{ catagory.name }</h2>
-                <div className="flex flex-wrap gap-8 mb-4">
-                { catagory.products.map(product => {
-                    return <AdminProductCard key={ product.sku } product={ product } />
-                }) }
-                </div>
-
-                <button className="p-2 text-white bg-red-500 text-xs rounded hover:brightness-105 active:brightness-90" onClick={() => { 
-                    deleteCatagoryByName(catagory.name);
-                    window.location.reload();
-                }}>Delete { catagory.name } Catagory</button>
-            </div>
-            );
+    return (<>
+        {catagories.map(catagory => {
+            return <ProductsList products={ catagory.products } catagory={ catagory } />;
         })}
-        </>
-    );
+    </>);
 }
 
 export default function Dashboard(props) {
