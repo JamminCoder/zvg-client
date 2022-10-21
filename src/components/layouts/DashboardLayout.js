@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { isVerified, isLoggedIn } from "../lib/auth";
+import { isVerified, isLoggedIn } from "../../lib/auth";
 
 export default function DashboardLayout(props) {
     const [verified, setVerified] = useState("FILLER VALUE");
