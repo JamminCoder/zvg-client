@@ -6,7 +6,8 @@ import {
     API_PRODUCTS_DELETE_SKU,
     API_PRODUCTS_GET_BY_SKU,
     API_PRODUCTS_ALL_WITH_CATAGORY,
-    API_CATAGORIES_DELETE
+    API_CATAGORIES_DELETE,
+    API_CATAGORIES_INFO
 } from "./apiRoutes";
 
 import { WITH_CREDENTIALS, XSRF_HEADER } from "./lib/auth";
@@ -44,6 +45,11 @@ export async function getProductBySKU(sku) {
 
 export async function deleteCatagoryByName(name) {
     const res = await axios.post(API_CATAGORIES_DELETE(name), { headers: XSRF_HEADER }, WITH_CREDENTIALS);
+    return res.data;
+}
+
+export async function getCatagoriesInfo() {
+    const res = await axios.get(API_CATAGORIES_INFO);
     return res.data;
 }
 
