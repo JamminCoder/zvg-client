@@ -29,9 +29,9 @@ function Catagories(props) {
     });
 
     return (
-        <GridEvenContainer className="py-24 px-2 md:px-10 place-items-center">
+        <main className="py-24 px-2 md:px-10 flex flex-wrap gap-5">
             { catagories.length ? catagories: "No products" }
-        </GridEvenContainer>
+        </main>
     );
 }
 

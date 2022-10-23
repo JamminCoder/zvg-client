@@ -43,9 +43,9 @@ export default function ProductsPage(props) {
             </HeroSection>
 
 
-            <GridEvenContainer className="py-24 px-2 md:px-10 place-items-center">
+            <main className="py-24 px-2 md:px-10 flex flex-wrap gap-5">
                 { products.length ? products: "No products" }
-            </GridEvenContainer>
+            </main>
                 
 
         </div>
