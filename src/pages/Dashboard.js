@@ -7,6 +7,7 @@ import { deleteCatagoryByName, getAllProductsWithCatagories } from "../api";
 import { AdminProductCard } from "../components/Cards";
 import DashboardLayout from "../components/layouts/DashboardLayout";
 import Overlay from "../components/modals/Overlay";
+import NewCatagoryModal from "../components/modals/NewCatagoryModal";
 
 export function ProductsList({ products, catagory }) {
     const [display, setDisplay] = useState(true);
@@ -98,6 +99,14 @@ export default function Dashboard(props) {
         }
     }
 
+    function handleNewCatagoryModal() {
+        if (!modal) {
+            setModal(<NewCatagoryModal close={ () => setModal(null) }/>);
+        } else {
+            setModal(null);
+        }
+    }
+
     function closeModalIfExists() {
         if (modal) setModal(null);
     }
@@ -122,7 +131,9 @@ export default function Dashboard(props) {
                     <SidebarItem>Stock</SidebarItem>
                     <SidebarItem>Income</SidebarItem>
 
-                    <SidebarItem onClick={ handleNewItemModal }>Create New Product</SidebarItem>
+                    <SidebarItem onClick={ handleNewItemModal }>New Product</SidebarItem>
+                    <SidebarItem onClick={ handleNewCatagoryModal }>New Catagory</SidebarItem>
+
                 </div>
             </Sidebar>
             
