@@ -1,7 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import ShoppingCartManager from "../lib/shoppingCartManager";
 import { deleteProductBySKU } from "../api";
-import { imageURL } from "../lib/utils";
+import { imageURL, serverURL } from "../lib/utils";
 import { useState } from "react";
 import Overlay from "./modals/Overlay";
 import { preventDefaults } from "../lib/utils";
@@ -58,14 +58,14 @@ export function ProductCard({ product }) {
     );
 }
 
-export function CatagoryListingCard({ name, description }) {
+export function CatagoryListingCard({ name, imageSrc, description }) {
     const catagoryUrl = `/shop/${ name }`
     return (
         <LinkCard 
         to={ catagoryUrl }
         className="hover:-translate-y-[3px] transition-all hover:shadow-xl cursor-pointer">
             <div>
-                <img className="bg-gray-400 w-[100%] aspect-video object-cover object-top"/>
+                <img className="bg-gray-400 w-[100%] aspect-video object-cover object-top" src={ serverURL(imageSrc) }/>
             </div>
 
             <div className="px-2 py-2">

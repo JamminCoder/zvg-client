@@ -7,6 +7,10 @@ export function imageURL(imgName) {
     return `${SERVER_URL}/product_images/${imgName}`;
 }
 
+export function serverURL(path) {
+    return `${ SERVER_URL }/${ path }`;
+}
+
 export function capatalizeFirstLetter(string) {
     return string[0].toUpperCase() + string.slice(1);
 }

@@ -1,28 +1,39 @@
 import { useParams } from "react-router-dom";
-import { capatalizeFirstLetter } from "../lib/utils";
+import { capatalizeFirstLetter, serverURL } from "../lib/utils";
 import HeroSection  from "../components/layouts/HeroSection";
 import { ProductCard } from '../components/Cards';
-import GridEvenContainer from '../components/layouts/GridEvenContainer';
 import "../css/shop.css";
 import "../css/app.css"
 import { useEffect, useState } from "react";
-import { getAllProducts, getProductsFromCatagory } from "../api";
+import { getCatagoryByName, getProductsFromCatagory } from "../api";
 
 
 export default function ProductsPage(props) {
     const productType = useParams().productType;
     const properType = capatalizeFirstLetter(productType);
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState({ data: null, error: null });
+    const [catagory, setCatagory] = useState(null);
 
     useEffect(() => {
-        if (products.length === 0) {
+        if (!catagory) {
+            console.log("HERE");
+            getCatagoryByName(productType).then(cat => {
+                console.log(cat);
+                setCatagory(cat);
+            }).catch(err => {
+                console.log(err);
+            });
+        }
+
+        if (!products.data && !products.error) {
             getProductsFromCatagory(productType).then(productsArray => {
                 const productDisplay = [];
                 productsArray.forEach(product => {
                     productDisplay.push( <ProductCard product={ product } /> );
                 });
-    
-                setProducts(productDisplay);
+                
+                if (!productDisplay.length) setProducts({ data: null, error: "No products" });
+                else setProducts({ data: productDisplay, error: "No products" });
             });
         }
     })
@@ -30,7 +41,7 @@ export default function ProductsPage(props) {
     return (
         <div>
             <HeroSection  
-                bgSrc=""
+                bgSrc={ `${ catagory ? serverURL( `catagory_images/${catagory.image}` ): "" }` }
                 className="grid place-items-center max-h-[65vh] w-[100%] aspect-video"
             >
                 <div className="text-center">
@@ -44,7 +55,7 @@ export default function ProductsPage(props) {
 
 
             <main className="py-24 px-2 md:px-10 flex flex-wrap gap-5">
-                { products.length ? products: "No products" }
+                { products.data ? products.data: "No products" }
             </main>
                 
 

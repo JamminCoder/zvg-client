@@ -8,9 +8,10 @@ import { getCatagoriesInfo } from "../api";
 
 function Catagories(props) {
     const [catagories, setCatagories] = useState([]);
+    const [attempt, setAttempt] = useState(null);
 
     useEffect(() => {
-        if (!catagories.length) {
+        if (!catagories.length && !attempt) {
             getCatagoriesInfo().then(cats => {
                 console.log(cats);
                 const infoArray = [];
@@ -18,6 +19,7 @@ function Catagories(props) {
                     infoArray.push(
                         <CatagoryListingCard
                             name={ info.catagory }
+                            imageSrc={ info.image }
                             description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
                         />
                     );
@@ -26,6 +28,8 @@ function Catagories(props) {
                 setCatagories(infoArray);
             })
         }
+
+        setAttempt(true);
     });
 
     return (
