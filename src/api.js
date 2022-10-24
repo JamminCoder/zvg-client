@@ -16,6 +16,8 @@ import { WITH_CREDENTIALS, XSRF_HEADER } from "./lib/auth";
 
 const axios = require("axios").default;
 
+
+// Auth
 export async function login(userInfo) {
     return axios.post(API_LOGIN, userInfo, WITH_CREDENTIALS);
 }
@@ -28,20 +30,16 @@ export function checkAuth() {
     return axios.get(API_VERIFY_AUTH, WITH_CREDENTIALS);
 }
 
+
+// Products
 export async function getAllProducts() {
     const res = await axios.get(API_PRODUCTS_ALL);
     const products = res.data;
     return products;
 }
 
-export async function getAllProductsWithCatagories() {
-    const res = await axios.get(API_PRODUCTS_ALL_WITH_CATAGORY);
-    return res.data;
-}
-
-export async function getProductsFromCatagory(catagory) {
-    const res = await axios.get(API_PRODUCTS_FROM_CATAGORY(catagory));
-    return res.data;
+export async function deleteProductBySKU(sku) {
+    return await axios.post(API_PRODUCTS_DELETE_SKU(sku), { headers: XSRF_HEADER }, WITH_CREDENTIALS);
 }
 
 export async function getProductBySKU(sku) {
@@ -55,6 +53,18 @@ export async function deleteCatagoryByName(name) {
     return res.data;
 }
 
+
+// Catagories
+export async function getAllProductsWithCatagories() {
+    const res = await axios.get(API_PRODUCTS_ALL_WITH_CATAGORY);
+    return res.data;
+}
+
+export async function getProductsFromCatagory(catagory) {
+    const res = await axios.get(API_PRODUCTS_FROM_CATAGORY(catagory));
+    return res.data;
+}
+
 export async function getCatagoryByName(catagory) {
     const res = await axios.get(API_CATAGORIES_GET(catagory));
     return res.data;
@@ -63,8 +73,4 @@ export async function getCatagoryByName(catagory) {
 export async function getCatagoriesInfo() {
     const res = await axios.get(API_CATAGORIES_INFO);
     return res;
-}
-
-export async function deleteProductBySKU(sku) {
-    return await axios.post(API_PRODUCTS_DELETE_SKU(sku), { headers: XSRF_HEADER }, WITH_CREDENTIALS);
 }
