@@ -1,7 +1,6 @@
 import Overlay from "./Overlay";
 import { Card } from "../Cards";
-import { preventDefaults } from "../../lib/utils";
-import { imageURL } from "../../lib/utils";
+import { preventDefaults, serverURL, stopPropagation } from "../../lib/utils";
 import { deleteProductBySKU } from "../../api";
 import { API_PRODUCTS_UPDATE } from "../../apiRoutes";
 import { useState } from "react";
@@ -22,10 +21,10 @@ export default function UpdateItemModal({ product }) {
             headers: XSRF_HEADER, 
             ...WITH_CREDENTIALS 
         };
-        console.log(formData);
-        axios.post(API_PRODUCTS_UPDATE, formData, requestOptions).then(res => {
-            console.log("Updated product.");
-        }).catch(err => {
+
+        axios.post(API_PRODUCTS_UPDATE, formData, requestOptions)
+        .then(res => console.log("Updated product."))
+        .catch(err => {
             const errors = err.response.data.errors;
             
             for (let error in errors) {
@@ -38,21 +37,20 @@ export default function UpdateItemModal({ product }) {
 
     }
 
-    async function deleteProduct() {
-        try {   
-            const res = await deleteProductBySKU(product.sku);
+    function deleteProduct() {  
+        deleteProductBySKU(product.sku)
+        .then(res => {
             console.log(res);
             window.location.reload();
-        } catch (err) {
-            console.log(err);
-        }
+        })
+        .catch(err => console.log(err));
     }
 
     return (
     <Overlay>
-        <Card className="rounded overflow-hidden bg-white p-1" onClick={ (e) => { e.stopPropagation() } }>
+        <Card className="rounded overflow-hidden bg-white p-1" onClick={ stopPropagation }>
             <div>
-                <img className="bg-gray-400 w-[100%] aspect-square object-cover object-top" src={  imageURL(product.images[0]) }/>
+                <img className="bg-gray-400 w-[100%] aspect-square object-cover object-top" src={  serverURL(`product_images/${product.images[0]}`) }/>
             </div>
 
             <div className="py-2">
@@ -92,7 +90,7 @@ export default function UpdateItemModal({ product }) {
                 </form>
                 
                 <div className="my-2">
-                    <button onClick={ () => deleteProduct() } className="bg-red-500 p-1 rounded text-white text-xs w-fit">DELETE</button>
+                    <button onClick={ deleteProduct } className="bg-red-500 p-1 rounded text-white text-xs w-fit">DELETE</button>
                 </div>
             </div>
         </Card>
