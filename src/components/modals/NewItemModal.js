@@ -3,17 +3,35 @@ import { XSRF_HEADER, WITH_CREDENTIALS } from "../../lib/auth";
 import { preventDefaults } from "../../lib/utils";
 import CloseIcon from "../icons/Close";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Overlay from "./Overlay";
+import { getCatagoriesInfo } from "../../api";
+
+function CatagoryDropdown({ catagories }) {
+    if (!catagories || !catagories.length) return "No catagories.";
+
+    return <select name="catagory" id="catagory">
+        { catagories.map(c => {
+            return <option key={ c.catagory } value={ c.catagory }>{ c.catagory }</option>
+        })}
+    </select>
+}
 
 export default function NewItemModal(props) {
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
-    const [catagories, setCatagories] = useState([
-        "Gifts",
-        "Jewelry",
-        "Clothing"
-    ]);
+    const [catagories, setCatagories] = useState(null);
+    const [modal, setModal] = useState(null);
+
+    useEffect(() => {
+        if (!catagories) {
+            getCatagoriesInfo().then(res => {
+                setCatagories(res.data);
+            }).catch(err => {
+                console.log(err);
+            });
+        }
+    });
 
     function submit(e) {
         preventDefaults(e);
@@ -47,6 +65,14 @@ export default function NewItemModal(props) {
 
     }
 
+    if (!catagories || !catagories.length) {
+        return <Overlay>
+            <div className="shadow bg-white p-8 rounded">
+                <h1 className="text-xl">Please create a product catagory first</h1>
+            </div>
+        </Overlay>
+    }
+
     return (
     <Overlay>
         {/* Main modal */}
@@ -72,11 +98,7 @@ export default function NewItemModal(props) {
 
                 <div>
                     <label htmlFor="catagory" className="text-lg">Catagory</label><br/>
-                    <select name="catagory" id="catagory">
-                        { catagories.map(c => {
-                            return <option key={ c } value={ c }>{ c }</option>
-                        }) }
-                    </select>
+                    <CatagoryDropdown catagories={ catagories }/>
                     {/* <input type="text" id="catagory" name="catagory" className="border" required/> */}
                 </div>
 
