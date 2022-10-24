@@ -16,9 +16,7 @@ export default function ProductsPage(props) {
 
     useEffect(() => {
         if (!catagory) {
-            console.log("HERE");
             getCatagoryByName(productType).then(cat => {
-                console.log(cat);
                 setCatagory(cat);
             }).catch(err => {
                 console.log(err);
@@ -29,7 +27,7 @@ export default function ProductsPage(props) {
             getProductsFromCatagory(productType).then(productsArray => {
                 const productDisplay = [];
                 productsArray.forEach(product => {
-                    productDisplay.push( <ProductCard product={ product } /> );
+                    productDisplay.push( <ProductCard key={ product.name } product={ product } /> );
                 });
                 
                 if (!productDisplay.length) setProducts({ data: null, error: "No products" });
