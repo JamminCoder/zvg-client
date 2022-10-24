@@ -71,13 +71,17 @@ export function ProductsList({ products, catagory }) {
 
 export function CatagoriesWithProducts(props) {
     const [catagories, setCatagories] = useState([]);
+    const [attempt, setAttempt] = useState(false);
 
     useEffect(() => {
+        if (attempt) return;
         if (!catagories.length) {
             getAllProductsWithCatagories().then(cats => {
                 setCatagories(cats);
             });
         }
+
+        setAttempt(true);
     });
 
     return (<>
@@ -88,7 +92,6 @@ export function CatagoriesWithProducts(props) {
 }
 
 export default function Dashboard(props) {
-    const [verified, setVerified] = useState("FILLER VALUE");
     const [modal, setModal] = useState(null);
     
     function handleNewItemModal() {
@@ -110,15 +113,6 @@ export default function Dashboard(props) {
     function closeModalIfExists() {
         if (modal) setModal(null);
     }
-
-
-    useEffect(() => {
-        isVerified().then(result => {
-            setVerified(result);
-        })
-    });
-
-    if (!isLoggedIn() || !verified) return <Navigate to="/login"/>;
 
     return (
         <DashboardLayout onClick={ closeModalIfExists }>
