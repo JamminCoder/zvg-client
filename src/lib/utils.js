@@ -35,6 +35,10 @@ export function preventDefaults(e) {
     e.stopPropagation();
 }
 
+export function stopPropagation(e) {
+    e.stopPropagation();
+}
+
 
 export function cookies() {
     const cookies = document.cookie.split(";");
