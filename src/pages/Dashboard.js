@@ -121,13 +121,8 @@ export default function Dashboard(props) {
             <Sidebar>
                 <h3 className="text-2xl">Admin Actions</h3>
                 <div className="mt-5 grid gap-5">
-                    <SidebarItem>All Products</SidebarItem>
-                    <SidebarItem>Stock</SidebarItem>
-                    <SidebarItem>Income</SidebarItem>
-
                     <SidebarItem onClick={ handleNewItemModal }>New Product</SidebarItem>
                     <SidebarItem onClick={ handleNewCatagoryModal }>New Catagory</SidebarItem>
-
                 </div>
             </Sidebar>
             
