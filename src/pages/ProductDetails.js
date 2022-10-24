@@ -49,9 +49,7 @@ export default function ProductDetails() {
 
     useEffect(() => {
         if (!product) {
-            getProductBySKU(sku).then(product => {
-                setProduct(product);
-            });
+            getProductBySKU(sku).then(product => setProduct(product));
         }
 
         if (products.length === 0) {
