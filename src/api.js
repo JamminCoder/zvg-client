@@ -62,7 +62,7 @@ export async function getCatagoryByName(catagory) {
 
 export async function getCatagoriesInfo() {
     const res = await axios.get(API_CATAGORIES_INFO);
-    return res.data;
+    return res;
 }
 
 export async function deleteProductBySKU(sku) {
