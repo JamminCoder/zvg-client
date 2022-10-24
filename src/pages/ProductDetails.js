@@ -48,9 +48,8 @@ export default function ProductDetails() {
     }
 
     useEffect(() => {
-        if (!product) {
-            getProductBySKU(sku).then(product => setProduct(product));
-        }
+        if (!product)
+            getProductBySKU(sku).then(prod => setProduct(prod));
 
         if (products.length === 0) {
             getAllProducts().then(productsArray => {
@@ -64,7 +63,7 @@ export default function ProductDetails() {
         }
     });
 
-    if (!product) return "loading...";
+    if (!product) return "Product does not exist";
 
     return (
         <div className="mx-auto px-4 py-24">
