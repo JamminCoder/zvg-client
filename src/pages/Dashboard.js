@@ -15,37 +15,32 @@ export function ProductsList({ products, catagory }) {
     const [modal, setModal] = useState(null);
 
     const ConfirmDeleteModal = () => 
-    <Overlay onClick={() => setModal(null)}>
-        <div className="bg-white p-5 grid gap-5" onClick={ stopPropagation }>
-            <h1 className="text-3xl font-bold max-w-[30ch]">Are you sure you want to delete this catagory and ALL of its products?</h1>
-            <h2 className="text-2xl">Catagory: <span className="text-red-500 font-bold">{ catagory.name }</span></h2>
-            
+        <Overlay onClick={() => setModal(null)}>
+            <div className="bg-white p-5 grid gap-5" onClick={ stopPropagation }>
+                <h1 className="text-3xl font-bold max-w-[30ch]">Are you sure you want to delete this catagory and ALL of its products?</h1>
+                <h2 className="text-2xl">Catagory: <span className="text-red-500 font-bold">{ catagory.name }</span></h2>
+                
 
-                <button 
-                    className="p-2 text-white bg-green-500 font-bold rounded hover:brightness-105 active:brightness-90 w-[100%]" 
-                    onClick={ () => { setModal(null) } }>                            
-                    Cancel
-                </button>
+                    <button 
+                        className="p-2 text-white bg-green-500 font-bold rounded hover:brightness-105 active:brightness-90 w-[100%]" 
+                        onClick={ () => { setModal(null) } }>                            
+                        Cancel
+                    </button>
 
-                <button 
-                    className="p-2 text-white bg-red-500 rounded hover:brightness-105 active:brightness-90 w-fit text-xs" 
-                    onClick={ deleteCatagoryForReal }>
-                    
-                    Delete { catagory.name } Catagory
-                </button>
-        </div>
-    </Overlay>
+                    <button 
+                        className="p-2 text-white bg-red-500 rounded hover:brightness-105 active:brightness-90 w-fit text-xs" 
+                        onClick={ deleteCatagoryForReal }>
+                        
+                        Delete { catagory.name } Catagory
+                    </button>
+            </div>
+        </Overlay>
 
 
-    function handleConfirmDelete() {
-        if (!modal) {
-            setModal(<ConfirmDeleteModal/>);
-        } else {
-            setModal(null);
-        }
-    }
+    const handleConfirmDelete = () => !modal ? setModal(<ConfirmDeleteModal/>): setModal(null);
 
-    function deleteCatagoryForReal() {
+
+    const deleteCatagoryForReal = () => {
         deleteCatagoryByName(catagory.name);
         setDisplay(null);
     }
