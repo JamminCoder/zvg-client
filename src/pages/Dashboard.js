@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
-import { isVerified, isLoggedIn } from "../lib/auth";
 import { Sidebar, SidebarItem } from "../components/layouts/Sidebar";
 import NewItemModal from "../components/modals/NewItemModal";
 import { deleteCatagoryByName, getAllProductsWithCatagories } from "../api";
@@ -10,7 +8,7 @@ import Overlay from "../components/modals/Overlay";
 import NewCatagoryModal from "../components/modals/NewCatagoryModal";
 import { stopPropagation } from "../lib/utils";
 
-export function ProductsList({ products, catagory }) {
+export function ProductsList({ catagory }) {
     const [display, setDisplay] = useState(true);
     const [modal, setModal] = useState(null);
 
@@ -37,7 +35,8 @@ export function ProductsList({ products, catagory }) {
         </Overlay>
 
 
-    const handleConfirmDelete = () => !modal ? setModal(<ConfirmDeleteModal/>): setModal(null);
+    const handleConfirmDelete = () =>
+        !modal ? setModal(<ConfirmDeleteModal/>): setModal(null);
 
 
     const deleteCatagoryForReal = () => {
@@ -53,9 +52,7 @@ export function ProductsList({ products, catagory }) {
         { modal }
         <h2 className="text-2xl mb-5">{ catagory.name }</h2>
         <div className="flex flex-wrap gap-8 mb-4">
-            { products.map(product => {
-                return <AdminProductCard key={ product.sku } product={ product } />
-            })}
+            { catagory.products.map(product => <AdminProductCard key={ product.sku } product={ product } />)}
         </div>
 
         <button 
@@ -76,16 +73,15 @@ export function CatagoriesWithProducts(props) {
     useEffect(() => {
         if (attempt) return;
         if (!catagories.length) {
-            getAllProductsWithCatagories().then(cats => {
-                setCatagories(cats);
-            });
+            getAllProductsWithCatagories()
+            .then(cats => setCatagories(cats));
         }
 
         setAttempt(true);
     });
 
     return catagories.map(
-        catagory => <ProductsList key={ catagory.name } products={ catagory.products } catagory={ catagory } />
+        catagory => <ProductsList key={ catagory.name } catagory={ catagory } />
     );
 }
 
