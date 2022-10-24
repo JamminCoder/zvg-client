@@ -1,10 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import ShoppingCartManager from "../lib/shoppingCartManager";
-import { deleteProductBySKU } from "../api";
 import { imageURL, serverURL } from "../lib/utils";
 import { useState } from "react";
-import Overlay from "./modals/Overlay";
-import { preventDefaults } from "../lib/utils";
 import UpdateItemModal from "./modals/UpdateItemModal";
 
 
@@ -83,13 +80,8 @@ export function CatagoryListingCard({ name, imageSrc, description }) {
 export function AdminProductCard({ product }) {
     const [modal, setModal] = useState(null);
 
-    function handleModal() {
-        if (!modal) {
-            setModal(<UpdateItemModal product={ product }/>);
-        } else {
-            setModal(null);
-        }
-    }
+    const handleModal = () =>
+        !modal ? setModal(<UpdateItemModal product={ product }/>) : setModal(null);
 
     return (
         <Card className="w-64 rounded overflow-hidden" onClick={ handleModal }>
