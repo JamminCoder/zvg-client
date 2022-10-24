@@ -84,11 +84,9 @@ export function CatagoriesWithProducts(props) {
         setAttempt(true);
     });
 
-    return (<>
-        {catagories.map(catagory => {
-            return <ProductsList products={ catagory.products } catagory={ catagory } />;
-        })}
-    </>);
+    return catagories.map(
+        catagory => <ProductsList products={ catagory.products } catagory={ catagory } />
+    );
 }
 
 export default function Dashboard(props) {
