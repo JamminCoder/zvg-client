@@ -94,25 +94,13 @@ export function CatagoriesWithProducts(props) {
 export default function Dashboard(props) {
     const [modal, setModal] = useState(null);
     
-    function handleNewItemModal() {
-        if (!modal) {
-            setModal(<NewItemModal close={ () => setModal(null) }/>);
-        } else {
-            setModal(null);
-        }
-    }
+    const handleNewItemModal = () =>
+        !modal ? setModal(<NewItemModal close={ () => setModal(null) }/>) : setModal(null);
 
-    function handleNewCatagoryModal() {
-        if (!modal) {
-            setModal(<NewCatagoryModal close={ () => setModal(null) }/>);
-        } else {
-            setModal(null);
-        }
-    }
+    const handleNewCatagoryModal = () =>
+        !modal ? setModal(<NewCatagoryModal close={ () => setModal(null) }/>) : setModal(null);
 
-    function closeModalIfExists() {
-        if (modal) setModal(null);
-    }
+    const closeModalIfExists = () => modal ? setModal(null): "";
 
     return (
         <DashboardLayout onClick={ closeModalIfExists }>
