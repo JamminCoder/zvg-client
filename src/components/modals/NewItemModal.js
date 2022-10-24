@@ -1,35 +1,32 @@
 import { API_PRODUCT_NEW } from "../../apiRoutes";
 import { XSRF_HEADER, WITH_CREDENTIALS } from "../../lib/auth";
-import { preventDefaults } from "../../lib/utils";
+import { preventDefaults, stopPropagation } from "../../lib/utils";
 import CloseIcon from "../icons/Close";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Overlay from "./Overlay";
 import { getCatagoriesInfo } from "../../api";
 
-function CatagoryDropdown({ catagories }) {
+function CatagoryDropdown({ catagories, name, id }) {
     if (!catagories || !catagories.length) return "No catagories.";
 
-    return <select name="catagory" id="catagory">
-        { catagories.map(c => {
-            return <option key={ c.catagory } value={ c.catagory }>{ c.catagory }</option>
-        })}
-    </select>
+    return (
+        <select name={ name } id={ id }>
+            { catagories.map(c => <option key={ c.catagory } value={ c.catagory }>{ c.catagory }</option> )}
+        </select>
+    );
 }
 
 export default function NewItemModal(props) {
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
     const [catagories, setCatagories] = useState(null);
-    const [modal, setModal] = useState(null);
 
     useEffect(() => {
         if (!catagories) {
-            getCatagoriesInfo().then(res => {
-                setCatagories(res.data);
-            }).catch(err => {
-                console.log(err);
-            });
+            getCatagoriesInfo()
+            .then(res => setCatagories(res.data))
+            .catch(err => console.log(err));
         }
     });
 
@@ -66,17 +63,19 @@ export default function NewItemModal(props) {
     }
 
     if (!catagories || !catagories.length) {
-        return <Overlay>
-            <div className="shadow bg-white p-8 rounded">
-                <h1 className="text-xl">Please create a product catagory first</h1>
-            </div>
-        </Overlay>
+        return (
+            <Overlay>
+                <div className="shadow bg-white p-8 rounded">
+                    <h1 className="text-xl">Please create a product catagory first</h1>
+                </div>
+            </Overlay>
+        )
     }
 
     return (
     <Overlay>
         {/* Main modal */}
-        <div className="shadow bg-white p-8 rounded relative" onClick={ (e) => { e.stopPropagation() } }>
+        <div className="shadow bg-white p-8 rounded relative" onClick={ stopPropagation }>
             
             <span 
                 className="absolute right-0 top-0 p-1 m-1 shadow rounded-full bg-slate-50 hover:bg-slate-100"
@@ -98,8 +97,7 @@ export default function NewItemModal(props) {
 
                 <div>
                     <label htmlFor="catagory" className="text-lg">Catagory</label><br/>
-                    <CatagoryDropdown catagories={ catagories }/>
-                    {/* <input type="text" id="catagory" name="catagory" className="border" required/> */}
+                    <CatagoryDropdown catagories={ catagories } name="catagory" id="catagory"/>
                 </div>
 
                 <div>
