@@ -85,7 +85,7 @@ export function CatagoriesWithProducts(props) {
     });
 
     return catagories.map(
-        catagory => <ProductsList products={ catagory.products } catagory={ catagory } />
+        catagory => <ProductsList key={ catagory.name } products={ catagory.products } catagory={ catagory } />
     );
 }
 
