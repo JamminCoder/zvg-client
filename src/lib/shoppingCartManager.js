@@ -6,9 +6,9 @@ export default class ShoppingCartManager {
         const notifications = document.querySelectorAll(".cart-notification");
         const itemCount = await ShoppingCartManager.itemCount();
 
-        notifications.forEach(noti => {
-            noti.innerHTML = itemCount == 0 ? "": itemCount;
-        });
+        notifications.forEach(
+            noti => noti.innerHTML = itemCount == 0 ? "": itemCount
+        );
     }
 
     static async addItem(name, price, count) {
@@ -53,9 +53,7 @@ export default class ShoppingCartManager {
         let total = 0;
         const items = await ShoppingCartManager.all();
 
-        items.forEach(item => {
-            total += parseFloat(item.price);
-        });
+        items.forEach(item => total += parseFloat(item.price));
 
         return Math.round(100 * total) / 100;
 
