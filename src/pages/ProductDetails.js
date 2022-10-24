@@ -16,10 +16,10 @@ function ImagePreview(props) {
         let child = children[i];
         thumbnails.push(
             <img 
-            onClick={() => {
-                setCurrentImage(child.props.src)
-            }}
-            key={ i } className="w-12 aspect-square object-cover object-top transition-all hover:-translate-y-2" src={ child.props.src }/>
+            onClick={() => setCurrentImage(child.props.src) }
+            key={ i } 
+            className="w-12 aspect-square object-cover object-top transition-all hover:-translate-y-2" 
+            src={ child.props.src }/>
         );
     }
 
@@ -71,12 +71,8 @@ export default function ProductDetails() {
     return (
         <div className="mx-auto px-4 py-24">
             <main className="grid place-content-center md:grid-cols-2 max-w-[100rem] flex-grow gap-12">
-                
-                
                 <ImagePreview>
-                    { product.images.map(img => {
-                        return <img key={ product.img } src={ imageURL(img) } />
-                    }) }
+                    { product.images.map(img => <img key={ product.img } src={ imageURL(img) } />) }
                 </ImagePreview>
 
 
