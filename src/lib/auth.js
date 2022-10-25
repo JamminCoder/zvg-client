@@ -1,8 +1,6 @@
-import { API_VERIFY_AUTH } from "../apiRoutes";
 import { getCookie } from "./utils";
 import { checkAuth, logout } from "../api";
 
-const axios = require("axios").default;
 
 export const XSRF_HEADER = { "X-XSRF-TOKEN": getCookie("XSRF-TOKEN") };
 export const WITH_CREDENTIALS = { withCredentials: true };
