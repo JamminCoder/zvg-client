@@ -9,41 +9,43 @@ import { getCatagoryByName, getProductsFromCatagory } from "../api";
 
 
 export default function ProductsPage(props) {
-    const productType = useParams().productType;
-    const properType = capatalizeFirstLetter(productType);
+    const catagoryName = useParams().productType;
+    const properCatagoryName = capatalizeFirstLetter(catagoryName);
     const [products, setProducts] = useState({ data: null, error: null });
     const [catagory, setCatagory] = useState(null);
 
     useEffect(() => {
         if (!catagory) {
-            getCatagoryByName(productType).then(cat => {
+            getCatagoryByName(catagoryName).then(cat => {
                 setCatagory(cat);
             }).catch(err => {
                 console.log(err);
             });
         }
 
-        if (!products.data && !products.error) {
-            getProductsFromCatagory(productType).then(productsArray => {
-                const productDisplay = [];
-                productsArray.forEach(product => {
-                    productDisplay.push( <ProductCard key={ product.name } product={ product } /> );
-                });
-                
-                if (!productDisplay.length) setProducts({ data: null, error: "No products" });
-                else setProducts({ data: productDisplay, error: "No products" });
-            });
+        if (catagory && !products.data && !products.error) {
+            const productDisplay = [];
+            catagory.products.forEach(
+                product => productDisplay.push( <ProductCard key={ product.name } product={ product } /> )
+            );
+            
+            if (!productDisplay.length) 
+                setProducts({ data: null, error: "No products" });
+            else 
+                setProducts({ data: productDisplay, error: null });
         }
     })
+
+    if (!catagory || !products.data) return;
 
     return (
         <div>
             <HeroSection  
-                bgSrc={ `${ catagory ? serverURL( `catagory_images/${catagory.image}` ): "" }` }
+                bgSrc={ `${ catagory ? serverURL( `catagory_images/${ catagory.image }` ): "" }` }
                 className="grid place-items-center max-h-[65vh] w-[100%] aspect-video"
             >
                 <div className="text-center">
-                    <h1 className="text-5xl mb-5">{ properType }</h1>
+                    <h1 className="text-5xl mb-5">{ properCatagoryName }</h1>
                     <p>
                         Ea, aut. Dolor nisi cum ut dolorem vel sapiente totam pariatur, neque, at suscipit consequatur quis iure explicabo ratione. Eligendi, accusantium. Voluptas.
                     </p>
