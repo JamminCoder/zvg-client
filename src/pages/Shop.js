@@ -1,7 +1,6 @@
 import HeroSection from "../components/layouts/HeroSection";
 import "../css/shop.css";
-import GridEvenContainer from '../components/layouts/GridEvenContainer';
-import { CatagoryListingCard } from '../components/Cards';
+import CatagoryListingCard from '../components/cards/CatagoryListingCard';
 import { useEffect, useState } from "react";
 import { getCatagoriesInfo } from "../api";
 

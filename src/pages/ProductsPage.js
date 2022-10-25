@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { capatalizeFirstLetter, serverURL } from "../lib/utils";
 import HeroSection  from "../components/layouts/HeroSection";
-import { ProductCard } from '../components/Cards';
+import ProductCard from '../components/cards/ProductCard';
 import "../css/shop.css";
 import "../css/app.css"
 import { useEffect, useState } from "react";

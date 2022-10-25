@@ -1,5 +1,5 @@
 import Overlay from "./Overlay";
-import { Card } from "../Cards";
+import Card from "../cards/Card";
 import { preventDefaults, serverURL, stopPropagation } from "../../lib/utils";
 import { deleteProductBySKU } from "../../api";
 import { API_PRODUCTS_UPDATE } from "../../apiRoutes";

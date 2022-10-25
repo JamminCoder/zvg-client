@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Sidebar, SidebarItem } from "../components/layouts/Sidebar";
 import NewItemModal from "../components/modals/NewItemModal";
 import { deleteCatagoryByName, getAllProductsWithCatagories } from "../api";
-import { AdminProductCard } from "../components/Cards";
+import AdminProductCard from "../components/cards/AdminProductCard";
 import DashboardLayout from "../components/layouts/DashboardLayout";
 import Overlay from "../components/modals/Overlay";
 import NewCatagoryModal from "../components/modals/NewCatagoryModal";
