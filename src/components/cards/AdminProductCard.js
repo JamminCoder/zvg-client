@@ -1,5 +1,5 @@
 import { useState } from "react";
-import UpdateItemModal from "../modals/UpdateItemModal";
+import UpdateItemModal from "../../modals/UpdateItemModal";
 import Card from "./Card";
 import { imageURL } from "../../lib/utils";
 

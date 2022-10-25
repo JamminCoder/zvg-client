@@ -1,7 +1,7 @@
-import { API_CATAGORIES_NEW } from "../../apiRoutes";
-import { XSRF_HEADER, WITH_CREDENTIALS } from "../../lib/auth";
-import { preventDefaults, stopPropagation } from "../../lib/utils";
-import CloseIcon from "../icons/Close";
+import { API_CATAGORIES_NEW } from "../apiRoutes";
+import { XSRF_HEADER, WITH_CREDENTIALS } from "../lib/auth";
+import { preventDefaults, stopPropagation } from "../lib/utils";
+import CloseIcon from "../components/icons/Close";
 import axios from "axios";
 import { useState } from "react";
 import Overlay from "./Overlay";

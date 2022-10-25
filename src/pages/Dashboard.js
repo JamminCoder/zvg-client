@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Sidebar, SidebarItem } from "../components/layouts/Sidebar";
-import NewItemModal from "../components/modals/NewItemModal";
+import NewItemModal from "../modals/NewItemModal";
 import { deleteCatagoryByName, getAllProductsWithCatagories } from "../api";
 import AdminProductCard from "../components/cards/AdminProductCard";
 import DashboardLayout from "../components/layouts/DashboardLayout";
-import Overlay from "../components/modals/Overlay";
-import NewCatagoryModal from "../components/modals/NewCatagoryModal";
+import Overlay from "../modals/Overlay";
+import NewCatagoryModal from "../modals/NewCatagoryModal";
 import { stopPropagation } from "../lib/utils";
 
 export function ProductsList({ catagory }) {
