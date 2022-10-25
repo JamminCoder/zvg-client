@@ -6,16 +6,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Overlay from "./Overlay";
 import { getCatagoriesInfo } from "../../api";
-
-function CatagoryDropdown({ catagories, name, id }) {
-    if (!catagories || !catagories.length) return "No catagories.";
-
-    return (
-        <select name={ name } id={ id }>
-            { catagories.map(c => <option key={ c.catagory } value={ c.catagory }>{ c.catagory }</option> )}
-        </select>
-    );
-}
+import CatagorySelect from "../CatagorySelect";
 
 export default function NewItemModal(props) {
     const [error, setError] = useState("");
@@ -97,7 +88,7 @@ export default function NewItemModal(props) {
 
                 <div>
                     <label htmlFor="catagory" className="text-lg">Catagory</label><br/>
-                    <CatagoryDropdown catagories={ catagories } name="catagory" id="catagory"/>
+                    <CatagorySelect catagories={ catagories } name="catagory" id="catagory"/>
                 </div>
 
                 <div>

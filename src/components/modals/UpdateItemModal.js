@@ -3,13 +3,24 @@ import { Card } from "../Cards";
 import { preventDefaults, serverURL, stopPropagation } from "../../lib/utils";
 import { deleteProductBySKU } from "../../api";
 import { API_PRODUCTS_UPDATE } from "../../apiRoutes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { XSRF_HEADER, WITH_CREDENTIALS } from "../../lib/auth";
+import { getCatagoriesInfo } from "../../api";
+import CatagorySelect from "../CatagorySelect";
 
 const axios = require("axios").default;
 
 export default function UpdateItemModal({ product }) {
     const [error, setError] = useState("");
+    const [catagories, setCatagories] = useState(null);
+
+    useEffect(() => {
+        if (!catagories) {
+            getCatagoriesInfo()
+            .then(res => setCatagories(res.data))
+            .catch(err => console.log(err));
+        }
+    });
 
     function submit(e) {
         preventDefaults(e);
@@ -67,7 +78,7 @@ export default function UpdateItemModal({ product }) {
 
                         <div className="flex gap-2">
                             <label htmlFor="catagory">Catagory: </label>
-                            <input type="text" id="catagory" name="catagory" className="w-[80%] border" defaultValue={ product.catagory }/>
+                            <CatagorySelect catagories={ catagories } name="catagory" id="catagory"/>
                         </div> 
 
                         <div className="flex gap-2">
