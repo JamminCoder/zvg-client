@@ -17,6 +17,7 @@ import ProductDetails from "./pages/ProductDetails";
 import ReservationPage from "./pages/ReservationPage";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import Checkout from "./pages/Checkout";
 import { xsrf } from "./lib/utils";
 
 (async () => {
@@ -31,7 +32,7 @@ root.render(
 
         <Route path="/" element={ <Home/> } />
         <Route path="/shop" element={ <Shop/> }/>
-        <Route path="/shop/checkout" element={ <h1 className="text-4xl font-bold">Checkout page not created yet.</h1> }/>
+        <Route path="/shop/checkout" element={ <Checkout/> }/>
         <Route path="/shop/:productType" element={ <ProductsPage/> } />
         <Route path="/shop/:productType/:sku" element={ <ProductDetails/> } />
         

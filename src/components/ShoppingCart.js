@@ -100,16 +100,18 @@ export function ViewCart(props) {
     }
 
     if (!cartRect || !cartItems) return;
-
-    const viewStyle = {
-        position: "fixed",
-        top: `${cartRect.y + 30}px`,
-        left: `clamp(0px, calc(${cartRect.x}px - 10rem), 90vw)`,
-        margin: "0 1rem"
+    let viewStyle = null;
+    if (props.fixed) {
+        viewStyle = {
+            position: "fixed",
+            top: `${cartRect.y + 30}px`,
+            left: `clamp(0px, calc(${cartRect.x}px - 10rem), 90vw)`,
+            margin: "0 1rem"
+        }
     }
-
+    
     return (
-        <div style={ viewStyle } className="bg-white rounded p-2 z-20 shadow-lg min-w-[15rem]" { ...props }>
+        <div style={ viewStyle } className={`bg-white rounded p-2 z-20 shadow-lg min-w-[15rem] ${ props.className }`}>
             {/* <svg className="hover:bg-slate-100 cursor-pointer rounded-full" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
                 <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
             </svg> */}
@@ -165,7 +167,7 @@ export function ShoppingCart(props) {
 
     return (
         <div className="relative w-fit cart-icon" onClick={ handleClick }>
-            { isViewing ? <ViewCart onClick={ preventDefaults }/>: "" }
+            { isViewing ? <ViewCart fixed={ true } onClick={ preventDefaults }/>: "" }
             <img src={ `${ process.env.PUBLIC_URL }/icons/cart.svg` } className={ `w-7 interactive-hover cursor-pointer ${ props.className }` }/>
             <span className="cart-notification">{ itemCount == 0 ? "": itemCount }</span>
         </div>
