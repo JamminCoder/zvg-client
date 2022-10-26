@@ -7,6 +7,7 @@ import DashboardLayout from "../components/layouts/DashboardLayout";
 import Overlay from "../modals/Overlay";
 import NewCatagoryModal from "../modals/NewCatagoryModal";
 import { stopPropagation } from "../lib/utils";
+import Button from "../components/Button";
 
 export function ProductsList({ catagory }) {
     const [display, setDisplay] = useState(true);
@@ -19,18 +20,18 @@ export function ProductsList({ catagory }) {
                 <h2 className="text-2xl">Catagory: <span className="text-red-500 font-bold">{ catagory.name }</span></h2>
                 
 
-                    <button 
-                        className="p-2 text-white bg-green-500 font-bold rounded hover:brightness-105 active:brightness-90 w-[100%]" 
+                    <Button
+                        className="text-white bg-green-500 font-bold" 
                         onClick={ () => { setModal(null) } }>                            
                         Cancel
-                    </button>
+                    </Button>
 
-                    <button 
-                        className="p-2 text-white bg-red-500 rounded hover:brightness-105 active:brightness-90 w-fit text-xs" 
+                    <Button
+                        className="text-white bg-red-500 w-fit text-xs" 
                         onClick={ deleteCatagoryForReal }>
                         
                         Delete { catagory.name } Catagory
-                    </button>
+                    </Button>
             </div>
         </Overlay>
 
