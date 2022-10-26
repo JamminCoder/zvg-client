@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import ShoppingCartManager from "../lib/shoppingCartManager";
 import Button from "./Button";
+import { capatalizeFirstLetter } from "../lib/utils";
 
 export default function ProductList(props) {
     const [cartItems, setCartItems] = useState([]);
@@ -32,11 +33,19 @@ export default function ProductList(props) {
             }
 
             for (let itemName in parsedItems) {
+                const item = parsedItems[itemName];
                 itemComponents.push(
                 <div key={ itemName }>
-                    <div className="border-b my-2 py-2">
-                        <p>{ itemName } - ${ parsedItems[itemName].price * parsedItems[itemName].count }</p>
-                        <p>QTY: { parsedItems[itemName].count }</p>
+                    <div 
+                        key={ item.name } 
+                        className="border-b border-b-gray-300 mb-1 py-2 hover:bg-slate-50 transition-colors cursor-pointer"
+                    >
+                        <h4 className="text-lg">
+                            <span className="font-bold ">{ capatalizeFirstLetter(item.name) } </span>
+                            - ${ item.price * item.count}</h4>
+                        <h5>
+                            <span className="font-medium">Qty</span>: { item.count } 
+                        </h5>
                     </div>
                 </div>
                 )
@@ -51,7 +60,7 @@ export default function ProductList(props) {
     if (!cartItems) return;
 
     return (
-        <div className={`bg-white rounded p-2 z-20 shadow-lg min-w-[15rem] text-xl ${ props.className }`}>
+        <div className={ props.className }>
             { !cartItems.length > 0 ? "Nothing in cart": cartItems } 
         </div>
     );
