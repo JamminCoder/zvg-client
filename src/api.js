@@ -9,7 +9,9 @@ import {
     API_CATAGORIES_DELETE,
     API_CATAGORIES_INFO,
     API_PRODUCTS_FROM_CATAGORY,
-    API_CATAGORIES_GET
+    API_CATAGORIES_GET,
+    API_PAYPAL_CLIENT_TOKEN,
+    API_PAYPAL_CLIENT_ID
 } from "./apiRoutes";
 
 import { WITH_CREDENTIALS, XSRF_HEADER } from "./lib/auth";
@@ -73,4 +75,16 @@ export async function getCatagoryByName(catagory) {
 export async function getCatagoriesInfo() {
     const res = await axios.get(API_CATAGORIES_INFO);
     return res;
+}
+
+
+// paypal
+export async function getPaypalClientToken() {
+    const res = await axios.get(API_PAYPAL_CLIENT_TOKEN);
+    return res.data["client_token"];
+}
+
+export async function getPaypalClientID() {
+    const res = await axios.get(API_PAYPAL_CLIENT_ID);
+    return res.data["user_id"];
 }

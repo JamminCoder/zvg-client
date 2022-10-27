@@ -25,3 +25,8 @@ export const API_PRODUCTS_DELETE_SKU = sku => `${ API_URL }/products/delete/sku/
 export const API_LOGIN = `${ API_URL }/login`;
 export const API_LOGOUT = `${ API_URL }/logout`;
 export const API_VERIFY_AUTH = `${ API_URL }/test-auth`;
+
+
+// paypal
+export const API_PAYPAL_CLIENT_ID = `${API_URL}/paypal/id`;
+export const API_PAYPAL_CLIENT_TOKEN = `${API_URL}/paypal/client-token`;
