@@ -15,7 +15,7 @@ export default function Checkout(props) {
     return (
         <div className="px-4 py-24">
             <main className="mx-auto grid place-content-center md:grid-cols-2 max-w-[100rem] flex-grow gap-12">
-                <div className="bg-gray-300">
+                <div>
                     <PaypalCheckout/>
                 </div>
 
