@@ -11,18 +11,19 @@ export default class ShoppingCartManager {
         );
     }
 
-    static async addItem(name, price, count) {
+    static async addItem(product) {
         try {
             await db.items.add({
-                name: slugify(name), 
-                price: price,
-                count: count
+                name: slugify(product.name), 
+                price: product.price,
+                count: 1,
+                sku: product.sku
             });
 
             ShoppingCartManager.updateNotifications();
 
         } catch (e) {
-            console.log(`error inserting item: {name: "${name}", price: "${price}", count: ${count}}`);
+            console.log(`error inserting item: {name: "${product.name}", price: "${product.price}}`);
         }   
     }
 

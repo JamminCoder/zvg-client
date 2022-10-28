@@ -42,7 +42,7 @@ export default function ProductDetails() {
     const [products, setProducts] = useState([]);
 
     function addToCart(e) {
-        ShoppingCartManager.addItem(product.name, product.price, 1);
+        ShoppingCartManager.addItem(product);
         e.stopPropagation();
         e.preventDefault(); 
     }
