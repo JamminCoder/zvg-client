@@ -30,4 +30,4 @@ export const API_VERIFY_AUTH = `${ API_URL }/test-auth`;
 // paypal
 export const API_PAYPAL_CLIENT_ID = `${API_URL}/paypal/id`;
 export const API_PAYPAL_CLIENT_TOKEN = `${API_URL}/paypal/client-token`;
-export const API_PAYPAL_ORDER = `${API_URL}/paypal/orders/create`;
+export const API_PAYPAL_ORDER = `${API_URL}/orders/create`;
