@@ -8,8 +8,14 @@ import PaypalCheckout from "../components/PaypalCheckout";
 
 export default function Checkout(props) {
     const [price, setPrice] = useState(0);
+    const [items, setItems] = useState(null);
+
     useEffect(() => {
-        if (!price) ShoppingCartManager.totalPrice().then(price => setPrice(price));
+        if (!price)
+            ShoppingCartManager.totalPrice().then(price => setPrice(price));
+        
+        if (!items)
+            ShoppingCartManager.all().then(items => setItems(items));
     });
 
     return (
