@@ -44,7 +44,13 @@ export default function PaypalCheckout() {
             ...WITH_CREDENTIALS 
         })
         .then(res => {
-            console.log(res);
+            console.log(res.data);
+
+            res.data.links.forEach(link => {
+                if (link.rel == "approve") {
+                    window.open(link.href, "_blank").focus();
+                }
+            })
         })
         .catch(err => {
             console.log(err);
