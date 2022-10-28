@@ -40,6 +40,12 @@ export default class ShoppingCartManager {
         return await db.items.toArray();
     }
 
+    static async namesArray() {
+        const items = await ShoppingCartManager.all()
+        const names = items.map(item => item.name);
+        return names;
+    }
+
     static async itemCount() {
         return await db.items.count();
     }

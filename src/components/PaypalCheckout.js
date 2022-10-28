@@ -25,7 +25,7 @@ export default function PaypalCheckout() {
 
     useEffect(() => {
         if (!items)
-            ShoppingCartManager.all().then(items => {
+            ShoppingCartManager.namesArray().then(items => {
                 console.log(items);
                 setItems(items);
         });
@@ -34,7 +34,8 @@ export default function PaypalCheckout() {
     function submit() {
         const formData = new FormData(document.querySelector("#card_form"));
 
-        formData.append("items", "test, test_2");
+        formData.append("item_names", items.join(", "));
+        
 
         axios.post(
             API_PAYPAL_ORDER, 
