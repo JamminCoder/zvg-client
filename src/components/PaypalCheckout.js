@@ -21,20 +21,20 @@ export function PaypalButton({ onClick }) {
 
 
 export default function PaypalCheckout() {
-    const [items, setItems] = useState(null);
+    const [productSkus, setProductSkus] = useState(null);
 
     useEffect(() => {
-        if (!items)
-            ShoppingCartManager.namesArray().then(items => {
-                console.log(items);
-                setItems(items);
+        if (!productSkus)
+            ShoppingCartManager.skusArray().then(skus => {
+                console.log(skus);
+                setProductSkus(skus);
         });
     });
 
     function submit() {
         const formData = new FormData(document.querySelector("#card_form"));
 
-        formData.append("item_names", items.join(", "));
+        formData.append("product_skus", productSkus.join(", "));
         
 
         axios.post(
@@ -55,8 +55,6 @@ export default function PaypalCheckout() {
         <div className="card_container">
             
             <form id="card_form" action={ API_PAYPAL_ORDER } onSubmit={ e => e.preventDefault() }>
-                <input name="items" value={ items } type="hidden"/>
-                
                 <div>
                     <label htmlFor="name">Full Name</label>
                     <input id="name" name="name"/>
