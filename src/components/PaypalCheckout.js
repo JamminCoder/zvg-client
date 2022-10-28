@@ -1,47 +1,64 @@
+import axios from "axios";
 import { useState, useEffect } from "react";
 import { getPaypalClientID, getPaypalClientToken } from "../api";
+import { API_PAYPAL_ORDER } from "../apiRoutes";
 import Button from "./Button";
 
 export function CardIntegration() {
+
+    function submit(e) {
+        e.preventDefaults();
+
+        const formData = new FormData(document.querySelector("#card_form"));
+        axios.post(API_PAYPAL_ORDER, formData)
+        .then(res => {
+            console.log(res);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
+
     return (
         <div className="card_container">
-            <form id="card-form">
-                <label htmlFor="card-number">Card Number</label>
-                <input id="card-number" name="card-number" className="card_field"/>
+            <form id="card_form" action={ API_PAYPAL_ORDER } onSubmit={ submit }>
+                <div>
+                    <label htmlFor="name">Full Name</label>
+                    <input id="name" name="name"/>
+                </div>
+
+                <label htmlFor="card_number">Card Number</label>
+                <input id="card_number" name="card_number"/>
 
                 <div>
-                    <label htmlFor="expiration-date">Expiration Date</label>
-                    <input id="expiration-date" name="expiration-date" className="card_field"/>
+                    <label htmlFor="expiration_date">Expiration Date</label>
+                    <input id="expiration_date" name="expiration_date"/>
                 </div>
 
  
                 <div>
-                    <label htmlFor="card-billing-address-street">Billing Address</label>
-                    <input type="text" id="card-billing-address-street" name="card-billing-address-street" autoComplete="off" placeholder="street address"/>
+                    <label htmlFor="billing_address_street">Billing Address</label>
+                    <input type="text" id="billing_address_street" name="billing_address_street" autoComplete="off" placeholder="street address"/>
                 </div>
                 
                 <div>
-                    <label htmlFor="card-billing-address-unit">&nbsp;</label>
-                    <input type="text" id="card-billing-address-unit" name="card-billing-address-unit" autoComplete="off" placeholder="unit"/>
+                    <label htmlFor="billing_address_unit">&nbsp;</label>
+                    <input type="text" id="billing_address_unit" name="billing_address_unit" autoComplete="off" placeholder="unit"/>
                 </div>
                 
                 <div>
-                    <input type="text" id="card-billing-address-city" name="card-billing-address-city" autoComplete="off" placeholder="city"/>
+                    <input type="text" id="billing_address_city" name="billing_address_city" autoComplete="off" placeholder="city"/>
                 </div>
 
                 <div>
-                    <input type="text" id="card-billing-address-state" name="card-billing-address-state" autoComplete="off" placeholder="state"/>
+                    <input type="text" id="billing_address_state" name="billing_address_state" autoComplete="off" placeholder="state"/>
                 </div>
 
                 <div>
-                    <input type="text" id="card-billing-address-zip" name="card-billing-address-zip" autoComplete="off" placeholder="zip / postal code"/>
+                    <input type="text" id="billing_address_zip" name="billing_address_zip" autoComplete="off" placeholder="zip / postal code"/>
                 </div>
-                
-                <div>
-                    <input type="text" id="card-billing-address-country" name="card-billing-address-country" autoComplete="off" placeholder="country code" />
-                </div><br/>
 
-                <button value="submit" id="submit" className="btn">Pay</button>
+                <button>Pay</button>
             </form>
         </div>
     )
