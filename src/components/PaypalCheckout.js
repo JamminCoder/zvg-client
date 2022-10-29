@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import ShoppingCartManager from "../lib/shoppingCartManager";
 import { API_PAYPAL_ORDER } from "../apiRoutes";
 import { WITH_CREDENTIALS, XSRF_HEADER } from "../lib/auth";
@@ -22,6 +23,9 @@ export function PaypalButton({ onClick }) {
 
 export default function PaypalCheckout() {
     const [productSkus, setProductSkus] = useState(null);
+    const [searchParams, _] = useSearchParams();
+    const [orderInfo, setOrderInfo] = useState(null);
+    const [confirmPaymentButton, setConfirmPaymentButton] = useState(null);
 
     useEffect(() => {
         if (!productSkus)
@@ -29,6 +33,25 @@ export default function PaypalCheckout() {
                 console.log(skus);
                 setProductSkus(skus);
         });
+
+        if (!orderInfo) {
+            setOrderInfo({
+                token: searchParams.get("token"),
+                PayerID: searchParams.get("PayerID")
+            })
+        }
+
+        if (!confirmPaymentButton && orderInfo) {
+            setConfirmPaymentButton(
+                <Button 
+                onClick={() => {
+                    axios.post(`http://localhost:8000/api/orders/${ orderInfo.token }/authorize`, XSRF_HEADER, WITH_CREDENTIALS)
+                    .then(res => console.log(res));
+                }}
+
+                className="bg-blue-500 text-white">Confirm Payment</Button>
+            );
+        }
     });
 
     function submit() {
@@ -88,6 +111,9 @@ export default function PaypalCheckout() {
                     <input type="text" id="address_zip" name="address_zip" autoComplete="off" placeholder="zip / postal code"/>
                 </div>
                 <PaypalButton onClick={ submit } />
+
+                { confirmPaymentButton }
+
             </form>
         </div>
     )
