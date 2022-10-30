@@ -30,7 +30,6 @@ export default function PaypalCheckout() {
     useEffect(() => {
         if (!productSkus)
             ShoppingCartManager.skusArray().then(skus => {
-                console.log(skus);
                 setProductSkus(skus);
         });
 
@@ -45,11 +44,11 @@ export default function PaypalCheckout() {
             setConfirmPaymentButton(
                 <Button 
                 onClick={() => {
-                    axios.post(`http://localhost:8000/api/orders/${ orderInfo.token }/authorize`, XSRF_HEADER, WITH_CREDENTIALS)
+                    axios.post(`http://localhost:8000/api/orders/${ orderInfo.token }/capture`, XSRF_HEADER, WITH_CREDENTIALS)
                     .then(res => console.log(res));
                 }}
 
-                className="bg-blue-500 text-white">Confirm Payment</Button>
+                className="bg-blue-500 text-white">Capture Payment</Button>
             );
         }
     });
