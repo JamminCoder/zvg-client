@@ -67,6 +67,10 @@ export default function PaypalCheckout() {
         });
 
         if (!orderInfo) {
+            const token = searchParams.get("token");
+            const payerID = searchParams.get("PayerID");
+            if (!( token && payerID ) ) return;
+            
             setOrderInfo({
                 token: searchParams.get("token"),
                 PayerID: searchParams.get("PayerID")
