@@ -7,6 +7,39 @@ import { WITH_CREDENTIALS, XSRF_HEADER } from "../lib/auth";
 import Button from "./Button";
 
 
+export function ShippingAndBilling(props) {
+    return (
+    <div>
+        <div>
+            <label htmlFor="name">Full Name</label>
+            <input id="name" name="name"/>
+        </div>
+
+        <div>
+            <label htmlFor="address_street">Billing Address</label>
+            <input type="text" id="billing_address_street" name="address_street" autoComplete="off" placeholder="street address"/>
+        </div>
+        
+        <div>
+            <label htmlFor="address_unit">&nbsp;</label>
+            <input type="text" id="billing_address_unit" name="address_unit" autoComplete="off" placeholder="unit"/>
+        </div>
+        
+        <div>
+            <input type="text" id="address_city" name="address_city" autoComplete="off" placeholder="city"/>
+        </div>
+
+        <div>
+            <input type="text" id="address_state" name="address_state" autoComplete="off" placeholder="state"/>
+        </div>
+
+        <div>
+            <input type="text" id="address_zip" name="address_zip" autoComplete="off" placeholder="zip / postal code"/>
+        </div>
+    </div>
+    );
+}
+
 export function PaypalButton({ onClick }) {
     return (
         <Button 
@@ -83,35 +116,13 @@ export default function PaypalCheckout() {
         <div className="card_container">
             
             <form id="card_form" action={ API_PAYPAL_ORDER } onSubmit={ e => e.preventDefault() }>
-                <div>
-                    <label htmlFor="name">Full Name</label>
-                    <input id="name" name="name"/>
-                </div>
- 
-                <div>
-                    <label htmlFor="address_street">Billing Address</label>
-                    <input type="text" id="billing_address_street" name="address_street" autoComplete="off" placeholder="street address"/>
-                </div>
                 
-                <div>
-                    <label htmlFor="address_unit">&nbsp;</label>
-                    <input type="text" id="billing_address_unit" name="address_unit" autoComplete="off" placeholder="unit"/>
-                </div>
-                
-                <div>
-                    <input type="text" id="address_city" name="address_city" autoComplete="off" placeholder="city"/>
-                </div>
-
-                <div>
-                    <input type="text" id="address_state" name="address_state" autoComplete="off" placeholder="state"/>
-                </div>
-
-                <div>
-                    <input type="text" id="address_zip" name="address_zip" autoComplete="off" placeholder="zip / postal code"/>
-                </div>
+                {/* <ShippingAndBilling/> */}
                 <PaypalButton onClick={ submit } />
-
-                { confirmPaymentButton }
+                <div className="grid place-items-center mt-4">
+                    { confirmPaymentButton }
+                </div>
+                
 
             </form>
         </div>
