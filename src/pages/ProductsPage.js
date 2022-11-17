@@ -42,10 +42,10 @@ export default function ProductsPage(props) {
         <div>
             <HeroSection  
                 bgSrc={ `${ catagory ? serverURL( `catagory_images/${ catagory.image }` ): "" }` }
-                className="grid place-items-center max-h-[65vh] w-[100%] aspect-video"
+                className="grid place-items-center max-h-[65vh] w-[100%] aspect-video "
             >
-                <div className="text-center">
-                    <h1 className="text-5xl mb-5">{ properCatagoryName }</h1>
+                <div className="text-center bg-slate-200 rounded opacity-90 p-12">
+                    <h1 className="text-5xl font-medium mb-5">{ properCatagoryName }</h1>
                     <p>
                         Ea, aut. Dolor nisi cum ut dolorem vel sapiente totam pariatur, neque, at suscipit consequatur quis iure explicabo ratione. Eligendi, accusantium. Voluptas.
                     </p>
