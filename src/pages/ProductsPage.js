@@ -26,7 +26,12 @@ export default function ProductsPage(props) {
         if (catagory && !products.data && !products.error) {
             const productDisplay = [];
             catagory.products.forEach(
-                product => productDisplay.push( <ProductCard key={ product.name } product={ product } /> )
+                product => {
+                    console.log(product)
+                    if (!product.stock >= 1) return;
+
+                    productDisplay.push( <ProductCard key={ product.name } product={ product } /> )
+                }
             );
             
             if (!productDisplay.length) 
@@ -36,7 +41,7 @@ export default function ProductsPage(props) {
         }
     })
 
-    if (!catagory || !products.data) return;
+    if (!catagory) return;
 
     return (
         <div>
@@ -47,7 +52,7 @@ export default function ProductsPage(props) {
                 <div className="text-center bg-slate-200 rounded opacity-90 p-12">
                     <h1 className="text-5xl font-medium mb-5">{ properCatagoryName }</h1>
                     <p>
-                        Ea, aut. Dolor nisi cum ut dolorem vel sapiente totam pariatur, neque, at suscipit consequatur quis iure explicabo ratione. Eligendi, accusantium. Voluptas.
+                        { catagory.description }
                     </p>
                 </div>
                 
