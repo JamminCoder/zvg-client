@@ -86,6 +86,11 @@ export default function UpdateItemModal({ product }) {
                             <input type="text" id="name" name="name" className="w-[80%] border" defaultValue={ product.name }/>
                         </div>
 
+                        <div>
+                            <label htmlFor="stock">Stock:</label><br/>
+                            <input type="number" name="stock" id="stock" className="border" defaultValue={ product.stock }/>
+                        </div>
+
                         <div className="flex gap-2">
                             <label htmlFor="price">Price $</label>
                             <input type="text" id="price" name="price" className="w-[80%] border" defaultValue={ product.price }/>

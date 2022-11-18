@@ -80,7 +80,7 @@ export default function NewItemModal(props) {
             <p className="text-green-600"> { success } </p>
             <p className="text-red-600"> { error } </p>
 
-            <form id="new_product_form" action={ API_PRODUCT_NEW } method="POST" encType="multipart/form-data" className="py-2 flex flex-col gap-4" onSubmit={ submit }>
+            <form className="py-2 flex flex-col gap-4" id="new_product_form" action={ API_PRODUCT_NEW } method="POST" encType="multipart/form-data" onSubmit={ submit }>
                 <div>
                     <label htmlFor="images" className="text-lg">Product Images</label><br/>
                     <input type="file" id="images" name="images[]" multiple required/>
@@ -97,13 +97,18 @@ export default function NewItemModal(props) {
                 </div>
 
                 <div>
+                    <label htmlFor="stock">Stock:</label><br/>
+                    <input type="number" name="stock" id="stock" className="border"/>
+                </div>
+
+                <div>
                     <label htmlFor="description" className="text-lg">Description</label><br/>
-                    <input type="text" id="description" name="description" className="border"/>
+                    <textarea id="description" name="description" className="border h-40 w-[100%]"></textarea>
                 </div>
 
                 <div>
                     <label htmlFor="price" className="text-lg">Price</label><br/>
-                    $<input type="number" id="price" name="price" className="max-w-fit border" required/>
+                    $<input type="text" id="price" name="price" className="max-w-fit border" required/>
                 </div>
 
                 <button className="border px-2 py-1 w-fit rounded hover:bg-slate-50 active:bg-slate-100">Create</button>

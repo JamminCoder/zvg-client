@@ -63,7 +63,7 @@ export default function ProductDetails() {
         }
     });
 
-    if (!product) return "Product does not exist";
+    if (!product || !product.stock) return "Product does not exist";
 
     return (
         <div className="mx-auto px-4 py-24">
@@ -83,6 +83,7 @@ export default function ProductDetails() {
                         <button onClick={ addToCart } href="#add-to-cart" className="px-3 py-2 transition-colors active:bg-green-600 hover:bg-green-500 bg-green-600 text-lg text-white rounded">Add to Cart</button>
                         <h2 className="text-2xl text-green-900 font-bold">${ product.price }</h2>
                     </div>
+                    <small>In Stock: { product.stock }</small>
                 </div>
             </main>
 
