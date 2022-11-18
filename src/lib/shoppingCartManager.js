@@ -13,6 +13,9 @@ export default class ShoppingCartManager {
 
     static async addItem(product) {
         try {
+            
+            if (!(await ShoppingCartManager.ableToAddToCart(product))) return;
+
             await db.items.add({
                 name: slugify(product.name), 
                 price: product.price,
@@ -35,6 +38,17 @@ export default class ShoppingCartManager {
 
     static async getItem(name) {
         return await db.items.where("name").equals(name);
+    }
+
+    static async getBySku(sku) {
+        return db.items.where("sku").equals(sku).toArray();
+    }
+
+    static async ableToAddToCart(product) {
+        const cartProduct = await ShoppingCartManager.getBySku(product.sku);
+
+        if (product.stock <= cartProduct.length) return false;
+        return true;
     }
 
     static async all() {

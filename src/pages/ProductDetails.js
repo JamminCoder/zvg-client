@@ -40,6 +40,7 @@ export default function ProductDetails() {
     const params = useParams();
     const sku = params.sku;
     const productType = params.productType;
+    const [ableToAddItem, setAbleToAddItem] = useState(false);
 
     const [product, setProduct] = useState(null);
     const [products, setProducts] = useState([]);
@@ -71,6 +72,11 @@ export default function ProductDetails() {
                 setProducts(productDisplay);
             });
         }
+
+        if (product) {
+            ShoppingCartManager.ableToAddToCart(product)
+            .then(result => setAbleToAddItem(result));
+        }
     });
 
     if (!product || !product.stock) return "Product does not exist";
@@ -90,7 +96,7 @@ export default function ProductDetails() {
                     </p>
 
                     <div className="flex items-center gap-5 ">
-                        <button onClick={ addToCart } href="#add-to-cart" className="px-3 py-2 transition-colors active:bg-green-600 hover:bg-green-500 bg-green-600 text-lg text-white rounded">Add to Cart</button>
+                        { ableToAddItem ? <button onClick={ addToCart } href="#add-to-cart" className="px-3 py-2 transition-colors active:bg-green-600 hover:bg-green-500 bg-green-600 text-lg text-white rounded">Add to Cart</button>: "" }
                         <h2 className="text-2xl text-green-900 font-bold">${ product.price }</h2>
                     </div>
                     <small>In Stock: { product.stock }</small>
