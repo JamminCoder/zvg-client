@@ -4,7 +4,8 @@ import GridEvenContainer from '../layouts/GridEvenContainer';
 import ShoppingCartManager from "../lib/shoppingCartManager";
 import { imageURL } from "../lib/utils";
 import { useEffect } from "react";
-import { getAllProducts, getProductBySKU } from "../api";
+import { getProductBySKU, getProductsFromCatagory } from "../api";
+import ProductCard from "../components/cards/ProductCard";
 
 function ImagePreview(props) {
     const children = Children.toArray(props.children);
@@ -36,9 +37,12 @@ function ImagePreview(props) {
 }
 
 export default function ProductDetails() {
-    const sku = useParams().sku;
+    const params = useParams();
+    const sku = params.sku;
+    const productType = params.productType;
+
     const [product, setProduct] = useState(null);
-    // const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState([]);
 
     function addToCart(e) {
         ShoppingCartManager.addItem(product);
@@ -48,18 +52,25 @@ export default function ProductDetails() {
 
     useEffect(() => {
         if (!product)
-            getProductBySKU(sku).then(prod => setProduct(prod));
+            getProductBySKU(sku)
+            .then(prod => setProduct(prod));
 
-        // if (products.length === 0) {
-        //     getAllProducts().then(productsArray => {
-        //         const productDisplay = [];
-        //         productsArray.forEach(product => {
-        //             productDisplay.push( <ProductCard key={ product.id } product={ product } /> );
-        //         });
+        if (products.length === 0) {
+            getProductsFromCatagory(productType.toLowerCase())
+            .then(catagory => {
+                const productDisplay = [];
+
+                catagory.products.forEach(product => {
+                    if (!product.stock) return;
+                    
+                    productDisplay.push( 
+                        <ProductCard key={ product.id } product={ product } />
+                    );
+                });
     
-        //         setProducts(productDisplay);
-        //     });
-        // }
+                setProducts(productDisplay);
+            });
+        }
     });
 
     if (!product || !product.stock) return "Product does not exist";
@@ -91,7 +102,7 @@ export default function ProductDetails() {
             </div>
 
             <GridEvenContainer className="py-24 px-2 md:px-10">
-                {/* { products } */}
+                { products }
             </GridEvenContainer>
                 
         </div>

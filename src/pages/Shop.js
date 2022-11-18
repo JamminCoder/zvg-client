@@ -11,9 +11,7 @@ function Catagories(props) {
 
     useEffect(() => {
         if (!catagories.length && !attempt) {
-            getCatagoriesInfo().then(res => {
-                const cats = res.data;
-                console.log(cats);
+            getCatagoriesInfo().then(cats => {
                 const infoArray = [];
                 cats.forEach(info => {
                     infoArray.push(

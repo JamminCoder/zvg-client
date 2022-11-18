@@ -58,7 +58,7 @@ export async function deleteCatagoryByName(name) {
 
 // Catagories
 export async function getAllProductsWithCatagories() {
-    const res = await axios.get(API_PRODUCTS_ALL_WITH_CATAGORY);
+    const res = await axios.get(API_PRODUCTS_ALL);
     return res.data;
 }
 
@@ -74,7 +74,7 @@ export async function getCatagoryByName(catagory) {
 
 export async function getCatagoriesInfo() {
     const res = await axios.get(API_CATAGORIES_INFO);
-    return res;
+    return res.data;
 }
 
 
