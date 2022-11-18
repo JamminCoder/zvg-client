@@ -76,15 +76,3 @@ export async function getCatagoriesInfo() {
     const res = await axios.get(API_CATAGORIES_INFO);
     return res.data;
 }
-
-
-// paypal
-export async function getPaypalClientToken() {
-    const res = await axios.get(API_PAYPAL_CLIENT_TOKEN);
-    return res.data["client_token"];
-}
-
-export async function getPaypalClientID() {
-    const res = await axios.get(API_PAYPAL_CLIENT_ID);
-    return res.data["user_id"];
-}
