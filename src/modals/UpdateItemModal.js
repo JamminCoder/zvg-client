@@ -17,7 +17,7 @@ export default function UpdateItemModal({ product }) {
     useEffect(() => {
         if (!catagories) {
             getCatagoriesInfo()
-            .then(res => setCatagories(res.data))
+            .then(cats => setCatagories(cats))
             .catch(err => console.log(err));
         }
     });
@@ -34,7 +34,9 @@ export default function UpdateItemModal({ product }) {
         };
 
         axios.post(API_PRODUCTS_UPDATE, formData, requestOptions)
-        .then(res => console.log("Updated product."))
+        .then(res => {
+            window.location.reload();
+        })
         .catch(err => {
             const errors = err.response.data.errors;
             

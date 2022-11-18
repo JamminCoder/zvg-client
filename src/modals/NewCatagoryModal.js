@@ -26,7 +26,7 @@ export default function NewCatagoryModal(props) {
         axios.post(API_CATAGORIES_NEW, formData, requestOptions).then(res => {
             console.log(res.data);
             if (res.status === 200) {
-                setSuccess(`Successfully created new catagory`);
+                window.location.reload();
             }
 
         }).catch(err => {

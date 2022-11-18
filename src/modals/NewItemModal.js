@@ -16,7 +16,7 @@ export default function NewItemModal(props) {
     useEffect(() => {
         if (!catagories) {
             getCatagoriesInfo()
-            .then(res => setCatagories(res.data))
+            .then(cats => setCatagories(cats))
             .catch(err => console.log(err));
         }
     });
@@ -37,7 +37,7 @@ export default function NewItemModal(props) {
         axios.post(API_PRODUCT_NEW, formData, requestOptions).then(res => {
             console.log(res.data);
             if (res.status === 200) {
-                setSuccess(`Successfully created new product with these images: ${ res.data.images }`);
+                window.location.reload();
             }
 
         }).catch(err => {
