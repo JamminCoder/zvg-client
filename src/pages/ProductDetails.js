@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { Children, useState } from "react";
-import ProductCard from '../components/cards/ProductCard';
-import GridEvenContainer from '../components/layouts/GridEvenContainer';
+import GridEvenContainer from '../layouts/GridEvenContainer';
 import ShoppingCartManager from "../lib/shoppingCartManager";
 import { imageURL } from "../lib/utils";
 import { useEffect } from "react";

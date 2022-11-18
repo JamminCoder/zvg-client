@@ -1,4 +1,4 @@
-import HeroSection from "../components/layouts/HeroSection";
+import HeroSection from "../layouts/HeroSection";
 
 
 function FormGroup(props) {

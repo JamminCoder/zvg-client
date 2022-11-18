@@ -1,4 +1,4 @@
-import HeroSection from "../components/layouts/HeroSection";
+import HeroSection from "../layouts/HeroSection";
 import "../css/shop.css";
 import CatagoryListingCard from '../components/cards/CatagoryListingCard';
 import { useEffect, useState } from "react";

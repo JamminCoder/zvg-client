@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { Sidebar, SidebarItem } from "../components/layouts/Sidebar";
+import { Sidebar, SidebarItem } from "../layouts/Sidebar";
 import NewItemModal from "../modals/NewItemModal";
 import { deleteCatagoryByName, getAllProductsWithCatagories } from "../api";
 import AdminProductCard from "../components/cards/AdminProductCard";
-import DashboardLayout from "../components/layouts/DashboardLayout";
+import DashboardLayout from "../layouts/DashboardLayout";
 import Overlay from "../modals/Overlay";
 import NewCatagoryModal from "../modals/NewCatagoryModal";
 import { stopPropagation } from "../lib/utils";
