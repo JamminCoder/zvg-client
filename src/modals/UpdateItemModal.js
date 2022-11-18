@@ -80,7 +80,7 @@ export default function UpdateItemModal({ product }) {
 
                         <div className="flex gap-2">
                             <label htmlFor="catagory">Catagory: </label>
-                            <CatagorySelect catagories={ catagories } name="catagory" id="catagory"/>
+                            <CatagorySelect defaultValue={ product.catagory } catagories={ catagories } name="catagory" id="catagory"/>
                         </div> 
 
                         <div className="flex gap-2">
