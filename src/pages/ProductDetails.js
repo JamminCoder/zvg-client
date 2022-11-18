@@ -39,7 +39,7 @@ function ImagePreview(props) {
 export default function ProductDetails() {
     const sku = useParams().sku;
     const [product, setProduct] = useState(null);
-    const [products, setProducts] = useState([]);
+    // const [products, setProducts] = useState([]);
 
     function addToCart(e) {
         ShoppingCartManager.addItem(product);
@@ -51,16 +51,16 @@ export default function ProductDetails() {
         if (!product)
             getProductBySKU(sku).then(prod => setProduct(prod));
 
-        if (products.length === 0) {
-            getAllProducts().then(productsArray => {
-                const productDisplay = [];
-                productsArray.forEach(product => {
-                    productDisplay.push( <ProductCard key={ product.id } product={ product } /> );
-                });
+        // if (products.length === 0) {
+        //     getAllProducts().then(productsArray => {
+        //         const productDisplay = [];
+        //         productsArray.forEach(product => {
+        //             productDisplay.push( <ProductCard key={ product.id } product={ product } /> );
+        //         });
     
-                setProducts(productDisplay);
-            });
-        }
+        //         setProducts(productDisplay);
+        //     });
+        // }
     });
 
     if (!product || !product.stock) return "Product does not exist";
@@ -92,7 +92,7 @@ export default function ProductDetails() {
             </div>
 
             <GridEvenContainer className="py-24 px-2 md:px-10">
-                { products }
+                {/* { products } */}
             </GridEvenContainer>
                 
         </div>

@@ -77,12 +77,15 @@ export default function PaypalCheckout() {
             })
         }
 
-        if (!confirmPaymentButton && orderInfo) {
+        if (!confirmPaymentButton && orderInfo && productSkus) {
             setConfirmPaymentButton(
                 <Button 
                 onClick={() => {
-                    axios.post(`http://localhost:8000/api/orders/${ orderInfo.token }/capture`, XSRF_HEADER, WITH_CREDENTIALS)
-                    .then(res => console.log(res));
+                    axios.post(
+                        `http://localhost:8000/api/orders/${ orderInfo.token }/capture`, 
+                        { skus: productSkus },
+                        { headers: { ...XSRF_HEADER }, ...WITH_CREDENTIALS }
+                    ).then(res => console.log(res));
                 }}
 
                 className="bg-blue-500 text-white">Capture Payment</Button>
@@ -107,7 +110,7 @@ export default function PaypalCheckout() {
 
             res.data.links.forEach(link => {
                 if (link.rel == "approve") {
-                    window.open(link.href, "_blank").focus();
+                    window.location.href = link.href;
                 }
             })
         })
