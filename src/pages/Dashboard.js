@@ -4,40 +4,22 @@ import NewItemModal from "../modals/NewItemModal";
 import { deleteCatagoryByName, getAllProductsWithCatagories } from "../api";
 import AdminProductCard from "../components/cards/AdminProductCard";
 import DashboardLayout from "../layouts/DashboardLayout";
-import Overlay from "../modals/Overlay";
 import NewCatagoryModal from "../modals/NewCatagoryModal";
-import { stopPropagation } from "../lib/utils";
 import Button from "../components/Button";
+import ConfirmDeleteModal from "../modals/ConfirmDeleteModal";
 
 export function ProductsList({ catagory }) {
     const [display, setDisplay] = useState(true);
     const [modal, setModal] = useState(null);
 
-    const ConfirmDeleteModal = () => 
-        <Overlay onClick={() => setModal(null)}>
-            <div className="bg-white p-5 grid gap-5" onClick={ stopPropagation }>
-                <h1 className="text-3xl font-bold max-w-[30ch]">Are you sure you want to delete this catagory and ALL of its products?</h1>
-                <h2 className="text-2xl">Catagory: <span className="text-red-500 font-bold">{ catagory.name }</span></h2>
-                
-
-                    <Button
-                        className="text-white bg-green-500 font-bold" 
-                        onClick={ () => { setModal(null) } }>                            
-                        Cancel
-                    </Button>
-
-                    <Button
-                        className="text-white bg-red-500 w-fit text-xs" 
-                        onClick={ deleteCatagoryForReal }>
-                        
-                        Delete { catagory.name } Catagory
-                    </Button>
-            </div>
-        </Overlay>
-
-
     const handleConfirmDelete = () =>
-        !modal ? setModal(<ConfirmDeleteModal/>): setModal(null);
+        !modal ? setModal(
+            <ConfirmDeleteModal
+                catagory={ catagory }
+                onClick={ () => setModal(null) }
+                cancel={ () => setModal(null) }
+                delete={ deleteCatagoryForReal }/>
+            ): setModal(null);
 
 
     const deleteCatagoryForReal = () => {
