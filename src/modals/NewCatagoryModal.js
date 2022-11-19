@@ -69,6 +69,12 @@ export default function NewCatagoryModal(props) {
                     <label htmlFor="catagory" className="text-lg">Catagory</label><br/>
                     <input type="text" id="catagory" name="catagory" className="border" required/>
                 </div>
+
+                <div>
+                    <label htmlFor="description" className="text-lg">Description</label><br/>
+                    <textarea id="description" name="description" className="border h-40 w-[100%]"></textarea>
+                </div>
+                
                 <button className="border px-2 py-1 w-fit rounded hover:bg-slate-50 active:bg-slate-100">Create</button>
             </form>
         </div>
