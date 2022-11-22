@@ -1,5 +1,5 @@
 import { Sidebar, SidebarItem } from "../../layouts/Sidebar";
-import NewItemModal from "../../modals/NewCategoryModal";
+import NewItemModal from "../../modals/NewItemModal";
 import NewCategoryModal from "../../modals/NewCategoryModal";
 
 export default function DashboardSidebar({ modalHandler }) {
