@@ -18,7 +18,7 @@ function Categories(props) {
                         <CategoryListingCard
                             name={ info.category }
                             imageSrc={ info.image }
-                            description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
+                            description={ info.description }
                         />
                     );
                 })
