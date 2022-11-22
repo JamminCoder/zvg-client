@@ -1,4 +1,4 @@
-import Overlay from "./Overlay";
+import Overlay from "../layouts/Overlay";
 import Card from "../components/cards/Card";
 import { preventDefaults, serverURL, stopPropagation } from "../lib/utils";
 import { deleteProductBySKU } from "../api";

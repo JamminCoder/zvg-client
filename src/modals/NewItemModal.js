@@ -4,7 +4,7 @@ import { preventDefaults, stopPropagation } from "../lib/utils";
 import CloseIcon from "../components/icons/Close";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Overlay from "./Overlay";
+import Overlay from "../layouts/Overlay";
 import { getCategoriesInfo } from "../api";
 import CategorySelect from "../components/CategorySelect";
 
