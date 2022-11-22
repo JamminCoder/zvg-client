@@ -1,7 +1,7 @@
-import Button from "../components/Button";
-import ConfirmDeleteModal from "../modals/ConfirmDeleteModal";
-import AdminProductCard from "../components/cards/AdminProductCard";
-import { deleteCategoryByName } from "../api";
+import Button from "../../components/Button";
+import ConfirmDeleteModal from "../../modals/ConfirmDeleteModal";
+import AdminProductCard from "./AdminProductCard";
+import { deleteCategoryByName } from "../../api";
 import { useState } from "react";
 
 export function ProductsList({ category }) {

@@ -1,4 +1,4 @@
-import { Sidebar, SidebarItem } from "../../layouts/Sidebar";
+import { Sidebar, SidebarItem } from "./Sidebar";
 import NewItemModal from "../../modals/NewItemModal";
 import NewCategoryModal from "../../modals/NewCategoryModal";
 

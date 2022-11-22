@@ -1,6 +1,6 @@
 import { useState } from "react";
 import UpdateItemModal from "../../modals/UpdateItemModal";
-import Card from "./Card";
+import Card from "../../components/cards/Card";
 import { imageURL } from "../../lib/utils";
 
 export default function AdminProductCard({ product }) {
