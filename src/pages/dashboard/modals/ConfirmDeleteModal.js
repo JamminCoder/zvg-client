@@ -1,6 +1,6 @@
-import { stopPropagation } from "../lib/utils";
-import Overlay from "../layouts/Overlay";
-import Button from "../components/Button";
+import { stopPropagation } from "../../../lib/utils";
+import Overlay from "../../../layouts/Overlay";
+import Button from "../../../components/Button";
 
 export default function ConfirmDeleteModal(props) {
     return (

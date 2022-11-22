@@ -1,10 +1,10 @@
-import { API_CATEGORIES_NEW } from "../apiRoutes";
-import { XSRF_HEADER, WITH_CREDENTIALS } from "../lib/auth";
-import { preventDefaults, stopPropagation } from "../lib/utils";
-import CloseIcon from "../components/icons/Close";
+import { API_CATEGORIES_NEW } from "../../../apiRoutes";
+import { XSRF_HEADER, WITH_CREDENTIALS } from "../../../lib/auth";
+import { preventDefaults, stopPropagation } from "../../../lib/utils";
+import CloseIcon from "../../../components/icons/Close";
 import axios from "axios";
 import { useState } from "react";
-import Overlay from "../layouts/Overlay";
+import Overlay from "../../../layouts/Overlay";
 
 export default function NewCategoryModal(props) {
     const [error, setError] = useState("");

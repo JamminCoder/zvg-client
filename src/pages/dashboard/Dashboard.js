@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import DashboardSidebar from "./DashboardSidebar";
 import { getAllProductsWithCategories } from "../../api";
 import { ProductsList } from "./ProductsList";
-import ModalHandler from "../../modals/handleModal";
+import ModalHandler from "./modals/handleModal";
 import DashboardLayout from "../../layouts/DashboardLayout"
 
 export function CategoriesWithProducts(props) {

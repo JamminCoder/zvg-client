@@ -1,12 +1,12 @@
-import { API_PRODUCT_NEW } from "../apiRoutes";
-import { XSRF_HEADER, WITH_CREDENTIALS } from "../lib/auth";
-import { preventDefaults, stopPropagation } from "../lib/utils";
-import CloseIcon from "../components/icons/Close";
+import { API_PRODUCT_NEW } from "../../../apiRoutes";
+import { XSRF_HEADER, WITH_CREDENTIALS } from "../../../lib/auth";
+import { preventDefaults, stopPropagation } from "../../../lib/utils";
+import CloseIcon from "../../../components/icons/Close";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Overlay from "../layouts/Overlay";
-import { getCategoriesInfo } from "../api";
-import CategorySelect from "../components/CategorySelect";
+import Overlay from "../../../layouts/Overlay";
+import { getCategoriesInfo } from "../../../api";
+import CategorySelect from "../../../components/CategorySelect";
 
 export default function NewItemModal(props) {
     const [error, setError] = useState("");

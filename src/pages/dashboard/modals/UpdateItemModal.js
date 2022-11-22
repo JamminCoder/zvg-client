@@ -1,12 +1,11 @@
-import Overlay from "../layouts/Overlay";
-import Card from "../components/cards/Card";
-import { preventDefaults, serverURL, stopPropagation } from "../lib/utils";
-import { deleteProductBySKU } from "../api";
-import { API_PRODUCTS_UPDATE } from "../apiRoutes";
+import Overlay from "../../../layouts/Overlay";
+import Card from "../../../components/cards/Card";
+import { preventDefaults, serverURL, stopPropagation } from "../../../lib/utils";
+import { deleteProductBySKU, getCategoriesInfo } from "../../../api";
+import { API_PRODUCTS_UPDATE } from "../../../apiRoutes";
 import { useEffect, useState } from "react";
-import { XSRF_HEADER, WITH_CREDENTIALS } from "../lib/auth";
-import { getCategoriesInfo } from "../api";
-import CategorySelect from "../components/CategorySelect";
+import { XSRF_HEADER, WITH_CREDENTIALS } from "../../../lib/auth";
+import CategorySelect from "../../../components/CategorySelect";
 
 const axios = require("axios").default;
 
