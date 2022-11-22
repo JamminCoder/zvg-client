@@ -1,7 +1,7 @@
-import ProductList from "../components/ProductList";
+import ProductList from "../../components/ProductList";
 import { useEffect, useState } from "react";
-import ShoppingCartManager from "../lib/shoppingCartManager";
-import PaypalCheckout from "../components/PaypalCheckout";
+import ShoppingCartManager from "../../lib/shoppingCartManager";
+import PaypalCheckout from "./PaypalCheckout";
 
 
 

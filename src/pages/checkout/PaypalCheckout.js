@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import ShoppingCartManager from "../lib/shoppingCartManager";
-import { API_PAYPAL_ORDER } from "../apiRoutes";
-import { WITH_CREDENTIALS, XSRF_HEADER } from "../lib/auth";
-import Button from "./Button";
+import ShoppingCartManager from "../../lib/shoppingCartManager";
+import { API_PAYPAL_ORDER } from "../../apiRoutes";
+import { WITH_CREDENTIALS, XSRF_HEADER } from "../../lib/auth";
+import Button from "../../components/Button";
 
 
 export function ShippingAndBilling(props) {

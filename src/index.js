@@ -16,8 +16,8 @@ import ProductsPage from "./pages/ProductsPage";
 import ProductDetails from "./pages/ProductDetails";
 import ReservationPage from "./pages/ReservationPage";
 import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard/Dashboard";
-import Checkout from "./pages/Checkout";
+import Dashboard from "./pages/dashboard/Dashboard";
+import Checkout from "./pages/checkout/Checkout";
 import { xsrf } from "./lib/utils";
 
 (async () => {
