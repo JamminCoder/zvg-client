@@ -4,7 +4,7 @@ import GridEvenContainer from '../layouts/GridEvenContainer';
 import ShoppingCartManager from "../lib/shoppingCartManager";
 import { imageURL } from "../lib/utils";
 import { useEffect } from "react";
-import { getProductBySKU, getProductsFromCatagory } from "../api";
+import { getProductBySKU, getProductsFromCategory } from "../api";
 import ProductCard from "../components/cards/ProductCard";
 
 function ImagePreview(props) {
@@ -57,11 +57,11 @@ export default function ProductDetails() {
             .then(prod => setProduct(prod));
 
         if (products.length === 0) {
-            getProductsFromCatagory(productType.toLowerCase())
-            .then(catagory => {
+            getProductsFromCategory(productType.toLowerCase())
+            .then(category => {
                 const productDisplay = [];
 
-                catagory.products.forEach(product => {
+                category.products.forEach(product => {
                     if (!product.stock) return;
                     
                     productDisplay.push( 

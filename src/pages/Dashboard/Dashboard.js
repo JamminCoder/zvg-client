@@ -1,26 +1,26 @@
 import { useEffect, useState } from "react";
 import DashboardSidebar from "./DashboardSidebar";
-import { getAllProductsWithCatagories } from "../../api";
+import { getAllProductsWithCategories } from "../../api";
 import { ProductsList } from "../../layouts/ProductsList";
 import ModalHandler from "../../modals/handleModal";
 import DashboardLayout from "../../layouts/DashboardLayout"
 
-export function CatagoriesWithProducts(props) {
-    const [catagories, setCatagories] = useState([]);
+export function CategoriesWithProducts(props) {
+    const [categories, setCategories] = useState([]);
     const [attempt, setAttempt] = useState(false);
 
     useEffect(() => {
         if (attempt) return;
-        if (!catagories.length) {
-            getAllProductsWithCatagories()
-            .then(cats => setCatagories(cats));
+        if (!categories.length) {
+            getAllProductsWithCategories()
+            .then(cats => setCategories(cats));
         }
 
         setAttempt(true);
     });
 
-    return catagories.map(
-        catagory => <ProductsList key={ catagory.name } catagory={ catagory } />
+    return categories.map(
+        category => <ProductsList key={ category.name } category={ category } />
     );
 }
 
@@ -37,7 +37,7 @@ export default function Dashboard(props) {
                 <h1 className="text-3xl pb-5">Products</h1>
 
                 <div className="grid gap-24 mb-10">
-                    <CatagoriesWithProducts/>
+                    <CategoriesWithProducts/>
                 </div>
             </main>
         </DashboardLayout>

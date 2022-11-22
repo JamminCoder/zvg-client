@@ -9,13 +9,13 @@ export const API_PRODUCT_NEW = `${ API_URL }/products/new`;
 export const API_PRODUCTS_UPDATE = `${ API_URL }/products/update`;
 
 
-// Catagories
-export const API_PRODUCTS_ALL = `${ API_URL }/catagories/all/products`;
-export const API_CATAGORIES_INFO = `${ API_URL }/catagories/info/all`;
-export const API_CATAGORIES_NEW = `${ API_URL }/catagories/new`;
-export const API_CATAGORIES_GET = catagory => `${ API_URL }/catagories/${ catagory }`;
-export const API_PRODUCTS_FROM_CATAGORY = catagory => `${ API_URL }/catagories/${ catagory }`;
-export const API_CATAGORIES_DELETE = catagory => `${ API_URL }/catagories/delete/${ catagory }`;
+// Categories
+export const API_PRODUCTS_ALL = `${ API_URL }/categories/all/products`;
+export const API_CATEGORIES_INFO = `${ API_URL }/categories/info/all`;
+export const API_CATEGORIES_NEW = `${ API_URL }/categories/new`;
+export const API_CATEGORIES_GET = category => `${ API_URL }/categories/${ category }`;
+export const API_PRODUCTS_FROM_CATAGORY = category => `${ API_URL }/categories/${ category }`;
+export const API_CATEGORIES_DELETE = category => `${ API_URL }/categories/delete/${ category }`;
 export const API_PRODUCTS_GET_BY_SKU = sku => `${ API_URL }/products/sku/${ sku }`;
 export const API_PRODUCTS_DELETE_SKU = sku => `${ API_URL }/products/delete/sku/${ sku }`;
 

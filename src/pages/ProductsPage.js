@@ -5,27 +5,27 @@ import ProductCard from '../components/cards/ProductCard';
 import "../css/shop.css";
 import "../css/app.css"
 import { useEffect, useState } from "react";
-import { getCatagoryByName, getProductsFromCatagory } from "../api";
+import { getCategoryByName, getProductsFromCategory } from "../api";
 
 
 export default function ProductsPage(props) {
-    const catagoryName = useParams().productType;
-    const properCatagoryName = capatalizeFirstLetter(catagoryName);
+    const categoryName = useParams().productType;
+    const properCategoryName = capatalizeFirstLetter(categoryName);
     const [products, setProducts] = useState({ data: null, error: null });
-    const [catagory, setCatagory] = useState(null);
+    const [category, setCategory] = useState(null);
 
     useEffect(() => {
-        if (!catagory) {
-            getCatagoryByName(catagoryName).then(cat => {
-                setCatagory(cat);
+        if (!category) {
+            getCategoryByName(categoryName).then(cat => {
+                setCategory(cat);
             }).catch(err => {
                 console.log(err);
             });
         }
 
-        if (catagory && !products.data && !products.error) {
+        if (category && !products.data && !products.error) {
             const productDisplay = [];
-            catagory.products.forEach(
+            category.products.forEach(
                 product => {
                     console.log(product)
                     if (!product.stock >= 1) return;
@@ -41,18 +41,18 @@ export default function ProductsPage(props) {
         }
     })
 
-    if (!catagory) return;
+    if (!category) return;
 
     return (
         <div>
             <HeroSection  
-                bgSrc={ `${ catagory ? serverURL( `catagory_images/${ catagory.image }` ): "" }` }
+                bgSrc={ `${ category ? serverURL( `category_images/${ category.image }` ): "" }` }
                 className="grid place-items-center max-h-[65vh] w-[100%] aspect-video "
             >
                 <div className="text-center bg-slate-200 rounded opacity-90 p-12">
-                    <h1 className="text-5xl font-medium mb-5">{ properCatagoryName }</h1>
+                    <h1 className="text-5xl font-medium mb-5">{ properCategoryName }</h1>
                     <p>
-                        { catagory.description }
+                        { category.description }
                     </p>
                 </div>
                 

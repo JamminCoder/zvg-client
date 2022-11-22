@@ -1,29 +1,29 @@
 import HeroSection from "../layouts/HeroSection";
 import "../css/shop.css";
-import CatagoryListingCard from '../components/cards/CatagoryListingCard';
+import CategoryListingCard from '../components/cards/CategoryListingCard';
 import { useEffect, useState } from "react";
-import { getCatagoriesInfo } from "../api";
+import { getCategoriesInfo } from "../api";
 
 
-function Catagories(props) {
-    const [catagories, setCatagories] = useState([]);
+function Categories(props) {
+    const [categories, setCategories] = useState([]);
     const [attempt, setAttempt] = useState(null);
 
     useEffect(() => {
-        if (!catagories.length && !attempt) {
-            getCatagoriesInfo().then(cats => {
+        if (!categories.length && !attempt) {
+            getCategoriesInfo().then(cats => {
                 const infoArray = [];
                 cats.forEach(info => {
                     infoArray.push(
-                        <CatagoryListingCard
-                            name={ info.catagory }
+                        <CategoryListingCard
+                            name={ info.category }
                             imageSrc={ info.image }
                             description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
                         />
                     );
                 })
     
-                setCatagories(infoArray);
+                setCategories(infoArray);
             })
         }
 
@@ -32,7 +32,7 @@ function Catagories(props) {
 
     return (
         <main className="py-24 px-2 md:px-10 flex flex-wrap gap-5">
-            { catagories.length ? catagories: "No products" }
+            { categories.length ? categories: "No products" }
         </main>
     );
 }
@@ -53,7 +53,7 @@ export default function Shop(props) {
                     </div>
                 </HeroSection>
                 
-                <Catagories/>
+                <Categories/>
             </div>
         </div>
     );

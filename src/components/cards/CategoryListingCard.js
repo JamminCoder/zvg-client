@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 import { serverURL } from "../../lib/utils";
 import LinkCard from "./LinkCard";
 
-export default function CatagoryListingCard({ name, imageSrc, description }) {
-    const catagoryUrl = `/shop/${ name }`
+export default function CategoryListingCard({ name, imageSrc, description }) {
+    const categoryUrl = `/shop/${ name }`
     return (
         <LinkCard 
-        to={ catagoryUrl }
+        to={ categoryUrl }
         className="hover:-translate-y-[3px] transition-all hover:shadow-xl cursor-pointer">
             <div>
                 <img className="bg-gray-400 w-[100%] aspect-video object-cover object-top" src={ serverURL(imageSrc) }/>

@@ -5,19 +5,19 @@ import { deleteProductBySKU } from "../api";
 import { API_PRODUCTS_UPDATE } from "../apiRoutes";
 import { useEffect, useState } from "react";
 import { XSRF_HEADER, WITH_CREDENTIALS } from "../lib/auth";
-import { getCatagoriesInfo } from "../api";
-import CatagorySelect from "../components/CatagorySelect";
+import { getCategoriesInfo } from "../api";
+import CategorySelect from "../components/CategorySelect";
 
 const axios = require("axios").default;
 
 export default function UpdateItemModal({ product }) {
     const [error, setError] = useState("");
-    const [catagories, setCatagories] = useState(null);
+    const [categories, setCategories] = useState(null);
 
     useEffect(() => {
-        if (!catagories) {
-            getCatagoriesInfo()
-            .then(cats => setCatagories(cats))
+        if (!categories) {
+            getCategoriesInfo()
+            .then(cats => setCategories(cats))
             .catch(err => console.log(err));
         }
     });
@@ -79,8 +79,8 @@ export default function UpdateItemModal({ product }) {
                         </div>
 
                         <div className="flex gap-2">
-                            <label htmlFor="catagory">Catagory: </label>
-                            <CatagorySelect defaultValue={ product.catagory } catagories={ catagories } name="catagory" id="catagory"/>
+                            <label htmlFor="category">Category: </label>
+                            <CategorySelect defaultValue={ product.category } categories={ categories } name="category" id="category"/>
                         </div> 
 
                         <div className="flex gap-2">

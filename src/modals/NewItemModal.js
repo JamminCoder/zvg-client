@@ -5,18 +5,18 @@ import CloseIcon from "../components/icons/Close";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Overlay from "./Overlay";
-import { getCatagoriesInfo } from "../api";
-import CatagorySelect from "../components/CatagorySelect";
+import { getCategoriesInfo } from "../api";
+import CategorySelect from "../components/CategorySelect";
 
 export default function NewItemModal(props) {
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
-    const [catagories, setCatagories] = useState(null);
+    const [categories, setCategories] = useState(null);
 
     useEffect(() => {
-        if (!catagories) {
-            getCatagoriesInfo()
-            .then(cats => setCatagories(cats))
+        if (!categories) {
+            getCategoriesInfo()
+            .then(cats => setCategories(cats))
             .catch(err => console.log(err));
         }
     });
@@ -53,11 +53,11 @@ export default function NewItemModal(props) {
 
     }
 
-    if (!catagories || !catagories.length) {
+    if (!categories || !categories.length) {
         return (
             <Overlay>
                 <div className="shadow bg-white p-8 rounded">
-                    <h1 className="text-xl">Please create a product catagory first</h1>
+                    <h1 className="text-xl">Please create a product category first</h1>
                 </div>
             </Overlay>
         )
@@ -87,8 +87,8 @@ export default function NewItemModal(props) {
                 </div>
 
                 <div>
-                    <label htmlFor="catagory" className="text-lg">Catagory</label><br/>
-                    <CatagorySelect catagories={ catagories } name="catagory" id="catagory"/>
+                    <label htmlFor="category" className="text-lg">Category</label><br/>
+                    <CategorySelect categories={ categories } name="category" id="category"/>
                 </div>
 
                 <div>

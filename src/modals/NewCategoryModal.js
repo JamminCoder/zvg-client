@@ -1,4 +1,4 @@
-import { API_CATAGORIES_NEW } from "../apiRoutes";
+import { API_CATEGORIES_NEW } from "../apiRoutes";
 import { XSRF_HEADER, WITH_CREDENTIALS } from "../lib/auth";
 import { preventDefaults, stopPropagation } from "../lib/utils";
 import CloseIcon from "../components/icons/Close";
@@ -6,7 +6,7 @@ import axios from "axios";
 import { useState } from "react";
 import Overlay from "./Overlay";
 
-export default function NewCatagoryModal(props) {
+export default function NewCategoryModal(props) {
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
 
@@ -16,14 +16,14 @@ export default function NewCatagoryModal(props) {
         setError("");
         setSuccess("");
 
-        const formData = new FormData(document.querySelector("#new_catagory_form"));
+        const formData = new FormData(document.querySelector("#new_category_form"));
         
         const requestOptions = { 
             headers: XSRF_HEADER, 
             ...WITH_CREDENTIALS 
         };
 
-        axios.post(API_CATAGORIES_NEW, formData, requestOptions).then(res => {
+        axios.post(API_CATEGORIES_NEW, formData, requestOptions).then(res => {
             console.log(res.data);
             if (res.status === 200) {
                 window.location.reload();
@@ -54,20 +54,20 @@ export default function NewCatagoryModal(props) {
                 <CloseIcon size={ 32 }/>
             </span>
 
-            <h1 className="text-black font-medium text-3xl">New Catagory</h1>
+            <h1 className="text-black font-medium text-3xl">New Category</h1>
             
             <p className="text-green-600"> { success } </p>
             <p className="text-red-600"> { error } </p>
 
-            <form id="new_catagory_form" action={ API_CATAGORIES_NEW } method="POST" encType="multipart/form-data" className="py-2 flex flex-col gap-4" onSubmit={ submit }>
+            <form id="new_category_form" action={ API_CATEGORIES_NEW } method="POST" encType="multipart/form-data" className="py-2 flex flex-col gap-4" onSubmit={ submit }>
                 <div>
                     <label htmlFor="image" className="text-lg">Header Images</label><br/>
                     <input type="file" id="image" name="image" required/>
                 </div>
 
                 <div>
-                    <label htmlFor="catagory" className="text-lg">Catagory</label><br/>
-                    <input type="text" id="catagory" name="catagory" className="border" required/>
+                    <label htmlFor="category" className="text-lg">Category</label><br/>
+                    <input type="text" id="category" name="category" className="border" required/>
                 </div>
 
                 <div>

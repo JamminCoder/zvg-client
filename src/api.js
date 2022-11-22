@@ -6,10 +6,10 @@ import {
     API_PRODUCTS_DELETE_SKU,
     API_PRODUCTS_GET_BY_SKU,
     API_PRODUCTS_ALL_WITH_CATAGORY,
-    API_CATAGORIES_DELETE,
-    API_CATAGORIES_INFO,
+    API_CATEGORIES_DELETE,
+    API_CATEGORIES_INFO,
     API_PRODUCTS_FROM_CATAGORY,
-    API_CATAGORIES_GET,
+    API_CATEGORIES_GET,
     API_PAYPAL_CLIENT_TOKEN,
     API_PAYPAL_CLIENT_ID
 } from "./apiRoutes";
@@ -50,29 +50,29 @@ export async function getProductBySKU(sku) {
     return product;
 }
 
-export async function deleteCatagoryByName(name) {
-    const res = await axios.post(API_CATAGORIES_DELETE(name), { headers: XSRF_HEADER }, WITH_CREDENTIALS);
+export async function deleteCategoryByName(name) {
+    const res = await axios.post(API_CATEGORIES_DELETE(name), { headers: XSRF_HEADER }, WITH_CREDENTIALS);
     return res.data;
 }
 
 
-// Catagories
-export async function getAllProductsWithCatagories() {
+// Categories
+export async function getAllProductsWithCategories() {
     const res = await axios.get(API_PRODUCTS_ALL);
     return res.data;
 }
 
-export async function getProductsFromCatagory(catagory) {
-    const res = await axios.get(API_PRODUCTS_FROM_CATAGORY(catagory));
+export async function getProductsFromCategory(category) {
+    const res = await axios.get(API_PRODUCTS_FROM_CATAGORY(category));
     return res.data;
 }
 
-export async function getCatagoryByName(catagory) {
-    const res = await axios.get(API_CATAGORIES_GET(catagory));
+export async function getCategoryByName(category) {
+    const res = await axios.get(API_CATEGORIES_GET(category));
     return res.data;
 }
 
-export async function getCatagoriesInfo() {
-    const res = await axios.get(API_CATAGORIES_INFO);
+export async function getCategoriesInfo() {
+    const res = await axios.get(API_CATEGORIES_INFO);
     return res.data;
 }
