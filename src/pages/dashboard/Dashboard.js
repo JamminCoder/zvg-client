@@ -3,7 +3,7 @@ import DashboardSidebar from "./DashboardSidebar";
 import { getAllProductsWithCategories } from "../../api";
 import { ProductsList } from "./ProductsList";
 import ModalHandler from "./modals/handleModal";
-import DashboardLayout from "../../layouts/DashboardLayout"
+import DashboardLayout from "./DashboardLayout"
 
 export function CategoriesWithProducts(props) {
     const [categories, setCategories] = useState([]);
