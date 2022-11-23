@@ -16,6 +16,7 @@ export const API_CATEGORIES_NEW = `${ API_URL }/categories/new`;
 export const API_CATEGORIES_GET = category => `${ API_URL }/categories/${ category }`;
 export const API_PRODUCTS_FROM_CATAGORY = category => `${ API_URL }/categories/${ category }`;
 export const API_CATEGORIES_DELETE = category => `${ API_URL }/categories/delete/${ category }`;
+export const API_CATEGORIES_UPDATE = category => `${ API_URL }/categories/update/${category}`;
 export const API_PRODUCTS_GET_BY_SKU = sku => `${ API_URL }/products/sku/${ sku }`;
 export const API_PRODUCTS_DELETE_SKU = sku => `${ API_URL }/products/delete/sku/${ sku }`;
 

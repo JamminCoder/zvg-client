@@ -3,10 +3,13 @@ import ConfirmDeleteModal from "./modals/ConfirmDeleteModal";
 import AdminProductCard from "./AdminProductCard";
 import { deleteCategoryByName } from "../../api";
 import { useState } from "react";
+import ModalHandler from "./modals/handleModal";
+import UpdateCategoryModal from "./modals/UpdateCategoryModal";
 
 export function ProductsList({ category }) {
     const [display, setDisplay] = useState(true);
     const [modal, setModal] = useState(null);
+    const modalHandler = new ModalHandler(modal, setModal);
 
     const handleConfirmDelete = () =>
         !modal ? setModal(
@@ -16,6 +19,11 @@ export function ProductsList({ category }) {
                 cancel={ () => setModal(null) }
                 delete={ deleteCategoryForReal }/>
             ): setModal(null);
+
+    const handleEdit = () =>
+        !modal ? setModal(
+            <UpdateCategoryModal category={ category } close={ () => setModal(null) }/>
+        ): setModal(null);
 
 
     const deleteCategoryForReal = () => {
@@ -34,7 +42,7 @@ export function ProductsList({ category }) {
         <div className="flex gap-12 mb-8">
             <Button
                 className="text-white bg-gray-800 text-xs rounded" 
-                onClick={ () => console.log("edit") }>
+                onClick={ handleEdit }>
                 
                 Edit { category.name } Category
             </Button>

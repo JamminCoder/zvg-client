@@ -33,6 +33,7 @@ export default function Dashboard(props) {
             { modal }
 
             <DashboardSidebar modalHandler={ modalHandler } />
+
             <main className="p-10 w-[100%]">
                 <h1 className="text-3xl pb-5">Products</h1>
 
@@ -40,6 +41,7 @@ export default function Dashboard(props) {
                     <CategoriesWithProducts/>
                 </div>
             </main>
+            
         </DashboardLayout>
     );
 }
