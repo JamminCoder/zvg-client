@@ -62,6 +62,8 @@ export default function UpdateCategoryModal(props) {
             <p className="text-red-600"> { error } </p>
 
             <form id="update_category_form" action={ API_CATEGORIES_UPDATE(category.name) } method="POST" encType="multipart/form-data" className="py-2 flex flex-col gap-4" onSubmit={ submit }>
+                <input type="hidden" name="target_category" defaultValue={ category.name }/>
+                
                 <div>
                     <label htmlFor="image" className="text-lg">Header Image</label><br/>
                     <input type="file" id="image" name="image"/>
