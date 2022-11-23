@@ -18,6 +18,7 @@ export default function ProductsPage(props) {
         if (!category) {
             getCategoryByName(categoryName).then(cat => {
                 setCategory(cat);
+                console.log(cat);
             }).catch(err => {
                 console.log(err);
             });
@@ -27,7 +28,6 @@ export default function ProductsPage(props) {
             const productDisplay = [];
             category.products.forEach(
                 product => {
-                    console.log(product)
                     if (!product.stock >= 1) return;
 
                     productDisplay.push( <ProductCard key={ product.name } product={ product } /> )
@@ -46,7 +46,7 @@ export default function ProductsPage(props) {
     return (
         <div>
             <HeroSection  
-                bgSrc={ `${ category ? serverURL( `category_images/${ category.image }` ): "" }` }
+                bgSrc={ `${ category ? serverURL( `${ category.image }` ): "" }` }
                 className="grid place-items-center max-h-[65vh] w-[100%] aspect-video "
             >
                 <div className="text-center bg-slate-200 rounded opacity-90 p-12">
