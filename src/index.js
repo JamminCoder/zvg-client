@@ -16,9 +16,10 @@ import ProductsPage from "./pages/ProductsPage";
 import ProductDetails from "./pages/ProductDetails";
 import ReservationPage from "./pages/ReservationPage";
 import Login from "./pages/Login";
-import Dashboard from "./pages/dashboard/Dashboard";
+import DashboardRoot, { Dashboard } from "./pages/dashboard/Dashboard";
 import Checkout from "./pages/checkout/Checkout";
 import { xsrf } from "./lib/utils";
+import ManageSlides from "./pages/dashboard/ManageSlides";
 
 (async () => {
 await xsrf();
@@ -28,6 +29,7 @@ root.render(
   <React.StrictMode>
     <HashRouter>
       <Nav/>
+
       <Routes>
 
         <Route path="/" element={ <Home/> } />
@@ -40,7 +42,13 @@ root.render(
         <Route path="/campground" element={ <ReservationPage/> } />
 
         <Route path="/login" element={ <Login/> } />
-        <Route path="/dashboard" element={ <Dashboard/> } />
+
+        <Route path="/dashboard" element={ <DashboardRoot/> }>
+          <Route path="" element={ <Dashboard/> }/>
+          <Route path="test" element={ <div>It is working because I said so.</div> } />
+          <Route path="slides" element={ <ManageSlides/> } />
+          
+        </Route>
 
       </Routes>
     </HashRouter>
