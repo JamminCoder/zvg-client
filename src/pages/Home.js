@@ -1,20 +1,35 @@
 import "../css/Home.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Button from "../components/Button";
 
-
-function Slide({ img, header, lead, buttons, sliderNum, max }) {
-
+function Slide({ parent, img, header, lead, buttons, sliderNum, max }) {
+  let scrollWidth = document.body.clientWidth;
   const indicators = [];
+  
   for (let i = 1; i <= max; i++) {
     let style = {backgroundColor: "rgba(0, 0, 0, 0.6)"}
     
     if (i === sliderNum) style = {backgroundColor: "white"};
 
 
-    let indicator = <span key={i} className="w-2 aspect-square bg-white inline-block mx-2 rounded-full" style={style}></span>
+    let indicator = <span key={i} className="w-3 aspect-square bg-white inline-block mx-2 rounded-full" style={style}></span>
     indicators.push(indicator);
   }
+
+  function slideRight() {
+    parent.scrollBy(scrollWidth, 0);
+  }
+
+  function slideLeft() {
+    parent.scrollBy(-scrollWidth, 0);
+  }
+
+
+  const visibilityHidden = { visibility: "hidden" };
+
+  const leftButton = <Button onClick={ slideLeft } className="bg-white text-xl bg-opacity-80 aspect-square w-10 font-medium p-0" style={ sliderNum === 1 ? visibilityHidden : {}}>&lt;</Button>;
+  const rightButton = <Button onClick={ slideRight } className="bg-white text-xl bg-opacity-80 aspect-square w-10 font-medium p-0" style={ sliderNum === max ? visibilityHidden : {}}>&gt;</Button>;
 
   return (
     <section className="slide flex-grow w-[100vw] relative grid place-items-center" id={"slide-" + sliderNum}>
@@ -28,7 +43,7 @@ function Slide({ img, header, lead, buttons, sliderNum, max }) {
         <div className="flex flex-col items-center gap-2 max-w-[80%]">
 
           {/* Header and lead */}
-          <h1 className="text-white text-center font-bold" style={{fontSize: "clamp(0rem, 10vw, 4.5rem)" }}>{ header }</h1>
+          <h1 className="text-white text-center font-bold" style={{fontSize: "clamp(3rem, 6vw, 4.5rem)" }}>{ header }</h1>
           <p className="text-center text-white text-2xl font-light">{ lead }</p>
           
           <div className="flex justify-center gap-4 mt-2">
@@ -38,10 +53,17 @@ function Slide({ img, header, lead, buttons, sliderNum, max }) {
           
           </div>
 
-          {/* Slider indicators */}
-          <div className="mt-5">
-           { indicators }
-          </div>
+      <div className="flex gap-4 items-center mt-6">
+        { leftButton }
+
+        {/* Slider indicators */}
+        <div>
+          { indicators }
+        </div>
+
+        { rightButton }
+      </div>
+          
 
         </div>
       </div>
@@ -52,73 +74,25 @@ function Slide({ img, header, lead, buttons, sliderNum, max }) {
 
 function HeaderSection(props) {
   const sliderCount = 5;
-  let currentSlider = 1;
+  
 
-  function handleSlides() {
-    let touchStartX = 0;
-    let touchEndX = 0;
-    let scrollWidth = document.body.clientWidth;
-    let slider = document.querySelector(".welcome-slider");
-    const animationDelay = 7000;
+  const [slider, setSlider] = useState(document.querySelector(".welcome-slider"));
 
-    let scrollInterval = setInterval(() => {
-      slider.scrollBy(scrollWidth, 0);
-      
-      if (currentSlider === sliderCount) {
-        return;
-      }
+  useEffect(() => {
+    if (!slider) setSlider(document.querySelector(".welcome-slider"));
+  });
 
-      currentSlider++;
-
-    }, animationDelay);
-
-
-    function swipeScroll() {
-      // Touch scroll code inspired from https://stackoverflow.com/users/3576214/damjan-pavlica
-      
-      if (touchStartX > touchEndX) {
-        // Swiped from right to left
-        slider.scrollBy(scrollWidth, 0);
-        clearInterval(scrollInterval);
-      }
-
-      if (touchStartX < touchEndX) {
-        // Swiped from left to right
-        slider.scrollBy(-scrollWidth, 0);
-        clearInterval(scrollInterval);
-      }
-    }
-
-    slider.addEventListener("touchstart", e => {
-      touchStartX = e.changedTouches[0].screenX;
-    });
-
-    slider.addEventListener('touchend', e => {
-      touchEndX = e.changedTouches[0].screenX
-      swipeScroll();
-    });
-
-    slider.addEventListener("mousedown", e => {
-      touchStartX = e.screenX;
-    });
-
-    slider.addEventListener("mouseup", e => {
-      touchEndX = e.screenX;
-      swipeScroll();
-    });
-
-  }
-
-  useEffect(handleSlides);
+  
   const testSlides = [];
   for (let i = 1; i <= sliderCount; i++) {
-    const testSlide = <Slide 
+    const testSlide = <Slide
+      parent={ slider }
       img={`${process.env.PUBLIC_URL}/img/zoar_valley.jpg`}
       header="Zoar Valley Gifts & More"
-      lead="Lorem ipsum dolor, sit amet consectetur adipisicing elit."
+      lead="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Lorem ipsum dolor, sit amet consectetur adipisicing elit."
       buttons={[
         <Link to="/shop" className="px-4 py-2 bg-white rounded text-xl font-medium">Visit Shop</Link>,
-        <a href="/" className="px-4 py-2 bg-sky-600 text-white rounded text-xl font-medium">Campgrounds</a>
+        <Link to="/" className="px-4 py-2 bg-sky-600 text-white rounded text-xl font-medium">Campgrounds</Link>
       ]}
 
       sliderNum={ i }
@@ -130,8 +104,8 @@ function HeaderSection(props) {
   }
 
   return (
-    <div className="welcome-slider">
-      { testSlides }
+    <div className="welcome-slider relative">
+        { testSlides }
     </div>
   );
 }
