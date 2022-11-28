@@ -27,5 +27,9 @@ export const API_LOGOUT = `${ API_URL }/logout`;
 export const API_VERIFY_AUTH = `${ API_URL }/test-auth`;
 
 
+// Content management
+export const API_CONTENT_SLIDES_NEW = `${ API_URL }/content/slides/new`;
+
+
 // paypal
 export const API_PAYPAL_ORDER = `${API_URL}/orders/create`;
