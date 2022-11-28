@@ -46,7 +46,7 @@ export function cookies() {
 
     for (const cookie of cookies) {
         const splitCookie = cookie.split("=");
-        const cookieName = splitCookie[0];
+        const cookieName = splitCookie[0].trim();
         const cookieValue = splitCookie[1];
         cookiesObject[cookieName] = cookieValue
     }
@@ -64,7 +64,7 @@ export async function xsrf() {
     await axios.get(API_XSRF, WITH_CREDENTIALS);
 
     const token = getCookie("XSRF-TOKEN");
-    
+    console.log(token);
     if (!token) console.log("Failed to get XSRF cookie.");
     else console.log("Got XSRF cookie.");
 }
