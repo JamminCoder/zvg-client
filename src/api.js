@@ -11,7 +11,8 @@ import {
     API_PRODUCTS_FROM_CATAGORY,
     API_CATEGORIES_GET,
     API_PAYPAL_CLIENT_TOKEN,
-    API_PAYPAL_CLIENT_ID
+    API_PAYPAL_CLIENT_ID,
+    API_CONTENT_SLIDES_ALL
 } from "./apiRoutes";
 
 import { WITH_CREDENTIALS, XSRF_HEADER } from "./lib/auth";
@@ -76,3 +77,11 @@ export async function getCategoriesInfo() {
     const res = await axios.get(API_CATEGORIES_INFO);
     return res.data;
 }
+
+
+// Content
+export async function getSlides() {
+    const res = await axios.get(API_CONTENT_SLIDES_ALL);
+    return res.data;
+}
+

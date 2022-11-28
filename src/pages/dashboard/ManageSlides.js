@@ -1,10 +1,33 @@
 import Button from "../../components/Button";
 import { API_CONTENT_SLIDES_NEW } from "../../apiRoutes";
 import { WITH_CREDENTIALS, XSRF_HEADER } from "../../lib/auth";
-import { preventDefaults } from "../../lib/utils";
+import { preventDefaults, serverURL } from "../../lib/utils";
+import { useEffect, useState } from "react";
+import ModalHandler from "./modals/handleModal";
+import AddButtonToSlideModal from "./modals/AddButtonToSlideModal";
+import { Link } from "react-router-dom";
+import { getSlides } from "../../api";
 const axios = require("axios").default;
 
+
+function ButtonMap({ buttonsData }) {
+    return buttonsData.buttons.map(
+        btn => <Link key={ Math.random() } className="btn" to={ btn.link } style={{ backgroundColor: btn.bg, color: btn.color }}>{ btn.text }</Link>
+    )
+}
+
 export default function ManageSlides(props) {
+    const [modal, setModal] = useState(null);
+    const [slides, setSlides] = useState(null);
+    const [attempt, setAttempt] = useState(false);
+    const [btnData, setBtnData] = useState({buttons: []})
+
+    const modalHandler = new ModalHandler(modal, setModal);
+
+    function handleNewButton(e) {
+        preventDefaults(e);
+        modalHandler.new(AddButtonToSlideModal, { btnData: btnData, setBtnData: setBtnData });
+    }
 
     function submit(e) {
         preventDefaults(e);
@@ -24,8 +47,42 @@ export default function ManageSlides(props) {
         .catch(err => console.log(err));
     }
 
-    return <>
+    useEffect(() => {
+        if (!attempt && !slides) {
+            getSlides().then(slides => {
+                setSlides(slides);
+            });
+
+            setAttempt(true);
+        }
+    });
+
+    return (
+    <div onClick={ () => modalHandler.closeIfExists(modal) }>
+        { modal }
+        
         <h1 className="text-4xl mb-8">Slides</h1>
+
+        {/* Render existing slides */}
+        
+        <div className="mb-8 grid gap-8">
+            { slides ? slides.map(
+                slide => <div key={ slide.header }>
+                    <h1 className="text-2xl font-bold">{ slide.header }</h1>
+                    <p>{ slide.lead }</p>
+
+                    <div className="flex gap-4 mb-2">
+                        <ButtonMap buttonsData={ JSON.parse(slide.buttons) } />
+                    </div>
+
+                    <img src={ serverURL(slide.image_path) } alt="" />
+                </div>
+                ): "" 
+            }
+        </div>
+        
+
+
         <div>
             <form id="new_slide_form" method="POST" action={ API_CONTENT_SLIDES_NEW } className="p-4 border shadow-lg rounded max-w-screen-sm grid gap-8 justify-start" onSubmit={ submit }>
                 <h2 className="text-lg font-medium">Add New Slide</h2>
@@ -48,59 +105,21 @@ export default function ManageSlides(props) {
                 <hr />
                 <h3 className="text-lg font-medium">Slide Buttons:</h3>
 
-                <h4>Button 1:</h4>
-                <div className="grid gap-4 justify-start pl-6">
-                    
-                    <div>
-                        <label htmlFor="btn_1_text">Text for Button 1</label><br/>
-                        <input type="text" name="btn_1_text" id="btn_1_text"/>
-                    </div>
+                <input type="hidden" name="buttons" id="buttons" defaultValue={ JSON.stringify(btnData) } onChange={(e) => {setBtnData(e.target.value)}}/>
+                
 
-                    <div>
-                        <label htmlFor="btn_1_link">Link for Button 1</label><br/>
-                        <input type="text" name="btn_1_link" id="btn_1_link"/>
-                    </div>
-                    
-                    <div>
-                        <label htmlFor="btn_1_bg">Background color for button 1</label><br/>
-                        <input type="color" name="btn_1_bg" id="btn_1_bg" defaultValue="#ffffff"/>
-                    </div>
-                    <div>
-                        <label htmlFor="btn_1_color">Text Color color for button 1</label><br/>
-                        <input type="color" name="btn_1_color" id="btn_1_color"/>
-                    </div>
-
+                <div className="flex gap-4">
+                    <ButtonMap buttonsData={ btnData }/>
                 </div>
 
+                <Button className="bg-slate-700 text-white w-fit" onClick={ handleNewButton }>Add Button</Button>          
+                
                 <hr />
-
-                <h4>Button 2:</h4>
-                <div className="grid gap-4 justify-start pl-6 mb-4">
-                    
-                    <div>
-                        <label htmlFor="btn_2_text">Text for Button 2</label><br/>
-                        <input type="text" name="btn_2_text" id="btn_2_text"/>
-                    </div>
-
-                    <div>
-                        <label htmlFor="btn_2_link">Link for Button 2</label><br/>
-                        <input type="text" name="btn_2_link" id="btn_2_link"/>
-                    </div>
-                    
-                    <div>
-                        <label htmlFor="btn_2_bg">Background color for button 2</label><br/>
-                        <input type="color" name="btn_2_bg" id="btn_2_bg" defaultValue="#ffffff"/>
-                    </div>
-                    <div>
-                        <label htmlFor="btn_2_color">Text Color color for button 2</label><br/>
-                        <input type="color" name="btn_2_color" id="btn_2_color"/>
-                    </div>
-
-                </div>
 
                 <Button className="shadow bg-green-500" onClick={ submit }>Add new slide</Button>
             </form>
             
         </div>
-    </>;
+    </div>
+    );
 }

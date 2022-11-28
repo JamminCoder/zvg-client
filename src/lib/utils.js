@@ -8,7 +8,7 @@ export function imageURL(imgName) {
 }
 
 export function serverURL(path) {
-    return `${ SERVER_URL }/${ path }`;
+    return `${ SERVER_URL }/${ path.replace("/", "") }`;
 }
 
 export function capatalizeFirstLetter(string) {

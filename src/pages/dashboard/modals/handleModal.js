@@ -4,8 +4,8 @@ export default class ModalHandler {
         this.setModal = setModal;
     }
 
-    new(ModalElement) {
-        !this.modal ? this.setModal(<ModalElement close={ () => this.setModal(null) }/>) : this.setModal(null);
+    new(ModalElement, props) {
+        !this.modal ? this.setModal(<ModalElement close={ () => this.setModal(null) } { ...props }/>) : this.setModal(null);
     }
 
     closeIfExists(modal) {

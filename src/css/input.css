@@ -16,4 +16,8 @@
     .sidebar-item:active {
         @apply bg-slate-100
     }
+
+    .btn {
+        @apply p-2 rounded hover:brightness-105 active:brightness-90
+    }
 }
