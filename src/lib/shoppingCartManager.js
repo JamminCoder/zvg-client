@@ -19,6 +19,7 @@ export default class ShoppingCartManager {
             await db.items.add({
                 name: slugify(product.name), 
                 price: product.price,
+                tax_percent: product.tax_percent,
                 count: 1,
                 sku: product.sku
             });
@@ -70,11 +71,24 @@ export default class ShoppingCartManager {
         ShoppingCartManager.updateNotifications();
     }
 
+    static async taxTotal() {
+        let total = 0;
+        const items = await ShoppingCartManager.all();
+
+        items.forEach(item => total += parseFloat(item.price * (item.tax_percent / 100 )));
+
+        return Math.round(100 * total) / 100;
+    }
+
     static async totalPrice() {
         let total = 0;
         const items = await ShoppingCartManager.all();
 
-        items.forEach(item => total += parseFloat(item.price));
+        items.forEach(item => {
+            total += parseFloat(item.price);
+        });
+
+        total += await ShoppingCartManager.taxTotal();
 
         return Math.round(100 * total) / 100;
 
