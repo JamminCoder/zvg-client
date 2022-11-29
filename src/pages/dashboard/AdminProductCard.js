@@ -20,7 +20,8 @@ export default function AdminProductCard({ product }) {
                 <div className="mb-4">
                     <small>{ product.category }</small>
                     <h2 className="font-medium text-xl">{ product.name }</h2>
-                    <p>${ product.price }</p>
+                    <p>Price: ${ product.price }</p>
+                    <p>Tax: { product.tax_percent }%</p>
                     <p style={{ color: !product.stock ? "red": "green" }}>Stock: { product.stock }</p>
                 </div>
             </div>
