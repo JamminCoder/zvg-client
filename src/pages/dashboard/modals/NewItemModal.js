@@ -111,6 +111,11 @@ export default function NewItemModal(props) {
                     $<input type="text" id="price" name="price" className="max-w-fit border" required/>
                 </div>
 
+                <div>
+                    <label htmlFor="tax_percent" className="text-lg">Tax Percent</label><br/>
+                    <input type="text" id="tax_percent" name="tax_percent" className="w-16 max-w-fit border" required/>%
+                </div>
+
                 <button className="border px-2 py-1 w-fit rounded hover:bg-slate-50 active:bg-slate-100">Create</button>
             </form>
         </div>
