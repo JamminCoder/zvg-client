@@ -9,6 +9,7 @@ import AddButtonToSlideModal from "./modals/AddButtonToSlideModal";
 import { getSlides } from "../../api";
 const axios = require("axios").default;
 
+
 export default function ManageSlides(props) {
     const [modal, setModal] = useState(null);
     const [slides, setSlides] = useState(null);
@@ -110,7 +111,7 @@ export default function ManageSlides(props) {
                     <div className="flex flex-col items-center gap-4 max-w-[80%]">
             
                         {/* Header and lead */}
-                        <h1 className="text-2xl font-bold text-white" style={{fontSize: "clamp(3rem, 6vw, 4.5rem)", color: slide.color }}>{ slide.header }</h1>                    
+                        <h1 className="text-2xl font-bold text-white" style={{fontSize: "clamp(2rem, 4vw, 4.5rem)", color: slide.color }}>{ slide.header }</h1>                    
                         <p className="text-center text-2xl font-light text-white">{ slide.lead }</p>
                         
                         <div className="flex gap-4 mt-2">
