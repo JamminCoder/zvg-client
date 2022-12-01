@@ -1,12 +1,11 @@
 import Button from "../../components/Button";
 import ButtonMap from "../../components/ButtonMap";
 import { API_CONTENT_SLIDES_NEW } from "../../apiRoutes";
-import { WITH_CREDENTIALS, XSRF_HEADER } from "../../lib/auth";
+import { XSRF_HEADER } from "../../lib/auth";
 import { preventDefaults, serverURL } from "../../lib/utils";
 import { useEffect, useState } from "react";
 import ModalHandler from "./modals/handleModal";
 import AddButtonToSlideModal from "./modals/AddButtonToSlideModal";
-import { Link } from "react-router-dom";
 import { getSlides } from "../../api";
 const axios = require("axios").default;
 
@@ -56,7 +55,7 @@ export default function ManageSlides(props) {
         { modal }
 
         <h1 className="text-4xl my-8">Slides</h1>
-        
+
         <div className="mb-12">
             <form id="new_slide_form" method="POST" action={ API_CONTENT_SLIDES_NEW } className="p-4 border shadow-lg rounded max-w-screen-sm grid gap-8 justify-start" onSubmit={ submit }>
                 <h2 className="text-lg font-medium">Add New Slide</h2>
