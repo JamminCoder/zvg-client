@@ -30,6 +30,7 @@ export const API_VERIFY_AUTH = `${ API_URL }/test-auth`;
 // Content management
 export const API_CONTENT_SLIDES_ALL = `${ API_URL }/content/slides`;
 export const API_CONTENT_SLIDES_NEW = `${ API_URL }/content/slides/new`;
+export const API_CONTENT_SLIDES_UPDATE = slideID => `${ API_URL }/content/slides/edit/${ slideID }`;
 
 
 // paypal

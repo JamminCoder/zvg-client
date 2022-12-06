@@ -1,6 +1,6 @@
 import Button from "../../components/Button";
 import ButtonMap from "../../components/ButtonMap";
-import { API_CONTENT_SLIDES_NEW } from "../../apiRoutes";
+import { API_CONTENT_SLIDES_NEW, API_CONTENT_SLIDES_UPDATE } from "../../apiRoutes";
 import { XSRF_HEADER } from "../../lib/auth";
 import { preventDefaults, serverURL } from "../../lib/utils";
 import { useEffect, useState } from "react";
@@ -9,6 +9,102 @@ import AddButtonToSlideModal from "./modals/AddButtonToSlideModal";
 import { getSlides } from "../../api";
 const axios = require("axios").default;
 
+function SlideContentEdit({ slide, formID }) {
+    return (
+    <form id={ formID } className="flex-grow w-[100%] relative grid place-items-center">
+        <div className="w-[100%]">
+            {/* Image */}
+            <img src={ serverURL(slide.image_path) } alt="description here" className="h-[50vh] lg:h-[65vh] w-[100%] object-cover" />
+        </div>
+
+        <div className="welcome-header-section w-[100%] h-[100%] absolute grid place-items-center">
+            <div className="flex flex-col items-center gap-4 max-w-[80%]">
+
+                {/* Header and lead */}
+                <input name="header" className="text-center text-2xl font-bold text-white bg-transparent border-b" style={{fontSize: "clamp(2rem, 4vw, 4.5rem)", color: slide.color }} defaultValue={ slide.header }/>
+                <input name="lead" className="text-center text-2xl font-light text-white bg-transparent border-b" defaultValue={ slide.lead }/>
+                
+                <div className="flex gap-4 mt-2">
+                    <ButtonMap buttonsArray={ slide.buttons } />
+                </div>
+            </div>
+        </div>
+    </form>
+    );
+}
+
+function SlideContentDefault({ slide }) {
+    return (
+    <section className="flex-grow w-[100%] relative grid place-items-center">
+        <div className="w-[100%]">
+            {/* Image */}
+            <img src={ serverURL(slide.image_path) } alt="description here" className="h-[50vh] lg:h-[65vh] w-[100%] object-cover" />
+        </div>
+
+        <div className="welcome-header-section w-[100%] h-[100%] absolute grid place-items-center">
+            <div className="flex flex-col items-center gap-4 max-w-[80%]">
+
+                {/* Header and lead */}
+                <h1 className="text-2xl font-bold text-white" style={{fontSize: "clamp(2rem, 4vw, 4.5rem)", color: slide.color }}>{ slide.header }</h1>                    
+                <p className="text-center text-2xl font-light text-white">{ slide.lead }</p>
+                
+                <div className="flex gap-4 mt-2">
+                        <ButtonMap buttonsArray={ slide.buttons } />
+                </div>
+            </div>
+        </div>
+    </section>
+    );
+}
+
+function RenderSlide({ slide }) {
+    const [isEditing, setIsEditing] = useState(false);
+    const formID = `edit_slide_${ slide.id }_form`;
+
+    function submitEdit() {
+        const formData = new FormData(document.getElementById(formID));
+
+        axios.post(
+            API_CONTENT_SLIDES_UPDATE(slide.id),
+            formData, 
+            {
+                headers: XSRF_HEADER,
+                withCredentials: true,
+            }
+        ).then(res => {
+            window.location.reload();
+            console.log(res);
+        })
+    }
+    
+    function handleEditClick() {
+        setIsEditing(!isEditing); // Toggle edit status
+    }
+
+    return (
+    <div key={ slide.header } className="mb-8">
+        <div className="flex gap-4 mb-4">
+            <Button onClick={ handleEditClick } className="bg-slate-700 text-white">{ isEditing ? "Cancel": "Edit" }</Button>
+            {
+                isEditing ? 
+                <>
+                    <Button 
+                        onClick={ submitEdit }
+                        className="bg-green-500 text-white">Save</Button>
+                    <Button className="bg-red-500 text-white">Delete</Button>
+                </>
+                : ""
+            }
+        </div>
+
+        {
+            isEditing
+            ? <SlideContentEdit slide={ slide } formID={ formID }/>
+            : <SlideContentDefault slide={ slide }/>
+        }
+    </div>
+    );
+}
 
 export default function ManageSlides(props) {
     const [modal, setModal] = useState(null);
@@ -98,33 +194,7 @@ export default function ManageSlides(props) {
         {/* Render existing slides */}
         
         <div className="mb-8 grid gap-8">
-            { slides ? slides.map(
-                slide => (
-                
-                <section key={ slide.header } className="slide flex-grow w-[100%] relative grid place-items-center">
-                    { console.log(slide) }
-                    <div className="w-[100%]">
-                    {/* Image */}
-                    <img src={ serverURL(slide.image_path) } alt="description here" className="h-[50vh] lg:h-[65vh] w-[100%] object-cover" />
-                    </div>
-            
-                    <div className="welcome-header-section w-[100%] h-[100%] absolute grid place-items-center">
-                    <div className="flex flex-col items-center gap-4 max-w-[80%]">
-            
-                        {/* Header and lead */}
-                        <h1 className="text-2xl font-bold text-white" style={{fontSize: "clamp(2rem, 4vw, 4.5rem)", color: slide.color }}>{ slide.header }</h1>                    
-                        <p className="text-center text-2xl font-light text-white">{ slide.lead }</p>
-                        
-                        <div className="flex gap-4 mt-2">
-                                <ButtonMap buttonsArray={ slide.buttons } />
-                        </div>
-
-            
-                    </div>
-                    </div>
-                </section>
-                )): "" 
-            }
+            { slides ? slides.map(slide => <RenderSlide slide={ slide } />): "" }
         </div>
     </div>
     );
