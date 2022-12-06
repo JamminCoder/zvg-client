@@ -52,7 +52,7 @@ function Slide({ parent, img, header, lead, buttons, sliderNum, max }) {
           <div className="flex justify-center gap-4 mt-2">
 
             {/* Buttons */}
-           <ButtonMap buttonsData={ JSON.parse(buttons) }/>
+           <ButtonMap buttonsArray={ buttons }/>
 
           </div>
 

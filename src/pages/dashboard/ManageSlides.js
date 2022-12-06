@@ -83,7 +83,7 @@ export default function ManageSlides(props) {
                 
 
                 <div className="flex gap-4">
-                    <ButtonMap buttonsData={ btnData }/>
+                    <ButtonMap buttonsArray={ btnData.buttons }/>
                 </div>
 
                 <Button className="bg-slate-700 text-white w-fit" onClick={ handleNewButton }>Add Button</Button>          
@@ -100,8 +100,9 @@ export default function ManageSlides(props) {
         <div className="mb-8 grid gap-8">
             { slides ? slides.map(
                 slide => (
+                
                 <section key={ slide.header } className="slide flex-grow w-[100%] relative grid place-items-center">
-
+                    { console.log(slide) }
                     <div className="w-[100%]">
                     {/* Image */}
                     <img src={ serverURL(slide.image_path) } alt="description here" className="h-[50vh] lg:h-[65vh] w-[100%] object-cover" />
@@ -115,7 +116,7 @@ export default function ManageSlides(props) {
                         <p className="text-center text-2xl font-light text-white">{ slide.lead }</p>
                         
                         <div className="flex gap-4 mt-2">
-                                <ButtonMap buttonsData={ JSON.parse(slide.buttons) } />
+                                <ButtonMap buttonsArray={ slide.buttons } />
                         </div>
 
             
