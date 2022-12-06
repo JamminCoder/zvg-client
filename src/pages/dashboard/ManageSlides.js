@@ -1,8 +1,8 @@
 import Button from "../../components/Button";
 import ButtonMap from "../../components/ButtonMap";
-import { API_CONTENT_SLIDES_NEW, API_CONTENT_SLIDES_UPDATE } from "../../apiRoutes";
+import { API_CONTENT_SLIDES_NEW, API_CONTENT_SLIDES_UPDATE, API_CONTENT_SLIDES_DELETE } from "../../apiRoutes";
 import { XSRF_HEADER } from "../../lib/auth";
-import { preventDefaults, serverURL } from "../../lib/utils";
+import { preventDefaults, serverURL, setPreviewImage } from "../../lib/utils";
 import { useEffect, useState } from "react";
 import ModalHandler from "./modals/handleModal";
 import AddButtonToSlideModal from "./modals/AddButtonToSlideModal";
@@ -12,6 +12,7 @@ const axios = require("axios").default;
 
 function SlideContentEdit({ slide, formID, modalHandler }) {
     const [btnData, setBtnData] = useState(slide.buttons);
+    const imageID = `slide_${ slide.id }_image`;
 
     function handleNewButton(e) {
         preventDefaults(e);
@@ -56,7 +57,8 @@ function SlideContentEdit({ slide, formID, modalHandler }) {
     <form id={ formID } method="POST" action={ API_CONTENT_SLIDES_UPDATE(slide.id) } className="flex-grow w-[100%] relative grid place-items-center">
         <div className="w-[100%]">
             {/* Image */}
-            <img src={ serverURL(slide.image_path) } alt="description here" className="h-[50vh] lg:h-[65vh] w-[100%] object-cover" />
+            <img id={ imageID } src={ serverURL(slide.image_path) } alt="description here" className="h-[50vh] lg:h-[65vh] w-[100%] object-cover" />
+            
         </div>
 
         <div className="welcome-header-section w-[100%] h-[100%] absolute grid place-items-center">
@@ -70,9 +72,10 @@ function SlideContentEdit({ slide, formID, modalHandler }) {
                     <DeletableButtons/>
                     <input type="hidden" name="buttons" id="buttons" defaultValue={ JSON.stringify(btnData) } onChange={(e) => {setBtnData(e.target.value)}}/>
                 </div>
-                <Button className="bg-slate-700 text-white w-fit" onClick={ handleNewButton }>Add Button</Button>          
-
+                <Button className="bg-slate-700 text-white w-fit bg-opacity-75 py-1" onClick={ handleNewButton }>Add Button to Slide</Button>          
+                
             </div>
+            <input type="file" name="image" id="image" className="bg-white absolute top-1 left-1 z-40" onChange={ (e) => setPreviewImage(e, imageID) }/>
         </div>
     </form>
     );
@@ -126,6 +129,18 @@ function RenderSlide({ slide, modalHandler }) {
         setIsEditing(!isEditing); // Toggle edit status
     }
 
+    function submitDelete() {
+        axios.post(
+            API_CONTENT_SLIDES_DELETE(slide.id),
+            XSRF_HEADER,
+            {withCredentials: true}
+
+        ).then(res => {
+            window.location.reload();
+            console.log(res);
+        })
+    }
+
     return (
     <div key={ slide.header } className="mb-8">
         <div className="flex gap-4 mb-4">
@@ -136,7 +151,10 @@ function RenderSlide({ slide, modalHandler }) {
                     <Button 
                         onClick={ submitEdit }
                         className="bg-green-500 text-white">Save</Button>
-                    <Button className="bg-red-500 text-white">Delete</Button>
+
+                    <Button 
+                        onClick={ submitDelete }
+                        className="bg-red-500 text-white">Delete</Button>
                 </>
                 : ""
             }

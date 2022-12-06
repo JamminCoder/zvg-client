@@ -12,6 +12,20 @@ export function serverURL(path) {
     return `${ SERVER_URL }/${ path }`;
 }
 
+export function setPreviewImage(evt, imageID) {
+    var tgt = evt.target || window.event.srcElement,
+        files = tgt.files;
+    
+    // FileReader support
+    if (FileReader && files && files.length) {
+        var fr = new FileReader();
+        fr.onload = function () {
+            document.getElementById(imageID).src = fr.result;
+        }
+        fr.readAsDataURL(files[0]);
+    }
+}
+
 export function capatalizeFirstLetter(string) {
     return string[0].toUpperCase() + string.slice(1);
 }
