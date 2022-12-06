@@ -7,9 +7,37 @@ import { useEffect, useState } from "react";
 import ModalHandler from "./modals/handleModal";
 import AddButtonToSlideModal from "./modals/AddButtonToSlideModal";
 import { getSlides } from "../../api";
+import { Link } from "react-router-dom";
 const axios = require("axios").default;
 
 function SlideContentEdit({ slide, formID }) {
+    const [btnData, setBtnData] = useState(slide.buttons);
+
+    function DeletableButtons() {
+        const buttons = [];
+        let i = 0;
+        btnData.forEach(btn => {
+            buttons.push(
+            <div>
+                <Link 
+                    key={ i } 
+                    className="btn" 
+                    to={ btn.link } 
+                    style={{ backgroundColor: btn.bg, color: btn.color }}
+
+                >{ btn.text }</Link>
+                <Button 
+                onClick={ (e) => { preventDefaults(e); setBtnData(slide.buttons.splice(i, 1)) } }
+                className="bg-red-500 p-2 cursor-pointer">X</Button>
+            </div>
+            )
+
+            i++;
+        })
+
+        return buttons;
+    }
+
     return (
     <form id={ formID } className="flex-grow w-[100%] relative grid place-items-center">
         <div className="w-[100%]">
@@ -25,7 +53,8 @@ function SlideContentEdit({ slide, formID }) {
                 <input name="lead" className="text-center text-2xl font-light text-white bg-transparent border-b" defaultValue={ slide.lead }/>
                 
                 <div className="flex gap-4 mt-2">
-                    <ButtonMap buttonsArray={ slide.buttons } />
+                    <DeletableButtons/>
+                    <input type="hidden" name="buttons" id="buttons" defaultValue={ JSON.stringify(btnData) } onChange={(e) => {setBtnData(e.target.value)}}/>
                 </div>
             </div>
         </div>
@@ -49,7 +78,7 @@ function SlideContentDefault({ slide }) {
                 <p className="text-center text-2xl font-light text-white">{ slide.lead }</p>
                 
                 <div className="flex gap-4 mt-2">
-                        <ButtonMap buttonsArray={ slide.buttons } />
+                    <ButtonMap buttonsArray={ slide.buttons } />
                 </div>
             </div>
         </div>
