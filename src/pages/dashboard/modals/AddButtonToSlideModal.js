@@ -14,7 +14,7 @@ export default function AddButtonToSlideModal(props) {
         const btnColor = document.querySelector("#btn_color").value;
 
 
-        props.btnData.buttons.push({
+        props.btnData.push({
             "text": btnText,
             "link": btnLink,
             "bg": btnBg,

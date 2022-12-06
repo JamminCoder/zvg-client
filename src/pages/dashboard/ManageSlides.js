@@ -10,27 +10,41 @@ import { getSlides } from "../../api";
 import { Link } from "react-router-dom";
 const axios = require("axios").default;
 
-function SlideContentEdit({ slide, formID }) {
+function SlideContentEdit({ slide, formID, modalHandler }) {
     const [btnData, setBtnData] = useState(slide.buttons);
+
+    function handleNewButton(e) {
+        preventDefaults(e);
+        modalHandler.new(AddButtonToSlideModal, { btnData: btnData, setBtnData: setBtnData });
+    }
 
     function DeletableButtons() {
         const buttons = [];
         let i = 0;
+
+        function deleteButton(e, btnText) {
+            preventDefaults(e);
+            
+            const idx = btnData.findIndex(btn => btn.text === btnText);
+            btnData.splice(idx, 1);
+            console.log(btnData);
+            setBtnData([...btnData]);
+            console.log(btnData);
+        }
+
         btnData.forEach(btn => {
             buttons.push(
-            <div>
+            <div key={ i } >
                 <Link 
-                    key={ i } 
                     className="btn" 
                     to={ btn.link } 
                     style={{ backgroundColor: btn.bg, color: btn.color }}
 
                 >{ btn.text }</Link>
                 <Button 
-                onClick={ (e) => { preventDefaults(e); setBtnData(slide.buttons.splice(i, 1)) } }
+                onClick={ (e) => deleteButton(e, btn.text) }
                 className="bg-red-500 p-2 cursor-pointer">X</Button>
-            </div>
-            )
+            </div>)
 
             i++;
         })
@@ -39,7 +53,7 @@ function SlideContentEdit({ slide, formID }) {
     }
 
     return (
-    <form id={ formID } className="flex-grow w-[100%] relative grid place-items-center">
+    <form id={ formID } method="POST" action={ API_CONTENT_SLIDES_UPDATE(slide.id) } className="flex-grow w-[100%] relative grid place-items-center">
         <div className="w-[100%]">
             {/* Image */}
             <img src={ serverURL(slide.image_path) } alt="description here" className="h-[50vh] lg:h-[65vh] w-[100%] object-cover" />
@@ -56,6 +70,8 @@ function SlideContentEdit({ slide, formID }) {
                     <DeletableButtons/>
                     <input type="hidden" name="buttons" id="buttons" defaultValue={ JSON.stringify(btnData) } onChange={(e) => {setBtnData(e.target.value)}}/>
                 </div>
+                <Button className="bg-slate-700 text-white w-fit" onClick={ handleNewButton }>Add Button</Button>          
+
             </div>
         </div>
     </form>
@@ -86,7 +102,7 @@ function SlideContentDefault({ slide }) {
     );
 }
 
-function RenderSlide({ slide }) {
+function RenderSlide({ slide, modalHandler }) {
     const [isEditing, setIsEditing] = useState(false);
     const formID = `edit_slide_${ slide.id }_form`;
 
@@ -128,7 +144,7 @@ function RenderSlide({ slide }) {
 
         {
             isEditing
-            ? <SlideContentEdit slide={ slide } formID={ formID }/>
+            ? <SlideContentEdit slide={ slide } formID={ formID } modalHandler={ modalHandler }/>
             : <SlideContentDefault slide={ slide }/>
         }
     </div>
@@ -145,7 +161,7 @@ export default function ManageSlides(props) {
 
     function handleNewButton(e) {
         preventDefaults(e);
-        modalHandler.new(AddButtonToSlideModal, { btnData: btnData, setBtnData: setBtnData });
+        modalHandler.new(AddButtonToSlideModal, { btnData: btnData.buttons, setBtnData: setBtnData });
     }
 
     function submit(e) {
@@ -223,7 +239,7 @@ export default function ManageSlides(props) {
         {/* Render existing slides */}
         
         <div className="mb-8 grid gap-8">
-            { slides ? slides.map(slide => <RenderSlide slide={ slide } />): "" }
+            { slides ? slides.map(slide => <RenderSlide slide={ slide } modalHandler={ modalHandler } />): "" }
         </div>
     </div>
     );
