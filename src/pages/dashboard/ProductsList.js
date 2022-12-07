@@ -3,20 +3,17 @@ import ConfirmDeleteModal from "./modals/ConfirmDeleteModal";
 import AdminProductCard from "./AdminProductCard";
 import { deleteCategoryByName } from "../../api";
 import { useState } from "react";
-import ModalHandler from "./modals/handleModal";
 import UpdateCategoryModal from "./modals/UpdateCategoryModal";
 
 export function ProductsList({ category }) {
     const [display, setDisplay] = useState(true);
     const [modal, setModal] = useState(null);
-    const modalHandler = new ModalHandler(modal, setModal);
 
     const handleConfirmDelete = () =>
         !modal ? setModal(
             <ConfirmDeleteModal
                 category={ category }
-                onClick={ () => setModal(null) }
-                cancel={ () => setModal(null) }
+                close={ () => setModal(null) }
                 delete={ deleteCategoryForReal }/>
             ): setModal(null);
 

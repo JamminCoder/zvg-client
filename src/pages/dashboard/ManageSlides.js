@@ -4,19 +4,19 @@ import { API_CONTENT_SLIDES_NEW, API_CONTENT_SLIDES_UPDATE, API_CONTENT_SLIDES_D
 import { XSRF_HEADER } from "../../lib/auth";
 import { preventDefaults, serverURL, setPreviewImage } from "../../lib/utils";
 import { useEffect, useState } from "react";
-import ModalHandler from "./modals/handleModal";
 import AddButtonToSlideModal from "./modals/AddButtonToSlideModal";
 import { getSlides } from "../../api";
 import { Link } from "react-router-dom";
 const axios = require("axios").default;
 
-function SlideContentEdit({ slide, formID, modalHandler }) {
+function SlideContentEdit({ slide, formID }) {
     const [btnData, setBtnData] = useState(slide.buttons);
+    const [modal, setModal] = useState(null);
     const imageID = `slide_${ slide.id }_image`;
 
     function handleNewButton(e) {
         preventDefaults(e);
-        modalHandler.new(AddButtonToSlideModal, { btnData: btnData, setBtnData: setBtnData });
+        setModal(<AddButtonToSlideModal btnData={ btnData } close={ () => setModal(null) }/>);
     }
 
     function DeletableButtons() {
@@ -55,6 +55,7 @@ function SlideContentEdit({ slide, formID, modalHandler }) {
 
     return (
     <form id={ formID } method="POST" action={ API_CONTENT_SLIDES_UPDATE(slide.id) } className="flex-grow w-[100%] relative grid place-items-center">
+        { modal }
         <div className="w-[100%]">
             {/* Image */}
             <img id={ imageID } src={ serverURL(slide.image_path) } alt="description here" className="h-[50vh] lg:h-[65vh] w-[100%] object-cover" />
@@ -105,7 +106,7 @@ function SlideContentDefault({ slide }) {
     );
 }
 
-function RenderSlide({ slide, modalHandler }) {
+function RenderSlide({ slide }) {
     const [isEditing, setIsEditing] = useState(false);
     const formID = `edit_slide_${ slide.id }_form`;
 
@@ -162,7 +163,7 @@ function RenderSlide({ slide, modalHandler }) {
 
         {
             isEditing
-            ? <SlideContentEdit slide={ slide } formID={ formID } modalHandler={ modalHandler }/>
+            ? <SlideContentEdit slide={ slide } formID={ formID }/>
             : <SlideContentDefault slide={ slide }/>
         }
     </div>
@@ -175,11 +176,9 @@ export default function ManageSlides(props) {
     const [attempt, setAttempt] = useState(false);
     const [btnData, setBtnData] = useState({buttons: []})
 
-    const modalHandler = new ModalHandler(modal, setModal);
-
     function handleNewButton(e) {
         preventDefaults(e);
-        modalHandler.new(AddButtonToSlideModal, { btnData: btnData.buttons, setBtnData: setBtnData });
+        setModal(<AddButtonToSlideModal btnData={btnData.buttons} close={ () => setModal(null) }/>);
     }
 
     function submit(e) {
@@ -211,7 +210,7 @@ export default function ManageSlides(props) {
     });
 
     return (
-    <div onClick={ () => modalHandler.closeIfExists(modal) }>
+    <div>
         { modal }
 
         <h1 className="text-4xl my-8">Slides</h1>
@@ -257,7 +256,7 @@ export default function ManageSlides(props) {
         {/* Render existing slides */}
         
         <div className="mb-8 grid gap-8">
-            { slides ? slides.map(slide => <RenderSlide slide={ slide } modalHandler={ modalHandler } />): "" }
+            { slides ? slides.map(slide => <RenderSlide slide={ slide }/>): "" }
         </div>
     </div>
     );

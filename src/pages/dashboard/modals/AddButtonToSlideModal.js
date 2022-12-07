@@ -1,6 +1,6 @@
-import { preventDefaults, stopPropagation } from "../../../lib/utils";
-import Overlay from "../../../layouts/Overlay";
+import { preventDefaults } from "../../../lib/utils";
 import Button from "../../../components/Button";
+import Modal from "../../../components/Modal";
 
 
 export default function AddButtonToSlideModal(props) {
@@ -26,39 +26,37 @@ export default function AddButtonToSlideModal(props) {
 
 
     return (
-    <Overlay>
-        <div className="bg-white p-5 grid gap-5" onClick={ stopPropagation }>
-            <h4>Button 1:</h4>
-            <div className="grid gap-4 justify-start">
-                
-                <div>
-                    <label htmlFor="btn_text">Text</label><br/>
-                    <input className="border" type="text" name="btn_text" id="btn_text"/>
-                </div>
-
-                <div>
-                    <label htmlFor="btn_1_link">Link</label><br/>
-                    <input className="border" type="text" name="btn_link" id="btn_link"/>
-                </div>
-                
-                <div>
-                    <label htmlFor="btn_bg">Background color</label><br/>
-                    <input type="color" name="btn_bg" id="btn_bg" defaultValue="#ffffff"/>
-                </div>
-                <div>
-                    <label htmlFor="btn_color">Text Color</label><br/>
-                    <input type="color" name="btn_color" id="btn_color"/>
-                </div>
-
+    <Modal close={ props.close }>
+        <h4>Button 1:</h4>
+        <div className="grid gap-4 justify-start">
+            
+            <div>
+                <label htmlFor="btn_text">Text</label><br/>
+                <input className="border" type="text" name="btn_text" id="btn_text"/>
             </div>
 
-            <Button className="text-white bg-green-500 font-bold"  onClick={ save } >Save</Button>
-            <Button
-                className="bg-slate-700 text-white"
-                onClick={ props.close }>                            
-                Cancel
-            </Button>
+            <div>
+                <label htmlFor="btn_1_link">Link</label><br/>
+                <input className="border" type="text" name="btn_link" id="btn_link"/>
+            </div>
+            
+            <div>
+                <label htmlFor="btn_bg">Background color</label><br/>
+                <input type="color" name="btn_bg" id="btn_bg" defaultValue="#ffffff"/>
+            </div>
+            <div>
+                <label htmlFor="btn_color">Text Color</label><br/>
+                <input type="color" name="btn_color" id="btn_color"/>
+            </div>
+
         </div>
-    </Overlay>
+
+        <Button className="text-white bg-green-500 font-bold"  onClick={ save } >Save</Button>
+        <Button
+            className="bg-slate-700 text-white"
+            onClick={ props.close }>                            
+            Cancel
+        </Button>
+    </Modal>
     );
 }

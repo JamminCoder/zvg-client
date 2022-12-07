@@ -1,12 +1,12 @@
 import { API_PRODUCT_NEW } from "../../../apiRoutes";
 import { XSRF_HEADER, WITH_CREDENTIALS } from "../../../lib/auth";
-import { preventDefaults, stopPropagation } from "../../../lib/utils";
+import { preventDefaults } from "../../../lib/utils";
 import CloseIcon from "../../../components/icons/Close";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Overlay from "../../../layouts/Overlay";
 import { getCategoriesInfo } from "../../../api";
 import CategorySelect from "../../../components/CategorySelect";
+import Modal from "../../../components/Modal";
 
 export default function NewItemModal(props) {
     const [error, setError] = useState("");
@@ -55,70 +55,64 @@ export default function NewItemModal(props) {
 
     if (!categories || !categories.length) {
         return (
-            <Overlay>
-                <div className="shadow bg-white p-8 rounded">
-                    <h1 className="text-xl">Please create a product category first</h1>
-                </div>
-            </Overlay>
+            <Modal close={ props.close }>
+                <h1 className="text-xl">Please create a product category first</h1>
+            </Modal>
         )
     }
 
     return (
-    <Overlay>
-        {/* Main modal */}
-        <div className="shadow bg-white p-8 rounded relative" onClick={ stopPropagation }>
+    <Modal close={ props.close }>
+        <span 
+            className="absolute right-0 top-0 p-1 m-1 shadow rounded-full bg-slate-50 hover:bg-slate-100"
+            onClick={ props.close || null }>
             
-            <span 
-                className="absolute right-0 top-0 p-1 m-1 shadow rounded-full bg-slate-50 hover:bg-slate-100"
-                onClick={ props.close || null }>
-                
-                <CloseIcon size={ 32 }/>
-            </span>
+            <CloseIcon size={ 32 }/>
+        </span>
 
-            <h1 className="text-black font-medium text-3xl">Upload new product</h1>
-            
-            <p className="text-green-600"> { success } </p>
-            <p className="text-red-600"> { error } </p>
+        <h1 className="text-black font-medium text-3xl">Upload new product</h1>
+        
+        <p className="text-green-600"> { success } </p>
+        <p className="text-red-600"> { error } </p>
 
-            <form className="py-2 flex flex-col gap-4" id="new_product_form" action={ API_PRODUCT_NEW } method="POST" encType="multipart/form-data" onSubmit={ submit }>
-                <div>
-                    <label htmlFor="images" className="text-lg">Product Images</label><br/>
-                    <input type="file" id="images" name="images[]" multiple required/>
-                </div>
+        <form className="py-2 flex flex-col gap-4" id="new_product_form" action={ API_PRODUCT_NEW } method="POST" encType="multipart/form-data" onSubmit={ submit }>
+            <div>
+                <label htmlFor="images" className="text-lg">Product Images</label><br/>
+                <input type="file" id="images" name="images[]" multiple required/>
+            </div>
 
-                <div>
-                    <label htmlFor="category" className="text-lg">Category</label><br/>
-                    <CategorySelect categories={ categories } name="category" id="category"/>
-                </div>
+            <div>
+                <label htmlFor="category" className="text-lg">Category</label><br/>
+                <CategorySelect categories={ categories } name="category" id="category"/>
+            </div>
 
-                <div>
-                    <label htmlFor="name" className="text-lg">Product Name</label><br/>
-                    <input type="text" id="name" name="name" className="border" required/>
-                </div>
+            <div>
+                <label htmlFor="name" className="text-lg">Product Name</label><br/>
+                <input type="text" id="name" name="name" className="border" required/>
+            </div>
 
-                <div>
-                    <label htmlFor="stock">Stock:</label><br/>
-                    <input type="number" name="stock" id="stock" className="border"/>
-                </div>
+            <div>
+                <label htmlFor="stock">Stock:</label><br/>
+                <input type="number" name="stock" id="stock" className="border"/>
+            </div>
 
-                <div>
-                    <label htmlFor="description" className="text-lg">Description</label><br/>
-                    <textarea id="description" name="description" className="border h-40 w-[100%]"></textarea>
-                </div>
+            <div>
+                <label htmlFor="description" className="text-lg">Description</label><br/>
+                <textarea id="description" name="description" className="border h-40 w-[100%]"></textarea>
+            </div>
 
-                <div>
-                    <label htmlFor="price" className="text-lg">Price</label><br/>
-                    $<input type="text" id="price" name="price" className="max-w-fit border" required/>
-                </div>
+            <div>
+                <label htmlFor="price" className="text-lg">Price</label><br/>
+                $<input type="text" id="price" name="price" className="max-w-fit border" required/>
+            </div>
 
-                <div>
-                    <label htmlFor="tax_percent" className="text-lg">Tax Percent</label><br/>
-                    <input type="text" id="tax_percent" name="tax_percent" className="w-16 max-w-fit border" required/>%
-                </div>
+            <div>
+                <label htmlFor="tax_percent" className="text-lg">Tax Percent</label><br/>
+                <input type="text" id="tax_percent" name="tax_percent" className="w-16 max-w-fit border" required/>%
+            </div>
 
-                <button className="border px-2 py-1 w-fit rounded hover:bg-slate-50 active:bg-slate-100">Create</button>
-            </form>
-        </div>
-    </Overlay>
+            <button className="border px-2 py-1 w-fit rounded hover:bg-slate-50 active:bg-slate-100">Create</button>
+        </form>
+    </Modal>
     );
 }

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import DashboardSidebar from "./DashboardSidebar";
 import { getAllProductsWithCategories } from "../../api";
 import { ProductsList } from "./ProductsList";
-import ModalHandler from "./modals/handleModal";
 import DashboardLayout from "./DashboardLayout"
 import { Outlet } from "react-router-dom";
 
@@ -37,13 +36,12 @@ export function Dashboard(props) {
 
 export default function DashboardRoot(props) {
     const [modal, setModal] = useState(null);
-    const modalHandler = new ModalHandler(modal, setModal);
 
     return (
-        <DashboardLayout onClick={ () => modalHandler.closeIfExists(modal) }>
+        <DashboardLayout>
             { modal }
             
-            <DashboardSidebar modalHandler={ modalHandler } />
+            <DashboardSidebar setModal={ setModal } />
 
             <main className="p-10 w-[100%]">
                 <Outlet/>
