@@ -70,20 +70,18 @@ export default function NewItemModal(props) {
             <CloseIcon size={ 32 }/>
         </span>
 
-        <h1 className="text-black font-medium text-3xl">Upload new product</h1>
+        <h1 className="font-medium text-3xl">New Product</h1>
+        <h2 className="font-medium text-xl">Category: { props.category }</h2>
         
         <p className="text-green-600"> { success } </p>
         <p className="text-red-600"> { error } </p>
 
-        <form className="py-2 flex flex-col gap-4" id="new_product_form" action={ API_PRODUCT_NEW } method="POST" encType="multipart/form-data" onSubmit={ submit }>
+        <form className="pb-2 flex flex-col gap-4" id="new_product_form" action={ API_PRODUCT_NEW } method="POST" encType="multipart/form-data" onSubmit={ submit }>
+            <input type="hidden" name="category" defaultValue={ props.category } />
+            
             <div>
                 <label htmlFor="images" className="text-lg">Product Images</label><br/>
                 <input type="file" id="images" name="images[]" multiple required/>
-            </div>
-
-            <div>
-                <label htmlFor="category" className="text-lg">Category</label><br/>
-                <CategorySelect categories={ categories } name="category" id="category"/>
             </div>
 
             <div>

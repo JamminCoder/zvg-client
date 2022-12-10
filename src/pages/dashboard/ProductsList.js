@@ -4,6 +4,7 @@ import AdminProductCard from "./AdminProductCard";
 import { deleteCategoryByName } from "../../api";
 import { useState } from "react";
 import UpdateCategoryModal from "./modals/UpdateCategoryModal";
+import NewItemModal from "./modals/NewItemModal";
 
 export function ProductsList({ category }) {
     const [display, setDisplay] = useState(true);
@@ -55,6 +56,8 @@ export function ProductsList({ category }) {
         <div className="flex flex-wrap gap-8 mb-4">
             { category.products.map(product => <AdminProductCard key={ product.sku } product={ product } />)}
         </div>
+
+        <Button className="shadow" onClick={ () => setModal(<NewItemModal close={() => setModal(null)} category={ category.name }/>) }>New { category.name } item</Button>
     </div>
     );
 }
