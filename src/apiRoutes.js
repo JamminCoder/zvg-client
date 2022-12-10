@@ -34,5 +34,5 @@ export const API_CONTENT_SLIDES_UPDATE = slideID => `${ API_URL }/content/slides
 export const API_CONTENT_SLIDES_DELETE = slideID => `${ API_URL }/content/slides/delete/${ slideID }`;
 
 
-// paypal
-export const API_PAYPAL_ORDER = `${API_URL}/orders/create`;
+// square
+export const API_SQUARE_ORDER = `${API_URL}/square/order-checkout`;

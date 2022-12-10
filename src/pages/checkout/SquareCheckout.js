@@ -1,8 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
 import ShoppingCartManager from "../../lib/shoppingCartManager";
-import { API_PAYPAL_ORDER } from "../../apiRoutes";
+import { API_SQUARE_ORDER } from "../../apiRoutes";
 import { WITH_CREDENTIALS, XSRF_HEADER } from "../../lib/auth";
 import Button from "../../components/Button";
 
@@ -40,57 +39,31 @@ export function ShippingAndBilling(props) {
     );
 }
 
-export function PaypalButton({ onClick }) {
+export function CheckoutButton({ onClick, className }) {
     return (
+        <>
         <Button 
         onClick={() => {
             onClick();
         }}
 
-        className="w-[90%] shadow-lg bg-yellow-400 hover:bg-yellow-300 text-blue-800 font-bold mx-auto my-2 grid place-items-center ">
-            Pay with PayPal
+        className={`w-[90%] shadow-lg bg-slate-800 text-white font-bold text-center ${ className ? className: ""}`}>
+            Checkout Now
         </Button>
+        <p>You will be redirected to Square for checkout</p>
+        </>
     );
 }
 
 
-export default function PaypalCheckout() {
+export default function SquareCheckout() {
     const [productSkus, setProductSkus] = useState(null);
-    const [searchParams, _] = useSearchParams();
-    const [orderInfo, setOrderInfo] = useState(null);
-    const [confirmPaymentButton, setConfirmPaymentButton] = useState(null);
 
     useEffect(() => {
         if (!productSkus)
             ShoppingCartManager.skusArray().then(skus => {
                 setProductSkus(skus);
         });
-
-        if (!orderInfo) {
-            const token = searchParams.get("token");
-            const payerID = searchParams.get("PayerID");
-            if (!( token && payerID ) ) return;
-            
-            setOrderInfo({
-                token: searchParams.get("token"),
-                PayerID: searchParams.get("PayerID")
-            })
-        }
-
-        if (!confirmPaymentButton && orderInfo && productSkus) {
-            setConfirmPaymentButton(
-                <Button 
-                onClick={() => {
-                    axios.post(
-                        `http://localhost:8000/api/orders/${ orderInfo.token }/capture`, 
-                        { skus: productSkus },
-                        { headers: { ...XSRF_HEADER }, ...WITH_CREDENTIALS }
-                    ).then(res => console.log(res));
-                }}
-
-                className="bg-blue-500 text-white">Capture Payment</Button>
-            );
-        }
     });
 
     function submit() {
@@ -100,19 +73,16 @@ export default function PaypalCheckout() {
         
 
         axios.post(
-            API_PAYPAL_ORDER, 
+            API_SQUARE_ORDER, 
             formData, { 
             headers: XSRF_HEADER, 
             ...WITH_CREDENTIALS 
         })
         .then(res => {
             console.log(res.data);
-
-            res.data.links.forEach(link => {
-                if (link.rel == "approve") {
-                    window.location.href = link.href;
-                }
-            })
+            const paymentData = res.data.payment_link;
+            const paymentUrl = paymentData.url;
+            window.location.href = paymentUrl;
         })
         .catch(err => {
             console.log(err);
@@ -122,15 +92,14 @@ export default function PaypalCheckout() {
     return (
         <div className="card_container">
             
-            <form id="card_form" action={ API_PAYPAL_ORDER } onSubmit={ e => e.preventDefault() }>
+            <form id="card_form" action={ API_SQUARE_ORDER } onSubmit={ e => e.preventDefault() }>
                 
                 {/* <ShippingAndBilling/> */}
-                <PaypalButton onClick={ submit } />
-                <div className="grid place-items-center mt-4">
-                    { confirmPaymentButton }
+                <div className="grid place-items-center">
+                    <CheckoutButton onClick={ submit } className="my-4" />
                 </div>
                 
-
+                <input type="hidden" name="products_json" id="products_json" defaultValue={ JSON.stringify({products: productSkus}) }/>
             </form>
         </div>
     )

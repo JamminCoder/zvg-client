@@ -1,7 +1,7 @@
 import ProductList from "../../components/ProductList";
 import { useEffect, useState } from "react";
 import ShoppingCartManager from "../../lib/shoppingCartManager";
-import PaypalCheckout from "./PaypalCheckout";
+import SquareCheckout from "./SquareCheckout";
 
 
 
@@ -25,13 +25,14 @@ export default function Checkout(props) {
     return (
         <div className="px-4 py-24 mx-auto flex justify-center gap-12">
             <div className="bg-white rounded p-2 z-20 shadow-lg max-w-[50rem] flex-grow text-xl">
-                <PaypalCheckout/>
+                
                 <ProductList className="mb-5"/>
 
                 Tax: ${ tax }
                 <div className="text-xl">
                     Total: ${ price }
                 </div>
+                <SquareCheckout/>
             </div>   
         </div>
     );
