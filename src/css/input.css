@@ -20,4 +20,8 @@
     .btn {
         @apply p-2 rounded hover:brightness-105 active:brightness-90
     }
+
+    .link {
+        @apply underline text-blue-500
+    }
 }

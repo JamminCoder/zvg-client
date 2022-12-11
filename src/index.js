@@ -16,7 +16,7 @@ import ProductsPage from "./pages/ProductsPage";
 import ProductDetails from "./pages/ProductDetails";
 import ReservationPage from "./pages/ReservationPage";
 import Login from "./pages/Login";
-import DashboardRoot, { Dashboard } from "./pages/dashboard/Dashboard";
+import { DashboardLayout, DashboardHome, DashboardProducts } from "./pages/dashboard/Dashboard";
 import Checkout from "./pages/checkout/Checkout";
 import { xsrf } from "./lib/utils";
 import ManageSlides from "./pages/dashboard/ManageSlides";
@@ -43,8 +43,9 @@ root.render(
 
         <Route path="/login" element={ <Login/> } />
 
-        <Route path="/dashboard" element={ <DashboardRoot/> }>
-          <Route path="" element={ <Dashboard/> }/>
+        <Route path="/dashboard" element={ <DashboardLayout/> }>
+          <Route path="" element={ <DashboardHome/> }/>
+          <Route path="products" element={ <DashboardProducts/> }/>
           <Route path="test" element={ <div>It is working because I said so.</div> } />
           <Route path="slides" element={ <ManageSlides/> } />
           
