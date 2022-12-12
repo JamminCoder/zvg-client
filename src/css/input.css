@@ -24,4 +24,8 @@
     .link {
         @apply underline text-blue-500
     }
+
+    .clean-input {
+        @apply text-center bg-transparent border-b
+    }
 }

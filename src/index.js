@@ -20,6 +20,7 @@ import { DashboardLayout, DashboardHome, DashboardProducts } from "./pages/dashb
 import Checkout from "./pages/checkout/Checkout";
 import { xsrf } from "./lib/utils";
 import ManageSlides from "./pages/dashboard/ManageSlides";
+import ManageShopHeader from "./pages/dashboard/ManageShopHeader";
 
 (async () => {
 await xsrf();
@@ -48,7 +49,7 @@ root.render(
           <Route path="products" element={ <DashboardProducts/> }/>
           <Route path="test" element={ <div>It is working because I said so.</div> } />
           <Route path="slides" element={ <ManageSlides/> } />
-          
+          <Route path="shop-header" element={ <ManageShopHeader/> } />
         </Route>
 
       </Routes>

@@ -5,14 +5,12 @@ import {
     API_VERIFY_AUTH,
     API_PRODUCTS_DELETE_SKU,
     API_PRODUCTS_GET_BY_SKU,
-    API_PRODUCTS_ALL_WITH_CATAGORY,
     API_CATEGORIES_DELETE,
     API_CATEGORIES_INFO,
     API_PRODUCTS_FROM_CATAGORY,
     API_CATEGORIES_GET,
-    API_PAYPAL_CLIENT_TOKEN,
-    API_PAYPAL_CLIENT_ID,
-    API_CONTENT_SLIDES_ALL
+    API_CONTENT_SLIDES_ALL,
+    API_CONTENT_SHOP_HEADER,
 } from "./apiRoutes";
 
 import { WITH_CREDENTIALS, XSRF_HEADER } from "./lib/auth";
@@ -85,3 +83,11 @@ export async function getSlides() {
     return res.data;
 }
 
+export async function getShopHeader() {
+    try {
+        const res = await axios.get(API_CONTENT_SHOP_HEADER);
+        return res.data;
+    } catch (err) {
+        console.log(err);
+    }
+}
