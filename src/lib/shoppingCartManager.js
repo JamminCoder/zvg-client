@@ -84,7 +84,7 @@ export default class ShoppingCartManager {
         let total = 0;
         const items = await ShoppingCartManager.all();
 
-        items.forEach(item => total += parseFloat(item.price * (item.tax_percent / 100 )));
+        items.forEach(item => total += parseFloat(item.count * item.price * (item.tax_percent / 100 )));
 
         return Math.round(100 * total) / 100;
     }
@@ -94,7 +94,7 @@ export default class ShoppingCartManager {
         const items = await ShoppingCartManager.all();
 
         items.forEach(item => {
-            total += parseFloat(item.price);
+            total += parseFloat(item.price * item.count);
         });
 
         total += await ShoppingCartManager.taxTotal();

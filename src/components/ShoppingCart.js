@@ -38,31 +38,9 @@ export function ViewCart(props) {
             let items = await ShoppingCartManager.all();
             setTotalPrice(await ShoppingCartManager.totalPrice());
 
-            let itemNames = [];
-            
-            let parsedItems = {};
             let itemComponents = [];
-
-            for (let itemIndex in items) {
-                const item = items[itemIndex];
-                
-                if (!itemNames.includes(item.name)) {
-                    itemNames.push(item.name);
-                    parsedItems[item.name] = item;
-
-                } else {
-                    try {
-                        parsedItems[item.name].count += 1;
-                    } catch (e) {
-                        parsedItems[item.name] = item;
-                        parsedItems[item.name].count += 1;
-
-                    }
-                }
-            }
-
-            for (let itemName in parsedItems) {
-                itemComponents.push(<Item key={ itemName } item={ parsedItems[itemName] } />)
+            for (let item of items) {
+                itemComponents.push(<Item key={ item.name } item={ item } />)
             }
 
             setCartItems(itemComponents);
@@ -112,11 +90,6 @@ export function ViewCart(props) {
     
     return (
         <div style={ viewStyle } className={`bg-white rounded p-2 z-20 shadow-lg min-w-[15rem] ${ props.className }`}>
-            {/* <svg className="hover:bg-slate-100 cursor-pointer rounded-full" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
-                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-            </svg> */}
-            
-
             { !cartItems.length > 0 ? "Nothing in cart": cartItems }
 
             { cartItems.length > 0 ? 
