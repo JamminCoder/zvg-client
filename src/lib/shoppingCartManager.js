@@ -16,18 +16,27 @@ export default class ShoppingCartManager {
             
             if (!(await ShoppingCartManager.ableToAddToCart(product))) return;
 
-            await db.items.add({
-                name: slugify(product.name), 
-                price: product.price,
-                tax_percent: product.tax_percent,
-                count: 1,
-                sku: product.sku
-            });
-
+            const result = await ShoppingCartManager.getBySku(product.sku);
+    
+            if (result.length) {
+                const item = result[0];
+                await db.items.where("sku").equals(product.sku).modify({count: item.count + 1});
+            }
+            else {
+                console.log("adding item")
+                await db.items.add({
+                    name: slugify(product.name), 
+                    price: product.price,
+                    tax_percent: product.tax_percent,
+                    count: 1,
+                    sku: product.sku
+                });
+            }
+            
             ShoppingCartManager.updateNotifications();
 
         } catch (e) {
-            console.log(`error inserting item: {name: "${product.name}", price: "${product.price}}`);
+            console.log(`error inserting item: {name: "${product.name}", price: ${product.price}}`);
         }   
     }
 
