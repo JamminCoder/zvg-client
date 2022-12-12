@@ -16,7 +16,7 @@ export default function ManageShopHeader(props) {
         getShopHeader().then(setShopHeader);
 
         setAttempt(true);
-    }, [shopHeader, setShopHeader]);
+    });
 
     function save(e) {
         preventDefaults(e);
