@@ -57,21 +57,15 @@ export function CheckoutButton({ onClick, className }) {
 
 
 export default function SquareCheckout() {
-    const [productSkus, setProductSkus] = useState(null);
+    const [itemsJSON, setItemsJSON] = useState(null);
 
     useEffect(() => {
-        if (!productSkus)
-            ShoppingCartManager.skusArray().then(skus => {
-                setProductSkus(skus);
-        });
+        if (!itemsJSON) ShoppingCartManager.itemsJSON().then(setItemsJSON);
     });
 
     function submit() {
         const formData = new FormData(document.querySelector("#card_form"));
-
-        formData.append("product_skus", productSkus.join(", "));
         
-
         axios.post(
             API_SQUARE_ORDER, 
             formData, { 
@@ -99,7 +93,7 @@ export default function SquareCheckout() {
                     <CheckoutButton onClick={ submit } className="my-4" />
                 </div>
                 
-                <input type="hidden" name="products_json" id="products_json" defaultValue={ JSON.stringify({products: productSkus}) }/>
+                <input type="hidden" name="items_json" id="items_json" defaultValue={ itemsJSON }/>
             </form>
         </div>
     )

@@ -65,6 +65,11 @@ export default class ShoppingCartManager {
         return await db.items.toArray();
     }
 
+    static async itemsJSON() {
+        const items = await ShoppingCartManager.all();
+        return JSON.stringify({items: items});
+    }
+
     static async skusArray() {
         const items = await ShoppingCartManager.all()
         const skus = items.map(item => item.sku);
