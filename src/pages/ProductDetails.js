@@ -6,6 +6,7 @@ import { imageURL } from "../lib/utils";
 import { useEffect } from "react";
 import { getProductBySKU, getProductsFromCategory } from "../api";
 import ProductCard from "../components/cards/ProductCard";
+import Button from "../components/Button";
 
 function ImagePreview(props) {
     const children = Children.toArray(props.children);
@@ -96,7 +97,7 @@ export default function ProductDetails() {
                     </p>
 
                     <div className="flex items-center gap-5 ">
-                        { ableToAddItem ? <button onClick={ addToCart } href="#add-to-cart" className="px-3 py-2 transition-colors active:bg-green-600 hover:bg-green-500 bg-green-600 text-lg text-white rounded">Add to Cart</button>: "" }
+                        { ableToAddItem ? <Button onClick={ addToCart } href="#add-to-cart" className="transition-colors text-lg text-white bg-green-600">Add to Cart</Button>: "" }
                         <h2 className="text-2xl text-green-900 font-bold">${ product.price }</h2>
                     </div>
                     <small>In Stock: { product.stock }</small>

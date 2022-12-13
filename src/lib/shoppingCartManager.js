@@ -16,12 +16,12 @@ export default class ShoppingCartManager {
             
             if (!(await ShoppingCartManager.ableToAddToCart(product))) return;
 
-            const result = await ShoppingCartManager.getBySku(product.sku);
+            const item = await ShoppingCartManager.getBySku(product.sku);
     
-            if (result.length) {
-                const item = result[0];
+            if (item) {
                 await db.items.where("sku").equals(product.sku).modify({count: item.count + 1});
             }
+
             else {
                 console.log("adding item")
                 await db.items.add({
@@ -51,13 +51,16 @@ export default class ShoppingCartManager {
     }
 
     static async getBySku(sku) {
-        return db.items.where("sku").equals(sku).toArray();
+        const result = await db.items.where("sku").equals(sku).toArray();
+        if (result.length) return result[0];
+
+        return null;
     }
 
     static async ableToAddToCart(product) {
-        const cartProduct = await ShoppingCartManager.getBySku(product.sku);
+        const item = await ShoppingCartManager.getBySku(product.sku);
+        if (item && product.stock <= item.count) return false;
 
-        if (product.stock <= cartProduct.length) return false;
         return true;
     }
 
