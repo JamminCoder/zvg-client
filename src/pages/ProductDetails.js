@@ -92,12 +92,15 @@ export default function ProductDetails() {
 
                 <div className="flex flex-col justify-center gap-5">
                     <h1 className="text-4xl">{ product.name }</h1>
-                    <p>
-                        { product.name }
-                    </p>
+                    <p>{ product.name }</p>
 
                     <div className="flex items-center gap-5 ">
-                        { ableToAddItem ? <Button onClick={ addToCart } href="#add-to-cart" className="transition-colors text-lg text-white bg-green-600">Add to Cart</Button>: "" }
+                        { 
+                            ableToAddItem 
+                            ? <Button onClick={ addToCart } href="#add-to-cart" className="transition-colors text-lg text-white bg-green-600">Add to Cart</Button>
+                            : "" 
+                        }
+
                         <h2 className="text-2xl text-green-900 font-bold">${ product.price }</h2>
                     </div>
                     <small>In Stock: { product.stock }</small>
@@ -111,7 +114,6 @@ export default function ProductDetails() {
             <GridEvenContainer className="py-24 px-2 md:px-10">
                 { products }
             </GridEvenContainer>
-                
         </div>
     );
 }
