@@ -42,20 +42,43 @@ export default function ProductDetails() {
     const sku = params.sku;
     const productType = params.productType;
     const [ableToAddItem, setAbleToAddItem] = useState(false);
+    const [isItemInCart, setIsItemInCart] = useState(false);
+    const [qtyInCart, setQtyInCart] = useState(0);
 
     const [product, setProduct] = useState(null);
     const [products, setProducts] = useState([]);
 
     function addToCart(e) {
-        ShoppingCartManager.addItem(product);
+        const qty = document.querySelector("#qty").value;
+
+        ShoppingCartManager.addItem(product, qty)
+        .then(success => setIsItemInCart(success));
+
+
         e.stopPropagation();
         e.preventDefault(); 
+    }
+
+    function updateItemQty() {
+        const qty = document.querySelector("#qty").value;
+        ShoppingCartManager.updateItemQty(product.sku, qty);
+        console.log("updated item quantity");
+    }
+
+    function removeItemFromCart() {
+        ShoppingCartManager.deleteItem(product.sku);
+        setIsItemInCart(false);
     }
 
     useEffect(() => {
         if (!product)
             getProductBySKU(sku)
             .then(prod => setProduct(prod));
+
+        if (product) {
+            ShoppingCartManager.isItemInCart(product.sku)
+            .then(isInCart => setIsItemInCart(isInCart));
+        }
 
         if (products.length === 0) {
             getProductsFromCategory(productType.toLowerCase())
@@ -78,6 +101,13 @@ export default function ProductDetails() {
             ShoppingCartManager.ableToAddToCart(product)
             .then(result => setAbleToAddItem(result));
         }
+
+        if (isItemInCart) {
+            ShoppingCartManager.getBySku(product.sku)
+            .then(item => setQtyInCart(item.count));
+
+            document.querySelector("#qty").value = qtyInCart;
+        }
     });
 
     if (!product || !product.stock) return "Product does not exist";
@@ -93,15 +123,25 @@ export default function ProductDetails() {
                 <div className="flex flex-col justify-center gap-5">
                     <h1 className="text-4xl">{ product.name }</h1>
                     <p>{ product.name }</p>
+                    <h2 className="text-2xl text-green-900 font-bold">${ product.price }</h2>
 
                     <div className="flex items-center gap-5 ">
                         { 
-                            ableToAddItem 
+                            ableToAddItem && !isItemInCart
                             ? <Button onClick={ addToCart } href="#add-to-cart" className="transition-colors text-lg text-white bg-green-600">Add to Cart</Button>
-                            : "" 
+                            : <Button onClick={ removeItemFromCart }  className="bg-slate-700 text-white" >Remove Item</Button>
                         }
 
-                        <h2 className="text-2xl text-green-900 font-bold">${ product.price }</h2>
+                        <div>
+                            <label htmlFor="qty">Select quantity { isItemInCart ? "in cart": "" }: </label>
+                            <select name="qty" id="qty" onChange={ updateItemQty }>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
                     </div>
                     <small>In Stock: { product.stock }</small>
                 </div>

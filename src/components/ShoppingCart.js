@@ -7,7 +7,7 @@ export function Item({ item }) {
 
     function remove(e) {
         preventDefaults(e);
-        ShoppingCartManager.deleteItem(item.name);
+        ShoppingCartManager.deleteItem(item.sku);
     }
 
     return (
