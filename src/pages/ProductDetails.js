@@ -44,9 +44,11 @@ export default function ProductDetails() {
     const [ableToAddItem, setAbleToAddItem] = useState(false);
     const [isItemInCart, setIsItemInCart] = useState(false);
     const [qtyInCart, setQtyInCart] = useState(0);
-
+    
     const [product, setProduct] = useState(null);
     const [products, setProducts] = useState([]);
+
+    const [selectorValue, setSelectorValue] = useState(null);
 
     function addToCart(e) {
         const qty = document.querySelector("#qty").value;
@@ -59,10 +61,10 @@ export default function ProductDetails() {
         e.preventDefault(); 
     }
 
-    function updateItemQty() {
-        const qty = document.querySelector("#qty").value;
+    function updateItemQty(e) {
+        const qty = e.target.value;
         ShoppingCartManager.updateItemQty(product.sku, qty);
-        console.log("updated item quantity");
+        document.querySelector("#qty").value = qty;
     }
 
     function removeItemFromCart() {
@@ -78,6 +80,10 @@ export default function ProductDetails() {
         if (product) {
             ShoppingCartManager.isItemInCart(product.sku)
             .then(isInCart => setIsItemInCart(isInCart));
+
+            ShoppingCartManager.ableToAddToCart(product)
+            .then(result => setAbleToAddItem(result));
+            setSelectorValue(product.count);
         }
 
         if (products.length === 0) {
@@ -95,11 +101,6 @@ export default function ProductDetails() {
     
                 setProducts(productDisplay);
             });
-        }
-
-        if (product) {
-            ShoppingCartManager.ableToAddToCart(product)
-            .then(result => setAbleToAddItem(result));
         }
 
         if (isItemInCart) {
@@ -134,7 +135,7 @@ export default function ProductDetails() {
 
                         <div>
                             <label htmlFor="qty">Select quantity { isItemInCart ? "in cart": "" }: </label>
-                            <select name="qty" id="qty" onChange={ updateItemQty }>
+                            <select id="qty"  onChange={ updateItemQty }>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>

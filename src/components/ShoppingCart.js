@@ -29,7 +29,7 @@ export function Item({ item }) {
                 
                 <div>
                     <label>Select quantity: </label>
-                    <select defaultValue={ selectorValue }  onChange={ updateItemQty }>
+                    <select defaultValue={ item.count } onChange={ updateItemQty }>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
