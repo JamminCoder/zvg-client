@@ -22,39 +22,45 @@ import { xsrf } from "./lib/utils";
 import ManageSlides from "./pages/dashboard/ManageSlides";
 import ManageShopHeader from "./pages/dashboard/ManageShopHeader";
 
+
+function App() {
+	return <>
+	<HashRouter>
+		<Nav/>
+		<Routes>
+
+		<Route path="/" element={ <Home/> } />
+		<Route path="/shop" element={ <Shop/> }/>
+		<Route path="/shop/checkout" element={ <Checkout/> }/>
+		<Route path="/shop/:productType" element={ <ProductsPage/> } />
+		<Route path="/shop/:productType/:sku" element={ <ProductDetails/> } />
+		
+
+		<Route path="/campground" element={ <ReservationPage/> } />
+
+		<Route path="/login" element={ <Login/> } />
+
+		<Route path="/dashboard" element={ <DashboardLayout/> }>
+			<Route path="" element={ <DashboardHome/> }/>
+			<Route path="products" element={ <DashboardProducts/> }/>
+			<Route path="test" element={ <div>It is working because I said so.</div> } />
+			<Route path="slides" element={ <ManageSlides/> } />
+			<Route path="shop-header" element={ <ManageShopHeader/> } />
+		</Route>
+
+		</Routes>
+	</HashRouter>
+  	</>;
+}
+
+
 (async () => {
 await xsrf();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <HashRouter>
-      <Nav/>
-
-      <Routes>
-
-        <Route path="/" element={ <Home/> } />
-        <Route path="/shop" element={ <Shop/> }/>
-        <Route path="/shop/checkout" element={ <Checkout/> }/>
-        <Route path="/shop/:productType" element={ <ProductsPage/> } />
-        <Route path="/shop/:productType/:sku" element={ <ProductDetails/> } />
-        
-
-        <Route path="/campground" element={ <ReservationPage/> } />
-
-        <Route path="/login" element={ <Login/> } />
-
-        <Route path="/dashboard" element={ <DashboardLayout/> }>
-          <Route path="" element={ <DashboardHome/> }/>
-          <Route path="products" element={ <DashboardProducts/> }/>
-          <Route path="test" element={ <div>It is working because I said so.</div> } />
-          <Route path="slides" element={ <ManageSlides/> } />
-          <Route path="shop-header" element={ <ManageShopHeader/> } />
-        </Route>
-
-      </Routes>
-    </HashRouter>
-    
+		<App/>
   </React.StrictMode>
 );
 
