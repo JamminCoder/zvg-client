@@ -4,7 +4,7 @@ import ShoppingCartManager from "../lib/shoppingCartManager";
 import { capatalizeFirstLetter, preventDefaults } from "../lib/utils";
 
 export function Item({ item }) {
-    const [selectorValue, setSelectorValue] = useState(item.count);
+    const [itemCount, setItemCount] = useState(item.count);
     function remove(e) {
         preventDefaults(e);
         ShoppingCartManager.deleteItem(item.sku);
@@ -13,7 +13,7 @@ export function Item({ item }) {
     function updateItemQty(e) {
         const qty = e.target.value;
         ShoppingCartManager.updateItemQty(item.sku, qty);
-        setSelectorValue(qty);
+        setItemCount(qty);
     }
 
     return (
@@ -25,11 +25,11 @@ export function Item({ item }) {
                 <span className="font-bold ">{ capatalizeFirstLetter(item.name) } </span>
                 - ${ item.price * item.count}</h4>
             <h5>
-                <span className="font-medium">Qty</span>: { item.count }
+                <span className="font-medium">Qty</span>: { itemCount }
                 
                 <div>
                     <label>Select quantity: </label>
-                    <select defaultValue={ item.count } onChange={ updateItemQty }>
+                    <select defaultValue={ itemCount } onChange={ updateItemQty }>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
