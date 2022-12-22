@@ -2,13 +2,23 @@ import { slugify } from "./utils";
 import { db } from "./db";
 
 export default class ShoppingCartManager {
-    static async updateNotifications() {
-        const notifications = document.querySelectorAll(".cart-notification");
-        const itemCount = await ShoppingCartManager.itemCount();
+    static isInitiated = false;
+    static cartItems = ["NOT INITIATED"];
+    static setCartItems = () => console.log("Not initiated");
 
-        notifications.forEach(
-            noti => noti.innerHTML = itemCount == 0 ? "": itemCount
-        );
+    static initCartItems(cartItems, setCartItems) {
+        if (ShoppingCartManager.isInitiated) return;
+
+        ShoppingCartManager.cartItems = cartItems;
+        
+        ShoppingCartManager.setCartItems = (items) => {
+            ShoppingCartManager.cartItems = items; 
+            setCartItems(items);
+        };
+
+        ShoppingCartManager.isInitiated = true;
+        
+        console.log("Initiated shopping cart");
     }
 
     static async addItem(product) {
@@ -33,17 +43,15 @@ export default class ShoppingCartManager {
                 });
             }
             
-            ShoppingCartManager.updateNotifications();
 
         } catch (e) {
+            console.error(e);
             console.log(`error inserting item: {name: "${product.name}", price: ${product.price}}`);
         }   
     }
 
     static async deleteItem(name) {
         let deleteCount = await db.items.where("name").equals(name).delete();
-        ShoppingCartManager.updateNotifications();
-        // console.log(`Deleted ${deleteCount} items from ${name}.`)
     }
 
     static async getItem(name) {
@@ -85,7 +93,6 @@ export default class ShoppingCartManager {
 
     static async clearCart() {
         await db.items.clear();
-        ShoppingCartManager.updateNotifications();
     }
 
     static async taxTotal() {
