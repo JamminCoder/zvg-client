@@ -35,12 +35,12 @@ function App() {
 
 	return <>
 	<HashRouter>
-		<Nav items={ cartItems }/>
+		<Nav cartItems={ cartItems }/>
 		<Routes>
 
 		<Route path="/" element={ <Home/> } />
 		<Route path="/shop" element={ <Shop/> }/>
-		<Route path="/shop/checkout" element={ <Checkout/> }/>
+		<Route path="/shop/checkout" element={ <Checkout cartItems={ cartItems }/> }/>
 		<Route path="/shop/:productType" element={ <ProductsPage/> } />
 		<Route path="/shop/:productType/:sku" element={ <ProductDetails/> } />
 		

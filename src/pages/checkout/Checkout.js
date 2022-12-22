@@ -8,7 +8,7 @@ import SquareCheckout from "./SquareCheckout";
 
 export default function Checkout(props) {
     const [price, setPrice] = useState(0);
-    const [items, setItems] = useState(null);
+    const cartItems = props.cartItems;
     const [tax, setTax] = useState(0);
 
     useEffect(() => {
@@ -17,16 +17,13 @@ export default function Checkout(props) {
 
         if (!tax)
             ShoppingCartManager.taxTotal().then(tax => setTax(tax));
-        
-        if (!items)
-            ShoppingCartManager.all().then(items => setItems(items));
     });
 
     return (
         <div className="px-4 py-24 mx-auto flex justify-center gap-12">
             <div className="bg-white rounded p-2 z-20 shadow-lg max-w-[50rem] flex-grow text-xl">
                 
-                <ProductList className="mb-5"/>
+                <ProductList className="mb-5" cartItems={ cartItems }/>
 
                 Tax: ${ tax }
                 <div className="text-xl">
