@@ -74,6 +74,7 @@ export default class ShoppingCartManager {
 
     static async updateItemQty(sku, qty) {
         await db.items.where("sku").equals(sku).modify({count: qty});
+        ShoppingCartManager.all().then(ShoppingCartManager.setCartItems);
     }
 
     static async ableToAddToCart(product) {
