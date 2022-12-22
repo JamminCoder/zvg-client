@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import { HashRouter, Routes, Route } from 'react-router-dom';
@@ -21,12 +21,21 @@ import Checkout from "./pages/checkout/Checkout";
 import { xsrf } from "./lib/utils";
 import ManageSlides from "./pages/dashboard/ManageSlides";
 import ManageShopHeader from "./pages/dashboard/ManageShopHeader";
+import ShoppingCartManager from "./lib/shoppingCartManager";
 
 
 function App() {
+	const [cartItems, setCartItems] = useState([]);
+	
+
+	useEffect(() => {
+		ShoppingCartManager.initCartItems(cartItems, setCartItems);
+		ShoppingCartManager.all().then(items => setCartItems(items))
+	});
+
 	return <>
 	<HashRouter>
-		<Nav/>
+		<Nav items={ cartItems }/>
 		<Routes>
 
 		<Route path="/" element={ <Home/> } />

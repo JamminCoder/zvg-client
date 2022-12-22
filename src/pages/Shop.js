@@ -53,7 +53,6 @@ export default function Shop(props) {
 
     return (
         <div className="flex flex-col items-center">
-            { console.log(shopHeader) }
             <div className="w-[100%] max-w-[110rem]">
                 <HeroSection 
                     className="grid place-items-center max-h-[65vh] w-[100%] aspect-video"
