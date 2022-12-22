@@ -6,7 +6,7 @@ import ShoppingCartManager from "../lib/shoppingCartManager";
 import IfAuth from "./IfAuth";
 import { destroy_login_info } from "../lib/auth";
 
-export default function Nav({ items }) {
+export default function Nav({ cartItems }) {
     const breakpoint = "1000px";
     const [mqMatches, setMqMatches] = useState(
         window.matchMedia(`(min-width: ${ breakpoint })`).matches
@@ -20,7 +20,7 @@ export default function Nav({ items }) {
 
     useEffect(() => {
         async function wrapper() {
-            setItemCount(items.length);
+            setItemCount(cartItems.length);
         }
         wrapper();
 

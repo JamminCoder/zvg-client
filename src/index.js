@@ -29,8 +29,10 @@ function App() {
 	
 
 	useEffect(() => {
-		ShoppingCartManager.initCartItems(cartItems, setCartItems);
-		ShoppingCartManager.all().then(items => setCartItems(items))
+		ShoppingCartManager.all().then(items => {
+			setCartItems(items);
+			ShoppingCartManager.initCartItems(cartItems, setCartItems);
+		});
 	});
 
 	return <>
