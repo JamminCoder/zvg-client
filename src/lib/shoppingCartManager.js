@@ -21,7 +21,7 @@ export default class ShoppingCartManager {
         console.log("Initiated shopping cart");
     }
 
-    static async addItem(product) {
+    static async addItem(product, qty=1) {
         try {
             
             if (!(await ShoppingCartManager.ableToAddToCart(product))) return;
@@ -38,7 +38,7 @@ export default class ShoppingCartManager {
                     name: slugify(product.name), 
                     price: product.price,
                     tax_percent: product.tax_percent,
-                    count: 1,
+                    count: parseInt(qty),
                     sku: product.sku
                 });
             }
@@ -47,15 +47,22 @@ export default class ShoppingCartManager {
         } catch (e) {
             console.error(e);
             console.log(`error inserting item: {name: "${product.name}", price: ${product.price}}`);
+            return false;
         }   
     }
 
-    static async deleteItem(name) {
-        let deleteCount = await db.items.where("name").equals(name).delete();
+    static async deleteItem(sku) {
+        let deleteCount = await db.items.where("sku").equals(sku).delete();
+        return deleteCount;
     }
 
     static async getItem(name) {
         return await db.items.where("name").equals(name);
+    }
+
+    static async isItemInCart(sku) {
+        const item = await ShoppingCartManager.getBySku(sku);
+        return item ? true : false;
     }
 
     static async getBySku(sku) {
@@ -63,6 +70,10 @@ export default class ShoppingCartManager {
         if (result.length) return result[0];
 
         return null;
+    }
+
+    static async updateItemQty(sku, qty) {
+        await db.items.where("sku").equals(sku).modify({count: qty});
     }
 
     static async ableToAddToCart(product) {
