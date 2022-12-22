@@ -11,53 +11,67 @@ export default class ShoppingCartManager {
         );
     }
 
-    static async addItem(product) {
+    static async addItem(product, qty=1) {
         try {
             
             if (!(await ShoppingCartManager.ableToAddToCart(product))) return;
 
-            const result = await ShoppingCartManager.getBySku(product.sku);
+            const item = await ShoppingCartManager.getBySku(product.sku);
     
-            if (result.length) {
-                const item = result[0];
+            if (item) {
                 await db.items.where("sku").equals(product.sku).modify({count: item.count + 1});
             }
+
             else {
                 console.log("adding item")
                 await db.items.add({
                     name: slugify(product.name), 
                     price: product.price,
                     tax_percent: product.tax_percent,
-                    count: 1,
+                    count: parseInt(qty),
                     sku: product.sku
                 });
             }
             
             ShoppingCartManager.updateNotifications();
+            return true;
 
         } catch (e) {
             console.log(`error inserting item: {name: "${product.name}", price: ${product.price}}`);
+            return false;
         }   
     }
 
-    static async deleteItem(name) {
-        let deleteCount = await db.items.where("name").equals(name).delete();
+    static async deleteItem(sku) {
+        let deleteCount = await db.items.where("sku").equals(sku).delete();
         ShoppingCartManager.updateNotifications();
-        // console.log(`Deleted ${deleteCount} items from ${name}.`)
+        return deleteCount;
     }
 
     static async getItem(name) {
         return await db.items.where("name").equals(name);
     }
 
+    static async isItemInCart(sku) {
+        const item = await ShoppingCartManager.getBySku(sku);
+        return item ? true : false;
+    }
+
     static async getBySku(sku) {
-        return db.items.where("sku").equals(sku).toArray();
+        const result = await db.items.where("sku").equals(sku).toArray();
+        if (result.length) return result[0];
+
+        return null;
+    }
+
+    static async updateItemQty(sku, qty) {
+        await db.items.where("sku").equals(sku).modify({count: qty});
     }
 
     static async ableToAddToCart(product) {
-        const cartProduct = await ShoppingCartManager.getBySku(product.sku);
+        const item = await ShoppingCartManager.getBySku(product.sku);
+        if (item && product.stock <= item.count) return false;
 
-        if (product.stock <= cartProduct.length) return false;
         return true;
     }
 
