@@ -47,7 +47,7 @@ function App() {
 		<Route path="/shop/:productType/:sku" element={ <ProductDetails/> } />
 		
 
-		<Route path="/campground" element={ <ReservationPage/> } />
+		{/* <Route path="/campground" element={ <ReservationPage/> } /> */}
 
 		<Route path="/login" element={ <Login/> } />
 
@@ -55,8 +55,8 @@ function App() {
 		<Route path="/dashboard" element={ <DashboardLayout/> }>
 			<Route path="" element={ <DashboardHome/> }/>
 			<Route path="products" element={ <DashboardProducts/> }/>
-			<Route path="test" element={ <div>It is working because I said so.</div> } />
-			<Route path="slides" element={ <ManageSlides/> } />
+			<Route path="homepage/previews" element={ <h1>previews</h1> }/>
+			<Route path="homepage/slides" element={ <ManageSlides/> } />
 			<Route path="shop-header" element={ <ManageShopHeader/> } />
 		</Route>
 
