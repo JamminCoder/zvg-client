@@ -6,3 +6,26 @@
 .cart-notification:not(:empty) {
     @apply absolute z-20 right-[-10px] top-[-8px] text-white text-sm bg-green-600 rounded-full aspect-square w-5 grid place-items-center
 }
+
+
+@layer components {
+    .sidebar-item {
+        @apply rounded shadow p-2 hover:translate-x-[6px] transition-all cursor-pointer
+    }
+
+    .sidebar-item:active {
+        @apply bg-slate-100
+    }
+
+    .btn {
+        @apply p-2 rounded hover:brightness-105 active:brightness-90
+    }
+
+    .link {
+        @apply underline text-blue-500
+    }
+
+    .clean-input {
+        @apply text-center bg-transparent border-b
+    }
+}

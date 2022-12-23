@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import "../css/nav.css";
 import { ShoppingCart } from "./ShoppingCart";
-import ShoppingCartManager from "../shoppingCartManager";
+import ShoppingCartManager from "../lib/shoppingCartManager";
+import IfAuth from "./IfAuth";
+import { destroy_login_info } from "../lib/auth";
 
-export default function Nav() {
+export default function Nav({ cartItems }) {
+    const breakpoint = "1000px";
     const [mqMatches, setMqMatches] = useState(
-        window.matchMedia("(min-width: 768px)").matches
+        window.matchMedia(`(min-width: ${ breakpoint })`).matches
     );
 
     const [itemCount, setItemCount] = useState(null);
@@ -17,11 +20,11 @@ export default function Nav() {
 
     useEffect(() => {
         async function wrapper() {
-            setItemCount(await ShoppingCartManager.itemCount());
+            setItemCount(cartItems.length);
         }
         wrapper();
 
-        window.matchMedia("(min-width: 768px)").addEventListener('change', e => setMqMatches( e.matches ));
+        window.matchMedia(`(min-width: ${ breakpoint })`).addEventListener('change', e => setMqMatches( e.matches ));
         setCollapsingContent(document.querySelector(".collapsing-nav-content"));
         if (mqMatches && collapsingContent) collapsingContent.classList.remove("nav-expanded");
     });
@@ -40,9 +43,23 @@ export default function Nav() {
             <div className="flex gap-4 items-center">
                 <img src={ `${ process.env.PUBLIC_URL }/icons/zvg-logo.svg` } alt="logo" className="w-16"/>
                 <Link to="/" className="text-2xl underline interactive-hover">Zoar Valley Gifts</Link>
+                <IfAuth>
+                    <div className="flex items-center gap-4 ml-4">
+                        <NavLink to="/dashboard" className="font-semibold text-xl block text-gray-800 interactive-hover" 
+                            style={({ isActive }) =>
+                            isActive ? activeLinkStyle : undefined
+                        }>Dashboard</NavLink>
+
+                        <a href="#" onClick={ destroy_login_info }>Logout</a>
+                    </div>
+                    
+                </IfAuth>
             </div>
 
+            
+
             <div className="collapsing-nav-content">
+
                 <NavLink to="/shop" className="text-xl block text-gray-800 interactive-hover" 
                     style={({ isActive }) =>
                     isActive ? activeLinkStyle : undefined
@@ -63,7 +80,7 @@ export default function Nav() {
                     isActive ? activeLinkStyle : undefined
                 }>Contact</NavLink>
 
-                <ShoppingCart/>
+                <ShoppingCart cartItems={ cartItems }/>
                 
             </div>
             

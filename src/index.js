@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 
 // CSS
-import './index.css';
-import "./css/reset.css"
+import './css/index.css';
+import "./css/reset.css";
 
 import Nav from "./components/Nav";
 
@@ -16,29 +16,63 @@ import ProductsPage from "./pages/ProductsPage";
 import ProductDetails from "./pages/ProductDetails";
 import ReservationPage from "./pages/ReservationPage";
 import Login from "./pages/Login";
+import { DashboardLayout, DashboardHome, DashboardProducts } from "./pages/dashboard/Dashboard";
+import Checkout from "./pages/checkout/Checkout";
+import { xsrf } from "./lib/utils";
+import ManageSlides from "./pages/dashboard/ManageSlides";
+import ManageShopHeader from "./pages/dashboard/ManageShopHeader";
+import ShoppingCartManager from "./lib/shoppingCartManager";
 
+
+function App() {
+	const [cartItems, setCartItems] = useState([]);
+	
+
+	useEffect(() => {
+		ShoppingCartManager.all().then(items => {
+			setCartItems(items);
+			ShoppingCartManager.initCartItems(cartItems, setCartItems);
+		});
+	});
+
+	return <>
+	<HashRouter>
+		<Nav cartItems={ cartItems }/>
+		<Routes>
+
+		<Route path="/" element={ <Home/> } />
+		<Route path="/shop" element={ <Shop/> }/>
+		<Route path="/shop/checkout" element={ <Checkout cartItems={ cartItems }/> }/>
+		<Route path="/shop/:productType" element={ <ProductsPage/> } />
+		<Route path="/shop/:productType/:sku" element={ <ProductDetails/> } />
+		
+
+		{/* <Route path="/campground" element={ <ReservationPage/> } /> */}
+
+		<Route path="/login" element={ <Login/> } />
+
+		{/* Dashboard is an outlet */}
+		<Route path="/dashboard" element={ <DashboardLayout/> }>
+			<Route path="" element={ <DashboardHome/> }/>
+			<Route path="products" element={ <DashboardProducts/> }/>
+			<Route path="homepage/previews" element={ <h1>previews</h1> }/>
+			<Route path="homepage/slides" element={ <ManageSlides/> } />
+			<Route path="shop-header" element={ <ManageShopHeader/> } />
+		</Route>
+
+		</Routes>
+	</HashRouter>
+  	</>;
+}
+
+
+(async () => {
+await xsrf();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <HashRouter>
-      <Nav/>
-      <Routes>
-
-        <Route path="/" element={ <Home/> } />
-        <Route path="/shop" element={ <Shop/> }/>
-        <Route path="/shop/checkout" element={ <h1 className="text-4xl font-bold">Checkout page not created yet.</h1> }/>
-        <Route path="/shop/:productType" element={ <ProductsPage/> } />
-        <Route path="/shop/:productType/:productName" element={ <ProductDetails/> } />
-        
-
-        <Route path="/campground" element={ <ReservationPage/> } />
-
-        <Route path="/login" element={ <Login/> } />
-
-      </Routes>
-    </HashRouter>
-    
+		<App/>
   </React.StrictMode>
 );
 
@@ -46,3 +80,5 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+})();

@@ -1,53 +1,71 @@
-import HeroSection from "../components/HeroSection";
+import HeroSection from "../layouts/HeroSection";
 import "../css/shop.css";
-import GridEvenContainer from '../components/GridEvenContainer';
-import { CatagoryListingCard } from '../components/Cards';
+import CategoryListingCard from '../components/cards/CategoryListingCard';
+import { useEffect, useState } from "react";
+import { getCategoriesInfo, getShopHeader } from "../api";
+import { serverURL } from "../lib/utils";
 
 
-function Catagories(props) {
+function Categories(props) {
+    const [categories, setCategories] = useState([]);
+    const [attempt, setAttempt] = useState(null);
+
+    useEffect(() => {
+        if (!categories.length && !attempt) {
+            getCategoriesInfo().then(cats => {
+                const infoArray = [];
+                cats.forEach(info => {
+                    infoArray.push(
+                        <CategoryListingCard
+                            name={ info.category }
+                            imageSrc={ info.image }
+                            description={ info.description }
+                        />
+                    );
+                })
+    
+                setCategories(infoArray);
+            })
+        }
+
+        setAttempt(true);
+    });
+
     return (
-        <GridEvenContainer>
-                <CatagoryListingCard
-                    name="Gifts"
-                    description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
-                />
-
-                <CatagoryListingCard
-                    name="Jewelry"
-                    description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
-                />
-
-                <CatagoryListingCard
-                    name="Apparel"
-                    description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
-                />
-
-                <CatagoryListingCard
-                    name="Candles"
-                    description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
-                />
-
-            </GridEvenContainer>
+        <main className="py-24 px-2 md:px-10 flex flex-wrap gap-5">
+            { categories.length ? categories: "No products" }
+        </main>
     );
 }
 
 
 export default function Shop(props) {
+    const [shopHeader, setShopHeader] = useState(null);
+    const [attempt, setAttempt] = useState(false);
+
+    useEffect(() => {
+        if (attempt || shopHeader) return;
+        getShopHeader().then(setShopHeader);
+        setAttempt(true);
+    })
+
+    if (!shopHeader) return;
+
     return (
         <div className="flex flex-col items-center">
             <div className="w-[100%] max-w-[110rem]">
                 <HeroSection 
                     className="grid place-items-center max-h-[65vh] w-[100%] aspect-video"
                     bgAlt="filler pic"
-                    bgSrc=""
+                    bgSrc={ serverURL(shopHeader.image_path) }
                 >
-                    <div className="text-center grid place-items-center">
-                        <h1 className="text-4xl sm:text-6xl mb-5">The Shop</h1>
-                        <p className="max-w-[80%]">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quibusdam obcaecati eius explicabo repudiandae repellendus quisquam tempore.</p>
+                    <div className="text-center grid place-items-center bg-white bg-opacity-50 rounded py-12 px-4">
+                        <h1 className="text-4xl sm:text-6xl mb-5">{ shopHeader.header }</h1>
+                        <p className="max-w-[80%]">{ shopHeader.lead }</p>
                     </div>
                 </HeroSection>
                 
-                <Catagories/>
+                <Categories/>
             </div>
         </div>
     );

@@ -1,8 +1,12 @@
 import { useParams } from "react-router-dom";
 import { Children, useState } from "react";
-import { ProductCard } from '../components/Cards';
-import GridEvenContainer from '../components/GridEvenContainer';
-import ShoppingCartManager from "../shoppingCartManager";
+import GridEvenContainer from '../layouts/GridEvenContainer';
+import ShoppingCartManager from "../lib/shoppingCartManager";
+import { imageURL } from "../lib/utils";
+import { useEffect } from "react";
+import { getProductBySKU, getProductsFromCategory } from "../api";
+import ProductCard from "../components/cards/ProductCard";
+import Button from "../components/Button";
 
 function ImagePreview(props) {
     const children = Children.toArray(props.children);
@@ -13,17 +17,17 @@ function ImagePreview(props) {
         let child = children[i];
         thumbnails.push(
             <img 
-            onClick={() => {
-                setCurrentImage(child.props.src)
-            }}
-            key={ i } className="w-12 transition-all hover:-translate-y-2" src={ child.props.src }/>
+            onClick={() => setCurrentImage(child.props.src) }
+            key={ i } 
+            className="w-12 aspect-square object-cover object-top transition-all hover:-translate-y-2" 
+            src={ child.props.src }/>
         );
     }
 
     return (
         <div className={`w-[100%] max-w-[30rem] place-self-center ${props.className}`}>
             <div>
-                <img src={ currentImage } />
+                <img src={ currentImage } className="aspect-square object-cover"/>
             </div>
 
             <div className="flex gap-2 mt-4">
@@ -33,40 +37,114 @@ function ImagePreview(props) {
     );
 }
 
-export default function ProductDetails(props) {
-    const productName = useParams().productName;
-
-    // These values will be extracted from the product API
-    const price = 15.99;
-    const description = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Culpa repellendus velit voluptate assumenda beatae debitis dignissimos consectetur, tenetur, ea atque magni sit delectus cum dolorem? Mollitia voluptates dolores vel cue.";
+export default function ProductDetails() {
+    const params = useParams();
+    const sku = params.sku;
+    const productType = params.productType;
+    const [ableToAddItem, setAbleToAddItem] = useState(false);
+    const [isItemInCart, setIsItemInCart] = useState(false);
+    const [qtyInCart, setQtyInCart] = useState(0);
     
+    const [product, setProduct] = useState(null);
+    const [products, setProducts] = useState([]);
+
+    const [selectorValue, setSelectorValue] = useState(null);
+
     function addToCart(e) {
-        ShoppingCartManager.addItem(productName, price, 1);
+        const qty = document.querySelector("#qty").value;
+
+        ShoppingCartManager.addItem(product, qty)
+        .then(success => setIsItemInCart(success));
+
+
         e.stopPropagation();
         e.preventDefault(); 
     }
 
+    function updateItemQty(e) {
+        const qty = e.target.value;
+        ShoppingCartManager.updateItemQty(product.sku, qty);
+        document.querySelector("#qty").value = qty;
+    }
+
+    function removeItemFromCart() {
+        ShoppingCartManager.deleteItem(product.sku);
+        setIsItemInCart(false);
+    }
+
+    useEffect(() => {
+        if (!product)
+            getProductBySKU(sku)
+            .then(prod => setProduct(prod));
+
+        if (product) {
+            ShoppingCartManager.isItemInCart(product.sku)
+            .then(isInCart => setIsItemInCart(isInCart));
+
+            ShoppingCartManager.ableToAddToCart(product)
+            .then(result => setAbleToAddItem(result));
+            setSelectorValue(product.count);
+        }
+
+        if (products.length === 0) {
+            getProductsFromCategory(productType.toLowerCase())
+            .then(category => {
+                const productDisplay = [];
+
+                category.products.forEach(product => {
+                    if (!product.stock) return;
+                    
+                    productDisplay.push( 
+                        <ProductCard key={ product.id } product={ product } />
+                    );
+                });
+    
+                setProducts(productDisplay);
+            });
+        }
+
+        if (isItemInCart) {
+            ShoppingCartManager.getBySku(product.sku)
+            .then(item => setQtyInCart(item.count));
+
+            document.querySelector("#qty").value = qtyInCart;
+        }
+    });
+
+    if (!product || !product.stock) return "Product does not exist";
+
     return (
         <div className="mx-auto px-4 py-24">
             <main className="grid place-content-center md:grid-cols-2 max-w-[100rem] flex-grow gap-12">
-                
-                
                 <ImagePreview>
-                    <img src={`${process.env.PUBLIC_URL}/img/candles1.jpg`} />
-                    <img src={`${process.env.PUBLIC_URL}/img/placeholder-square-1024.png`} />
+                    { product.images.map(img => <img key={ product.img } src={ imageURL(img) } />) }
                 </ImagePreview>
 
 
                 <div className="flex flex-col justify-center gap-5">
-                    <h1 className="text-4xl">{ productName }</h1>
-                    <p>
-                        { description }
-                    </p>
+                    <h1 className="text-4xl">{ product.name }</h1>
+                    <p>{ product.name }</p>
+                    <h2 className="text-2xl text-green-900 font-bold">${ product.price }</h2>
 
                     <div className="flex items-center gap-5 ">
-                        <button onClick={ addToCart } href="#add-to-cart" className="px-3 py-2 transition-colors active:bg-green-600 hover:bg-green-500 bg-green-600 text-lg text-white rounded">Add to Cart</button>
-                        <h2 className="text-2xl text-green-900 font-bold">${ price }</h2>
+                        { 
+                            ableToAddItem && !isItemInCart
+                            ? <Button onClick={ addToCart } href="#add-to-cart" className="transition-colors text-lg text-white bg-green-600">Add to Cart</Button>
+                            : <Button onClick={ removeItemFromCart }  className="bg-slate-700 text-white" >Remove Item</Button>
+                        }
+
+                        <div>
+                            <label htmlFor="qty">Select quantity { isItemInCart ? "in cart": "" }: </label>
+                            <select id="qty"  onChange={ updateItemQty }>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
                     </div>
+                    <small>In Stock: { product.stock }</small>
                 </div>
             </main>
 
@@ -74,33 +152,9 @@ export default function ProductDetails(props) {
                 <h3 className="text-4xl text-center">More items</h3>
             </div>
 
-            <GridEvenContainer>
-                <ProductCard
-                    name="Product"
-                    description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
-                    price="19.99"
-                />
-
-                <ProductCard
-                    name="Awesome"
-                    description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
-                    price="19.99"
-                />
-
-                <ProductCard
-                    name="Chickens"
-                    description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
-                    price="19.99"
-                />
-
-                <ProductCard
-                    name="Flowers"
-                    description="Possimus, eius ipsa. Ipsam architecto quod, harum repudiandae dicta soluta eaque at ullam id mollitia"
-                    price="19.99"
-                />
-
+            <GridEvenContainer className="py-24 px-2 md:px-10">
+                { products }
             </GridEvenContainer>
-                
         </div>
     );
 }
