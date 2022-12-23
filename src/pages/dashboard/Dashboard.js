@@ -56,11 +56,15 @@ export function DashboardHome(props) {
 
 export function DashboardLayout(props) {
     const [verified, setVerified] = useState("FILLER VALUE");
+    const [attempt, setAttempt] = useState(false);
     
     useEffect(() => {
+        if (attempt) return;
         isVerified().then(result => {
             setVerified(result);
         })
+
+        setAttempt(true);
     });
 
     if (!isLoggedIn() || !verified) return <Navigate to="/login"/>;
