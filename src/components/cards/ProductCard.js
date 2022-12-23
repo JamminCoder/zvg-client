@@ -1,20 +1,26 @@
 import LinkCard from "./LinkCard";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ShoppingCartManager from "../../lib/shoppingCartManager";
-import { imageURL } from "../../lib/utils";
+import { imageURL, preventDefaults } from "../../lib/utils";
 
 export default function ProductCard({ product }) {
     const type = useParams().productType;
+    const navigate = useNavigate();
     const productUrl = `/shop/${type}/${product.sku}`;
-    function handleClick(e) {
+    function addToCart(e) {
+        preventDefaults(e);
         ShoppingCartManager.addItem(product);
-        e.stopPropagation();
-        e.preventDefault(); 
+    }
+
+    function handleClick() {
+        navigate(productUrl);
+        window.location.reload();
     }
 
     return (
         <LinkCard 
         to={ productUrl }
+        onClick={ handleClick }
         className="hover:-translate-y-[2px] transition-all hover:shadow-xl cursor-pointer">
             <div>
                 <img className="bg-gray-400 w-[100%] aspect-video object-cover object-top" src={  imageURL(product.images[0]) }/>
@@ -27,7 +33,7 @@ export default function ProductCard({ product }) {
                 { product.description ? <p className="text-xs mb-4">{ product.description }</p>: "" }
 
                 <button  
-                    onClick={ handleClick }
+                    onClick={ addToCart }
                     className="py-1 px-2 w-[100%] bg-green-600 text-white rounded hover:shadow-lg hover:bg-green-500 transition-all"
                 >Add to Cart</button>
                 
