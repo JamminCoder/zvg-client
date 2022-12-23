@@ -51,6 +51,7 @@ function App() {
 
 		<Route path="/login" element={ <Login/> } />
 
+		{/* Dashboard is an outlet */}
 		<Route path="/dashboard" element={ <DashboardLayout/> }>
 			<Route path="" element={ <DashboardHome/> }/>
 			<Route path="products" element={ <DashboardProducts/> }/>

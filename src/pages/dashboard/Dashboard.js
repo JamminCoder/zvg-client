@@ -73,6 +73,7 @@ export function DashboardLayout(props) {
         <div className={ `relative flex bg-slate-50 ${ props.className }` }>
             <DashboardSidebar/>
             <main className="p-10 w-[100%]">
+                {/* Render routes within the dashboard */}
                 <Outlet/>
             </main>
         </div>
