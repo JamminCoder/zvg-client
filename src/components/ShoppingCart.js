@@ -5,15 +5,24 @@ import { capatalizeFirstLetter, preventDefaults } from "../lib/utils";
 
 export function Item({ item }) {
     const [itemCount, setItemCount] = useState(item.count);
+    const itemClassName = `item-${ item.sku }-qty-selector`;
+
+    useEffect(() => {
+        ShoppingCartManager.getBySku(item.sku)
+        .then(ITEM => setItemCount(ITEM.count))
+    })
+
     function remove(e) {
         preventDefaults(e);
         ShoppingCartManager.deleteItem(item.sku);
     }
 
-    function updateItemQty(e) {
-        const qty = e.target.value;
+    function updateItemQty(qty) {
         ShoppingCartManager.updateItemQty(item.sku, qty);
         setItemCount(qty);
+
+        const selectors = document.getElementsByClassName(itemClassName);
+        for (let selector of selectors) selector.value = qty;
     }
 
     return (
@@ -23,13 +32,14 @@ export function Item({ item }) {
         >
             <h4 className="text-lg">
                 <span className="font-bold ">{ capatalizeFirstLetter(item.name) } </span>
-                - ${ item.price * item.count}</h4>
+                - ${ item.price * item.count}
+            </h4>
             <h5>
                 <span className="font-medium">Qty</span>: { itemCount }
                 
                 <div>
                     <label>Select quantity: </label>
-                    <select defaultValue={ itemCount } onChange={ updateItemQty }>
+                    <select className={ itemClassName } defaultValue={ itemCount } onChange={ (e) => updateItemQty(e.target.value) }>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -45,7 +55,8 @@ export function Item({ item }) {
 }
 
 export function ViewCart(props) {
-    const [cartItems, setCartItems] = useState([]);
+    const cartItems = props.cartItems;
+    const [cartItemComponents, setCartItemComponents] = useState([]);
     const [cartIcon, setCartIcon] = useState(null);
     const [cartRect, setCartRect] = useState(null);
     const [listenerAdded, setListenerAdded] = useState(false);
@@ -53,15 +64,14 @@ export function ViewCart(props) {
 
     useEffect(() => {
         async function wrapper() {
-            let items = await ShoppingCartManager.all();
             setTotalPrice(await ShoppingCartManager.totalPrice());
 
             let itemComponents = [];
-            for (let item of items) {
+            for (let item of cartItems) {
                 itemComponents.push(<Item key={ item.name } item={ item } />)
             }
 
-            setCartItems(itemComponents);
+            setCartItemComponents(itemComponents);
         }
 
         wrapper();
@@ -108,7 +118,7 @@ export function ViewCart(props) {
     
     return (
         <div style={ viewStyle } className={`bg-white rounded p-2 z-20 shadow-lg min-w-[15rem] ${ props.className }`}>
-            { !cartItems.length > 0 ? "Nothing in cart": cartItems }
+            { !cartItems.length > 0 ? "Nothing in cart": cartItemComponents }
 
             { cartItems.length > 0 ? 
                 <div>
@@ -158,7 +168,7 @@ export function ShoppingCart(props) {
 
     return (
         <div className="relative w-fit cart-icon" onClick={ handleClick }>
-            { isViewing ? <ViewCart fixed={ true } onClick={ preventDefaults }/>: "" }
+            { isViewing ? <ViewCart cartItems={ props.cartItems } fixed={ true } onClick={ preventDefaults }/>: "" }
             <img src={ `${ process.env.PUBLIC_URL }/icons/cart.svg` } className={ `w-7 interactive-hover cursor-pointer ${ props.className }` }/>
             <span className="cart-notification">{ itemCount == 0 ? "": itemCount }</span>
         </div>

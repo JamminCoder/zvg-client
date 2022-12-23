@@ -80,7 +80,7 @@ export default function Nav({ cartItems }) {
                     isActive ? activeLinkStyle : undefined
                 }>Contact</NavLink>
 
-                <ShoppingCart/>
+                <ShoppingCart cartItems={ cartItems }/>
                 
             </div>
             

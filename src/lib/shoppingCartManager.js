@@ -48,11 +48,14 @@ export default class ShoppingCartManager {
             console.error(e);
             console.log(`error inserting item: {name: "${product.name}", price: ${product.price}}`);
             return false;
-        }   
+        }
+
+        ShoppingCartManager.all().then(ShoppingCartManager.setCartItems);
     }
 
     static async deleteItem(sku) {
         let deleteCount = await db.items.where("sku").equals(sku).delete();
+        ShoppingCartManager.all().then(ShoppingCartManager.setCartItems);
         return deleteCount;
     }
 
@@ -80,7 +83,6 @@ export default class ShoppingCartManager {
     static async ableToAddToCart(product) {
         const item = await ShoppingCartManager.getBySku(product.sku);
         if (item && product.stock <= item.count) return false;
-
         return true;
     }
 
@@ -105,6 +107,7 @@ export default class ShoppingCartManager {
 
     static async clearCart() {
         await db.items.clear();
+        ShoppingCartManager.all().then(ShoppingCartManager.setCartItems);
     }
 
     static async taxTotal() {

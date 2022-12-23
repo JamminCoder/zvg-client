@@ -13,15 +13,18 @@ export default function ProductsPage(props) {
     const properCategoryName = capatalizeFirstLetter(categoryName);
     const [products, setProducts] = useState({ data: null, error: null });
     const [category, setCategory] = useState(null);
+    const [attempt, setAttempt] = useState(false);
 
     useEffect(() => {
-        if (!category) {
+        if (!category && !attempt) {
             getCategoryByName(categoryName).then(cat => {
                 setCategory(cat);
                 console.log(cat);
             }).catch(err => {
                 console.log(err);
             });
+
+            setAttempt(true);
         }
 
         if (category && !products.data && !products.error) {
