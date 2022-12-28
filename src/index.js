@@ -14,7 +14,6 @@ import Shop from "./pages/Shop";
 import Home from './pages/Home';
 import ProductsPage from "./pages/ProductsPage";
 import ProductDetails from "./pages/ProductDetails";
-import ReservationPage from "./pages/ReservationPage";
 import Login from "./pages/Login";
 import { DashboardLayout, DashboardHome, DashboardProducts } from "./pages/dashboard/Dashboard";
 import Checkout from "./pages/checkout/Checkout";

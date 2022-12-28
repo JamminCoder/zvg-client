@@ -10,7 +10,6 @@ export default function DashboardSidebar() {
         <div className="mt-5 grid gap-5">
             <SidebarItem onClick={ () => navigate("") }>Dashboard Home</SidebarItem>
             <SidebarItem onClick={ () => navigate("products") }>Products</SidebarItem>
-            <SidebarItem onClick={ () => navigate("homepage/previews") }>Homepage Previews</SidebarItem>
             <SidebarItem onClick={ () => navigate("homepage/slides") }>Manage Homepage Slides</SidebarItem>
             <SidebarItem onClick={ () => navigate("shop-header") }>Manage Shop Header</SidebarItem>
         </div>
