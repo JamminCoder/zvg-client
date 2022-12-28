@@ -33,8 +33,9 @@ export function checkAuth() {
 
 
 // Products
-export async function getAllProducts() {
-    const res = await axios.get(API_PRODUCTS_ALL);
+export async function getAllProducts(limit=null) {
+    const queryLimit = limit ? `?limit=${ limit }`: "";
+    const res = await axios.get(API_PRODUCTS_ALL + queryLimit);
     const products = res.data;
     return products;
 }

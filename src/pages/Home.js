@@ -2,9 +2,10 @@ import "../css/Home.css";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "../components/Button";
-import { getSlides } from "../api";
+import { getAllProducts, getSlides } from "../api";
 import ButtonMap from "../components/ButtonMap";
 import { serverURL } from "../lib/utils";
+import CategoryDisplay from "../components/CategoryDisplay"
 
 function Slide({ parent, img, header, lead, buttons, sliderNum, max }) {
   let scrollWidth = document.body.clientWidth;
@@ -116,78 +117,6 @@ function HeaderSection(props) {
   );
 }
 
-function ProductShowcaseSection() {
-  function ProductImage({ src, alt }) {
-    return (
-      <div className="relative w-[100%] max-w-[30rem]">
-        <img src={src} alt={alt} className="w-[100%] rounded-md bg-[rgba(0,0,0,0.1)]" />
-        <div className="absolute text-white bottom-0 left-0  w-[100%] h-[100%]" style={{
-          background: "linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.1))"
-        }}>
-          <div className="absolute bottom-0 p-10">
-            <h3><Link className="text-xl underline" to="shop/jewelry"> &gt; Explore these items</Link></h3>
-            <p className="font-light">
-              Lorum ipsum dolar sit amit sit dolar ipsum...
-            </p>
-          </div>
-
-
-        </div>
-      </div>
-    );
-  }
-
-  function ShowcaseColumn({ header, paragraph, imgSrc, reverse = false }) {
-    const reverseCol = reverse ? " lg:flex-col-reverse" : "";
-
-    return (
-      <div className="w-[100%] max-w-[30rem]">
-        <article className={"flex gap-16 flex-col items-center" + reverseCol}>
-          <div>
-            <h1 className="text-4xl mb-4">{header}</h1>
-            <p>{paragraph}</p>
-          </div>
-          <ProductImage src={imgSrc} />
-        </article>
-      </div>
-    );
-  }
-
-  return (
-    <div className="flex items-center flex-col">
-      <section className="grid gap-14 place-items-center grid-cols-1 lg:grid-cols-2 py-24 mx-10 lg:w-[80%] max-w-[80rem]">
-        <ShowcaseColumn
-          header="Candles, ornaments, jewelry, and more."
-          paragraph="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, aspernatur saepe deleniti quidem est ipsum cupiditate accusamus corporis ipsa amet quas quaerat non nihil dolore voluptatum, dolor sed facere qui."
-          imgSrc={`${process.env.PUBLIC_URL}/img/placeholder-square-1024.png`}
-        />
-
-        <ShowcaseColumn
-          header="Epic Awesome Stuff"
-          paragraph="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, aspernatur saepe deleniti quidem est ipsum cupiditate accusamus corporis ipsa amet quas quaerat non nihil dolore voluptatum, dolor sed facere qui."
-          imgSrc={`${process.env.PUBLIC_URL}/img/placeholder-square-1024.png`}
-          reverse={true}
-        />
-      </section>
-
-
-      <section className="grid gap-14 place-items-center grid-cols-1 lg:grid-cols-2 py-24 mx-10 lg:w-[80%] max-w-[80rem]">
-        <ShowcaseColumn
-          header="Lorem ipsum dolar sit amet."
-          paragraph="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, aspernatur saepe deleniti quidem est ipsum cupiditate accusamus corporis ipsa amet quas quaerat non nihil dolore voluptatum, dolor sed facere qui."
-          imgSrc={`${process.env.PUBLIC_URL}/img/placeholder-square-1024.png`}
-        />
-
-        <ShowcaseColumn
-          header="Lorem ipsum dolor sit amet"
-          paragraph="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, aspernatur saepe deleniti quidem est ipsum cupiditate accusamus corporis ipsa amet quas quaerat non nihil dolore voluptatum, dolor sed facere qui."
-          imgSrc={`${process.env.PUBLIC_URL}/img/placeholder-square-1024.png`}
-          reverse={true}
-        />
-      </section>
-    </div>
-  );
-}
 
 function CabinSection() {
   return (
@@ -230,12 +159,38 @@ function CabinSection() {
   );
 }
 
+
+function ProductsDisplay(props) {
+  const categoryLimit = 3;
+  const [categories, setCategories] = useState(null);
+  const [attempt, setAttempt] = useState(false);
+
+  useEffect(() => {
+    if (!attempt) {
+      getAllProducts(categoryLimit).then(cats => {
+        setCategories(cats)
+      });
+      setAttempt(true);
+    }
+  }); 
+
+  return (
+    <div>
+      {
+        categories
+        ? categories.map(cat => <CategoryDisplay category={cat} className="p-8"/>)
+        : "No products in store"
+      }
+    </div>
+  );
+}
+
 export default function Home() {
   return (
     <div>
       <HeaderSection />
       <main>
-        <ProductShowcaseSection />
+        <ProductsDisplay/>
         <CabinSection />
       </main>
     </div>
