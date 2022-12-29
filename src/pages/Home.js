@@ -121,20 +121,6 @@ function HeaderSection(props) {
 function CabinSection() {
   return (
     <div>
-      <section className="relative h-[70vh] overflow-hidden">
-        <img src={`${process.env.PUBLIC_URL}/img/cabin.png`} alt="description here" className="h-[70vh] w-[100%] object-cover absolute top-0" />
-
-        <div className="absolute top-0 grid place-items-center w-[100%] h-[100%] text-white">
-          <div className="text-center flex flex-col items-center gap-5">
-            <h1 className="text-6xl">Reserve a Cabin</h1>
-            <p className="text-lg max-w-[60ch]">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-            </p>
-            <Link to="/campground" className="px-7 py-3 rounded bg-blue-700 text-2xl">Create a Reservation</Link>
-          </div>
-        </div>
-      </section>
-
       <section className="py-24 bg-gray-900 text-white px-10">
         <section className="gap-10 flex flex-col-reverse md:grid place-items-center grid-cols-2">
           <div>
@@ -179,7 +165,7 @@ function ProductsDisplay(props) {
       {
         categories
         ? categories.map(cat => <CategoryDisplay category={cat} className="p-8"/>)
-        : "No products in store"
+        : <h2 className="text-4xl font-medium py-16 text-center">There are currently no products in stock.</h2>
       }
     </div>
   );
@@ -190,7 +176,14 @@ export default function Home() {
     <div>
       <HeaderSection />
       <main>
+        <div className="grid place-content-center text-center py-16 bg-slate-100">
+          <h2 className="text-4xl font-medium mb-4">Shop Awesomeness</h2>
+          <p className="font-light text-xl">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis amet aperiam nesciunt mollitia totam quisquam molestias. Impedit pariatur tempore sit veritatis, similique, sunt reiciendis illum, unde non maiores voluptatum magnam?
+          </p>
+        </div>
         <ProductsDisplay/>
+        
         <CabinSection />
       </main>
     </div>
