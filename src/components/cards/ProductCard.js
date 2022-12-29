@@ -4,9 +4,9 @@ import ShoppingCartManager from "../../lib/shoppingCartManager";
 import { imageURL, preventDefaults } from "../../lib/utils";
 
 export default function ProductCard({ product }) {
-    const type = useParams().productType;
     const navigate = useNavigate();
-    const productUrl = `/shop/${type}/${product.sku}`;
+    const productUrl = `/shop/${product.category}/${product.sku}`;
+    console.log(product);
     function addToCart(e) {
         preventDefaults(e);
         ShoppingCartManager.addItem(product);
