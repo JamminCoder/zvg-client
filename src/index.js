@@ -21,6 +21,7 @@ import { xsrf } from "./lib/utils";
 import ManageSlides from "./pages/dashboard/ManageSlides";
 import ManageShopHeader from "./pages/dashboard/ManageShopHeader";
 import ShoppingCartManager from "./lib/shoppingCartManager";
+import ManageHomeInfoBanner from "./pages/dashboard/ManageHomeInfoBanner";
 
 
 function App() {
@@ -54,7 +55,7 @@ function App() {
 		<Route path="/dashboard" element={ <DashboardLayout/> }>
 			<Route path="" element={ <DashboardHome/> }/>
 			<Route path="products" element={ <DashboardProducts/> }/>
-			<Route path="homepage/previews" element={ <h1>previews</h1> }/>
+			<Route path="homepage/info" element={ <ManageHomeInfoBanner/> }/>
 			<Route path="homepage/slides" element={ <ManageSlides/> } />
 			<Route path="shop-header" element={ <ManageShopHeader/> } />
 		</Route>
