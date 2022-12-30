@@ -6,7 +6,6 @@ import { imageURL, preventDefaults } from "../../lib/utils";
 export default function ProductCard({ product }) {
     const navigate = useNavigate();
     const productUrl = `/shop/${product.category}/${product.sku}`;
-    console.log(product);
     function addToCart(e) {
         preventDefaults(e);
         ShoppingCartManager.addItem(product);

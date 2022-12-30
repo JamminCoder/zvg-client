@@ -34,6 +34,9 @@ export const API_CONTENT_SLIDES_UPDATE = slideID => `${ API_URL }/content/slides
 export const API_CONTENT_SLIDES_DELETE = slideID => `${ API_URL }/content/slides/delete/${ slideID }`;
 export const API_CONTENT_SHOP_HEADER_UPDATE = `${ API_URL }/content/shop-header/update`;
 export const API_CONTENT_SHOP_HEADER = `${ API_URL }/content/shop-header`;
+export const API_CONTENT_HOMEPAGE_INFO = `${ API_URL }/content/homepage-info`;
+export const API_CONTENT_HOMEPAGE_INFO_UPDATE = `${ API_URL }/content/homepage-info/update`;
+
 
 // square
 export const API_SQUARE_ORDER = `${API_URL}/square/order-checkout`;

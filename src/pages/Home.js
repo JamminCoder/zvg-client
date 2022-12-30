@@ -6,6 +6,8 @@ import { getAllProducts, getSlides } from "../api";
 import ButtonMap from "../components/ButtonMap";
 import { serverURL } from "../lib/utils";
 import CategoryDisplay from "../components/CategoryDisplay"
+import axios from "axios";
+import { API_CONTENT_HOMEPAGE_INFO } from "../apiRoutes";
 
 function Slide({ parent, img, header, lead, buttons, sliderNum, max }) {
   let scrollWidth = document.body.clientWidth;
@@ -172,16 +174,35 @@ function ProductsDisplay(props) {
 }
 
 export default function Home() {
+  const [homepageInfo, setHomepageInfo] = useState(null);
+  const [attempt, setAttempt] = useState(false);
+
+  useEffect(() => {
+    if (!attempt) {
+      axios.get(API_CONTENT_HOMEPAGE_INFO)
+      .then(res => {
+        setHomepageInfo(res.data);
+      });
+
+      setAttempt(true);
+    }
+  });
+
   return (
     <div>
       <HeaderSection />
       <main>
-        <div className="grid place-content-center text-center py-16 bg-slate-100">
-          <h2 className="text-4xl font-medium mb-4">Shop Awesomeness</h2>
-          <p className="font-light text-xl">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis amet aperiam nesciunt mollitia totam quisquam molestias. Impedit pariatur tempore sit veritatis, similique, sunt reiciendis illum, unde non maiores voluptatum magnam?
-          </p>
-        </div>
+        {
+          homepageInfo
+          ? <div className="grid place-content-center text-center py-16 bg-slate-100">
+              <h2 className="text-4xl font-medium mb-4">{ homepageInfo.header }</h2>
+              <p className="font-light text-xl">
+                { homepageInfo.lead }
+              </p>
+            </div>
+          : ""
+        }
+        
         <ProductsDisplay/>
         
         <CabinSection />
