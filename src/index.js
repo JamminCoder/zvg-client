@@ -11,7 +11,7 @@ import Nav from "./components/Nav";
 
 // Pages
 import Shop from "./pages/Shop";
-import Home from './pages/Home';
+import Home from './pages/home/Home';
 import ProductsPage from "./pages/ProductsPage";
 import ProductDetails from "./pages/ProductDetails";
 import Login from "./pages/Login";
