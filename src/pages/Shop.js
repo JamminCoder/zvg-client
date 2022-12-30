@@ -1,9 +1,9 @@
 import HeroSection from "../layouts/HeroSection";
 import "../css/shop.css";
-import CategoryListingCard from '../components/cards/CategoryListingCard';
 import { useEffect, useState } from "react";
-import { getCategoriesInfo, getShopHeader } from "../api";
+import { getAllProducts, getShopHeader } from "../api";
 import { serverURL } from "../lib/utils";
+import CategoryDisplay from "../components/CategoryDisplay";
 
 
 function Categories(props) {
@@ -12,28 +12,18 @@ function Categories(props) {
 
     useEffect(() => {
         if (!categories.length && !attempt) {
-            getCategoriesInfo().then(cats => {
-                const infoArray = [];
-                cats.forEach(info => {
-                    infoArray.push(
-                        <CategoryListingCard
-                            name={ info.category }
-                            imageSrc={ info.image }
-                            description={ info.description }
-                        />
-                    );
-                })
-    
-                setCategories(infoArray);
-            })
+            getAllProducts().then(cats => {
+                setCategories(cats);
+
+            });
         }
 
         setAttempt(true);
     });
 
     return (
-        <main className="py-24 px-2 md:px-10 flex flex-wrap gap-5">
-            { categories.length ? categories: "No products" }
+        <main className="py-24 px-2 md:px-10 grid gap-12">
+            { categories.length ? categories.map(cat => <CategoryDisplay category={ cat } />): "No products" }
         </main>
     );
 }
