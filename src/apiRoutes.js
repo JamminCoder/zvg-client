@@ -10,7 +10,7 @@ export const API_PRODUCTS_UPDATE = `${ API_URL }/products/update`;
 
 
 // Categories
-export const API_CATEGORIES_ALL = `${ API_URL }/categories/all/products`;
+export const API_CATEGORIES_ALL = `${ API_URL }/categories/all`;
 export const API_CATEGORIES_INFO = `${ API_URL }/categories/info/all`;
 export const API_CATEGORIES_NEW = `${ API_URL }/categories/new`;
 export const API_CATEGORIES_GET = category => `${ API_URL }/categories/${ category }`;
