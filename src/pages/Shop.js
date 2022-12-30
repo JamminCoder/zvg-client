@@ -1,7 +1,7 @@
 import HeroSection from "../layouts/HeroSection";
 import "../css/shop.css";
 import { useEffect, useState } from "react";
-import { getAllProducts, getShopHeader } from "../api";
+import { getCategories, getShopHeader } from "../api";
 import { serverURL } from "../lib/utils";
 import CategoryDisplay from "../components/CategoryDisplay";
 
@@ -12,7 +12,7 @@ function Categories(props) {
 
     useEffect(() => {
         if (!categories.length && !attempt) {
-            getAllProducts().then(cats => {
+            getCategories().then(cats => {
                 setCategories(cats);
 
             });

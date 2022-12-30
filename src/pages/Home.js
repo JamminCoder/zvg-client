@@ -2,7 +2,7 @@ import "../css/Home.css";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "../components/Button";
-import { getAllProducts, getSlides } from "../api";
+import { getCategories, getSlides } from "../api";
 import ButtonMap from "../components/ButtonMap";
 import { serverURL } from "../lib/utils";
 import CategoryDisplay from "../components/CategoryDisplay"
@@ -155,7 +155,7 @@ function ProductsDisplay(props) {
 
   useEffect(() => {
     if (!attempt) {
-      getAllProducts(categoryLimit).then(cats => {
+      getCategories(categoryLimit).then(cats => {
         setCategories(cats)
       });
       setAttempt(true);

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import DashboardSidebar from "./DashboardSidebar";
-import { getAllProductsWithCategories } from "../../api";
+import { getCategories } from "../../api";
 import { ProductsList } from "./ProductsList";
 import { Outlet } from "react-router-dom";
 import NewCategoryModal from "./modals/NewCategoryModal";
@@ -15,7 +15,7 @@ export function CategoriesWithProducts(props) {
     useEffect(() => {
         if (attempt) return;
         if (!categories.length) {
-            getAllProductsWithCategories()
+            getCategories()
             .then(cats => setCategories(cats));
         }
 

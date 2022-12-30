@@ -1,7 +1,7 @@
 import { 
     API_LOGIN, 
     API_LOGOUT,
-    API_PRODUCTS_ALL,
+    API_CATEGORIES_ALL,
     API_VERIFY_AUTH,
     API_PRODUCTS_DELETE_SKU,
     API_PRODUCTS_GET_BY_SKU,
@@ -33,12 +33,6 @@ export function checkAuth() {
 
 
 // Products
-export async function getAllProducts(limit=null) {
-    const queryLimit = limit ? `?limit=${ limit }`: "";
-    const res = await axios.get(API_PRODUCTS_ALL + queryLimit);
-    const products = res.data;
-    return products;
-}
 
 export async function deleteProductBySKU(sku) {
     return await axios.post(API_PRODUCTS_DELETE_SKU(sku), { headers: XSRF_HEADER }, WITH_CREDENTIALS);
@@ -57,9 +51,11 @@ export async function deleteCategoryByName(name) {
 
 
 // Categories
-export async function getAllProductsWithCategories() {
-    const res = await axios.get(API_PRODUCTS_ALL);
-    return res.data;
+export async function getCategories(limit=null) {
+    const queryLimit = limit ? `?limit=${ limit }`: "";
+    const res = await axios.get(API_CATEGORIES_ALL + queryLimit);
+    const products = res.data;
+    return products;
 }
 
 export async function getProductsFromCategory(category) {
