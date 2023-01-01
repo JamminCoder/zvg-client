@@ -11,6 +11,7 @@ import {
     API_CATEGORIES_GET,
     API_CONTENT_SLIDES_ALL,
     API_CONTENT_SHOP_HEADER,
+    API_CONTENT_HOMEPAGE_INFO,
 } from "./apiRoutes";
 
 import { WITH_CREDENTIALS, XSRF_HEADER } from "./lib/auth";

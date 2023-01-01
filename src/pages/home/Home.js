@@ -1,9 +1,6 @@
 import "../../css/Home.css";
 import { useEffect, useState } from "react";
 
-import axios from "axios";
-import { API_CONTENT_HOMEPAGE_INFO } from "../../apiRoutes";
-
 import HeaderSection from "./HeaderSection";
 import ProductsDisplay from "./ProductDisplay";
 
