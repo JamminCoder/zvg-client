@@ -1,9 +1,7 @@
-import axios from "axios";
 import Button from "../../components/Button";
 import { preventDefaults } from "../../lib/utils";
 import { useEffect, useState } from "react";
-import { API_CONTENT_HOMEPAGE_INFO } from "../../apiRoutes";
-import { updateHomepageInfo } from "../../api";
+import { getHomepageInfo, updateHomepageInfo } from "../../api";
 
 export default function ManageHomeInfoBanner() {
     const [homepageInfo, setHomepageInfo] = useState(null);
@@ -13,7 +11,7 @@ export default function ManageHomeInfoBanner() {
 
     useEffect(() => {
         if (!isLoaded) {
-            axios.get(API_CONTENT_HOMEPAGE_INFO)
+            getHomepageInfo()
             .then(res => {
                 setHomepageInfo(res.data);
                 setIsLoaded(true);
