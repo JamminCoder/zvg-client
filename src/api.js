@@ -15,6 +15,7 @@ import {
     API_CONTENT_HOMEPAGE_INFO_UPDATE,
     API_CONTENT_SHOP_HEADER_UPDATE,
     API_CATEGORIES_NEW,
+    API_PRODUCT_NEW,
 } from "./apiRoutes";
 
 import { WITH_CREDENTIALS, XSRF_HEADER } from "./lib/auth";
@@ -55,6 +56,18 @@ export async function deleteCategoryByName(name) {
 
 
 // Categories
+
+export async function newItem(formElement) {
+    return await axios.post(
+        API_PRODUCT_NEW, 
+        new FormData(formElement),
+        {
+            headers: XSRF_HEADER,
+            withCredentials: true,
+        }
+    );
+}
+
 export async function getCategories(limit=null) {
     const queryLimit = limit ? `?limit=${ limit }`: "";
     const res = await axios.get(API_CATEGORIES_ALL + queryLimit);

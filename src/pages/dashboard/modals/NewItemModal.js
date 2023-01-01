@@ -1,11 +1,8 @@
 import { API_PRODUCT_NEW } from "../../../apiRoutes";
-import { XSRF_HEADER, WITH_CREDENTIALS } from "../../../lib/auth";
 import { preventDefaults } from "../../../lib/utils";
 import CloseIcon from "../../../components/icons/Close";
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { getCategoriesInfo } from "../../../api";
-import CategorySelect from "../../../components/CategorySelect";
+import { getCategoriesInfo, newItem } from "../../../api";
 import Modal from "../../../components/Modal";
 
 export default function NewItemModal(props) {
@@ -27,14 +24,8 @@ export default function NewItemModal(props) {
         setError("");
         setSuccess("");
 
-        const formData = new FormData(document.querySelector("#new_product_form"));
-        
-        const requestOptions = { 
-            headers: XSRF_HEADER, 
-            ...WITH_CREDENTIALS 
-        };
-
-        axios.post(API_PRODUCT_NEW, formData, requestOptions).then(res => {
+        newItem(document.querySelector("#new_product_form"))
+        .then(res => {
             console.log(res.data);
             if (res.status === 200) {
                 window.location.reload();
