@@ -14,6 +14,7 @@ import {
     API_CONTENT_HOMEPAGE_INFO,
     API_CONTENT_HOMEPAGE_INFO_UPDATE,
     API_CONTENT_SHOP_HEADER_UPDATE,
+    API_CATEGORIES_NEW,
 } from "./apiRoutes";
 
 import { WITH_CREDENTIALS, XSRF_HEADER } from "./lib/auth";
@@ -74,6 +75,17 @@ export async function getCategoryByName(category) {
 export async function getCategoriesInfo() {
     const res = await axios.get(API_CATEGORIES_INFO);
     return res.data;
+}
+
+export async function newCategory(formElement) {
+    return await axios.post(
+        API_CATEGORIES_NEW, 
+        new FormData(formElement),
+        {
+            headers: XSRF_HEADER,
+            withCredentials: true,
+        }
+    );
 }
 
 

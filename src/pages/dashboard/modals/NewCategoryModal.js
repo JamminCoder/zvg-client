@@ -6,6 +6,7 @@ import axios from "axios";
 import { useState } from "react";
 import Overlay from "../../../layouts/Overlay";
 import Modal from "../../../components/Modal";
+import { newCategory } from "../../../api";
 
 export default function NewCategoryModal(props) {
     const [error, setError] = useState("");
@@ -17,14 +18,8 @@ export default function NewCategoryModal(props) {
         setError("");
         setSuccess("");
 
-        const formData = new FormData(document.querySelector("#new_category_form"));
-        
-        const requestOptions = { 
-            headers: XSRF_HEADER, 
-            ...WITH_CREDENTIALS 
-        };
-
-        axios.post(API_CATEGORIES_NEW, formData, requestOptions).then(res => {
+        newCategory(document.querySelector("#new_category_form"))
+        .then(res => {
             console.log(res.data);
             if (res.status === 200) {
                 window.location.reload();
