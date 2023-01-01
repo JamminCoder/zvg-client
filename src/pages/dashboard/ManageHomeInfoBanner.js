@@ -1,10 +1,9 @@
 import axios from "axios";
-import { API_CONTENT_HOMEPAGE_INFO_UPDATE } from "../../apiRoutes";
 import Button from "../../components/Button";
-import { XSRF_HEADER } from "../../lib/auth";
 import { preventDefaults } from "../../lib/utils";
 import { useEffect, useState } from "react";
 import { API_CONTENT_HOMEPAGE_INFO } from "../../apiRoutes";
+import { updateHomepageInfo } from "../../api";
 
 export default function ManageHomeInfoBanner() {
     const [homepageInfo, setHomepageInfo] = useState(null);
@@ -24,14 +23,7 @@ export default function ManageHomeInfoBanner() {
     
     function submit(e) {
         preventDefaults(e);
-        axios.post(
-            API_CONTENT_HOMEPAGE_INFO_UPDATE,
-            new FormData(document.getElementById(formID)),
-            {
-                headers: XSRF_HEADER,
-                withCredentials: true,
-            }
-        )
+        updateHomepageInfo(document.getElementById(formID))
         .then(console.log)
         .catch(console.log);
     }

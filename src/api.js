@@ -12,6 +12,7 @@ import {
     API_CONTENT_SLIDES_ALL,
     API_CONTENT_SHOP_HEADER,
     API_CONTENT_HOMEPAGE_INFO,
+    API_CONTENT_HOMEPAGE_INFO_UPDATE,
 } from "./apiRoutes";
 
 import { WITH_CREDENTIALS, XSRF_HEADER } from "./lib/auth";
@@ -83,6 +84,17 @@ export async function getSlides() {
 
 export async function getHomepageInfo() {
     return await axios.get(API_CONTENT_HOMEPAGE_INFO);
+}
+
+export async function updateHomepageInfo(formElement) {
+    return await axios.post(
+        API_CONTENT_HOMEPAGE_INFO_UPDATE,
+        new FormData(formElement),
+        {
+            headers: XSRF_HEADER,
+            withCredentials: true,
+        }
+    );
 }
 
 export async function getShopHeader() {
