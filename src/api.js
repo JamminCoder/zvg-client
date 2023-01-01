@@ -13,6 +13,7 @@ import {
     API_CONTENT_SHOP_HEADER,
     API_CONTENT_HOMEPAGE_INFO,
     API_CONTENT_HOMEPAGE_INFO_UPDATE,
+    API_CONTENT_SHOP_HEADER_UPDATE,
 } from "./apiRoutes";
 
 import { WITH_CREDENTIALS, XSRF_HEADER } from "./lib/auth";
@@ -104,4 +105,15 @@ export async function getShopHeader() {
     } catch (err) {
         console.log(err);
     }
+}
+
+export async function updateShopHeader(formElement) {
+    return await axios.post(
+        API_CONTENT_SHOP_HEADER_UPDATE,
+        new FormData(formElement),
+        {
+            headers: XSRF_HEADER,
+            withCredentials: true,
+        }
+    );
 }

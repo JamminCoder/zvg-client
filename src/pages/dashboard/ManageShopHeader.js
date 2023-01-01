@@ -4,7 +4,7 @@ import Button from "../../components/Button";
 import { XSRF_HEADER } from "../../lib/auth";
 import { preventDefaults, serverURL, setPreviewImage } from "../../lib/utils";
 import { useState, useEffect } from "react";
-import { getShopHeader } from "../../api";
+import { getShopHeader, updateShopHeader } from "../../api";
 
 export default function ManageShopHeader(props) {
     const [shopHeader, setShopHeader] = useState(null);
@@ -21,14 +21,7 @@ export default function ManageShopHeader(props) {
     function save(e) {
         preventDefaults(e);
 
-        axios.post(
-            API_CONTENT_SHOP_HEADER_UPDATE,
-            new FormData(document.querySelector("#header_form")),
-            {
-                headers: XSRF_HEADER,
-                withCredentials: true,
-            }
-        )
+        updateShopHeader(document.querySelector("#header_form"))
         .then(res => {
             console.log(res);
         })
