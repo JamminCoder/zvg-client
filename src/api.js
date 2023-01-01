@@ -80,6 +80,10 @@ export async function getSlides() {
     return res.data;
 }
 
+export async function getHomepageInfo() {
+    return await axios.get(API_CONTENT_HOMEPAGE_INFO);
+}
+
 export async function getShopHeader() {
     try {
         const res = await axios.get(API_CONTENT_SHOP_HEADER);

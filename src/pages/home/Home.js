@@ -8,6 +8,7 @@ import HeaderSection from "./HeaderSection";
 import ProductsDisplay from "./ProductDisplay";
 
 import CabinSection from "./CabinSection";
+import { getHomepageInfo } from "../../api";
 
 
 export default function Home() {
@@ -16,7 +17,7 @@ export default function Home() {
 
   useEffect(() => {
     if (!attempt) {
-      axios.get(API_CONTENT_HOMEPAGE_INFO)
+      getHomepageInfo()
       .then(res => {
         setHomepageInfo(res.data);
       });
