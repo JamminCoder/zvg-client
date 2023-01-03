@@ -12,8 +12,8 @@ export default function Shop(props) {
 
     useEffect(() => {
         if (attempt) return;
-        getShopHeader().then(setShopHeader);
-        getCategories().then(setCategories);
+        if (!categories.length) getShopHeader().then(setShopHeader);
+        if (!shopHeader) getCategories().then(setCategories);
 
         setAttempt(true);
     })
