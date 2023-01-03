@@ -5,37 +5,16 @@ import { getCategories, getShopHeader } from "../api";
 import { serverURL } from "../lib/utils";
 import CategoryDisplay from "../components/CategoryDisplay";
 
-
-function Categories(props) {
-    const [categories, setCategories] = useState([]);
-    const [attempt, setAttempt] = useState(null);
-
-    useEffect(() => {
-        if (!categories.length && !attempt) {
-            getCategories().then(cats => {
-                setCategories(cats);
-
-            });
-        }
-
-        setAttempt(true);
-    });
-
-    return (
-        <main className="py-24 px-2 md:px-10 grid gap-12">
-            { categories.length ? categories.map(cat => <CategoryDisplay category={ cat } />): "No products" }
-        </main>
-    );
-}
-
-
 export default function Shop(props) {
     const [shopHeader, setShopHeader] = useState(null);
+    const [categories, setCategories] = useState([]);
     const [attempt, setAttempt] = useState(false);
 
     useEffect(() => {
-        if (attempt || shopHeader) return;
+        if (attempt) return;
         getShopHeader().then(setShopHeader);
+        getCategories().then(setCategories);
+
         setAttempt(true);
     })
 
@@ -55,7 +34,13 @@ export default function Shop(props) {
                     </div>
                 </HeroSection>
                 
-                <Categories/>
+                <main className="py-24 px-2 md:px-10 grid gap-12">
+                    { 
+                        categories.length 
+                        ? categories.map(cat => <CategoryDisplay category={ cat } />)
+                        : "No products" 
+                    }
+                </main>
             </div>
         </div>
     );
