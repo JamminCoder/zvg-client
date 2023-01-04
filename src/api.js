@@ -16,6 +16,7 @@ import {
     API_CONTENT_SHOP_HEADER_UPDATE,
     API_CATEGORIES_NEW,
     API_PRODUCT_NEW,
+    API_ADMIN_PASSWORD_UPDATE
 } from "./apiRoutes";
 
 import { WITH_CREDENTIALS, XSRF_HEADER } from "./lib/auth";
@@ -23,7 +24,7 @@ import { WITH_CREDENTIALS, XSRF_HEADER } from "./lib/auth";
 const axios = require("axios").default;
 
 
-// Auth
+/*** Auth ***/
 export async function login(userInfo) {
     return axios.post(API_LOGIN, userInfo, WITH_CREDENTIALS);
 }
@@ -36,9 +37,19 @@ export function checkAuth() {
     return axios.get(API_VERIFY_AUTH, WITH_CREDENTIALS);
 }
 
+export async function updatePassword(formElement) {
+    return await axios.post(
+        API_ADMIN_PASSWORD_UPDATE,
+        new FormData(formElement),
+        {
+            headers: XSRF_HEADER,
+            withCredentials: true
+        }
+    );
+}
 
-// Products
 
+/*** Products ***/
 export async function deleteProductBySKU(sku) {
     return await axios.post(API_PRODUCTS_DELETE_SKU(sku), { headers: XSRF_HEADER }, WITH_CREDENTIALS);
 }
@@ -55,8 +66,7 @@ export async function deleteCategoryByName(name) {
 }
 
 
-// Categories
-
+/*** Categories ***/ 
 export async function newItem(formElement) {
     return await axios.post(
         API_PRODUCT_NEW, 
@@ -102,7 +112,7 @@ export async function newCategory(formElement) {
 }
 
 
-// Content
+/*** Content ***/
 export async function getSlides() {
     const res = await axios.get(API_CONTENT_SLIDES_ALL);
     return res.data;

@@ -3,8 +3,8 @@ import { checkAuth, logout } from "../api";
 import { API_ADMIN_VERIFICATION_STATUS, API_ADMIN_VERIFY_EMAIL } from "../apiRoutes";
 import axios from "axios";
 
-
-export const XSRF_HEADER = { "X-XSRF-TOKEN": getCookie("XSRF-TOKEN") };
+export const XSRF_TOKEN = getCookie("XSRF-TOKEN");
+export const XSRF_HEADER = { "X-XSRF-TOKEN": XSRF_TOKEN };
 export const WITH_CREDENTIALS = { withCredentials: true };
 
 export function isLoggedIn() {

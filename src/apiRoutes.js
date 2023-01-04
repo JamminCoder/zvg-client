@@ -29,6 +29,7 @@ export const API_VERIFY_AUTH = `${ API_URL }/test-auth`;
 // admin auth
 export const API_ADMIN_VERIFICATION_STATUS = `${ API_URL }/admin/verification-status`;
 export const API_ADMIN_VERIFY_EMAIL = `${ API_URL }/admin/verify-email`;
+export const API_ADMIN_PASSWORD_UPDATE = `${ API_URL }/admin/password-update`;
 
 
 // Content management

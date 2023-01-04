@@ -1,7 +1,9 @@
 import Button from "../../components/Button";
-import { checkEmailVerificationStatus, sendVerifyEmailRequest, XSRF_HEADER } from "../../lib/auth";
+import { checkEmailVerificationStatus, sendVerifyEmailRequest } from "../../lib/auth";
+import { API_ADMIN_PASSWORD_UPDATE } from "../../apiRoutes";
 import { preventDefaults } from "../../lib/utils";
 import  { useEffect, useState } from "react";
+import { updatePassword } from "../../api";
 
 
 function EmailVerification({ className }) {
@@ -48,33 +50,42 @@ function EmailVerification({ className }) {
     return;
 }
 
-export default function Account() {
+function UpdatePasswordForm() {
+    const formID = "update_password_form";
+
     function submit(e) {
         preventDefaults(e);
-        console.log("Submitting form...");
+        updatePassword(document.getElementById(formID))
+        .then(console.log)
+        .catch(console.log);
     }
 
+    return (
+    <form id={ formID } action={ API_ADMIN_PASSWORD_UPDATE } method="POST" onSubmit={ submit } className="grid gap-4 mb-16">
+        <h1 className="text-4xl">Update Password</h1>
+        <div>
+            <label htmlFor="password">Current Password</label><br />
+            <input type="text" name="current_password" id="current_password" />
+        </div>
+        <div>
+            <label htmlFor="password">New Password</label><br />
+            <input type="text" name="password" id="password" />
+        </div>
+        <div>
+            <label htmlFor="password_confirmation">Confirm New Password</label><br />
+            <input type="text" name="password_confirmation" id="password_confirmation" />
+        </div>
+        <Button onClick={ submit } className="bg-green-500 text-white w-fit">Update Password</Button>
 
+    </form>
+    )
+}
+
+export default function Account() {
     return (
     <div>
         <EmailVerification className="mb-8"/>
-        <form action="#" method="POST" onSubmit={ submit } className="grid gap-4 mb-16">
-            <h1 className="text-4xl">Update Password</h1>
-            <div>
-                <label htmlFor="current_password">Current Password</label><br />
-                <input type="password" name="current_password" id="current_password" />
-            </div>
-            <div>
-                <label htmlFor="new_password">New Password</label><br />
-                <input type="password" name="new_password" id="new_password" />
-            </div>
-            <div>
-                <label htmlFor="confirm_new_password">Confirm New Password</label><br />
-                <input type="password" name="confirm_new_password" id="confirm_new_password" />
-            </div>
-            <Button onClick={ submit } className="bg-green-500 text-white w-fit">Update Password</Button>
-
-        </form>
+        <UpdatePasswordForm/>
     </div>
     );
 }
