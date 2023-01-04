@@ -22,6 +22,7 @@ import ManageSlides from "./pages/dashboard/ManageSlides";
 import ManageShopHeader from "./pages/dashboard/ManageShopHeader";
 import ShoppingCartManager from "./lib/shoppingCartManager";
 import ManageHomeInfoBanner from "./pages/dashboard/ManageHomeInfoBanner";
+import Account from "./pages/dashboard/Account";
 
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
 		{/* Dashboard is an outlet */}
 		<Route path="/dashboard" element={ <DashboardLayout/> }>
 			<Route path="" element={ <DashboardHome/> }/>
+			<Route path="account" element={ <Account/> } />
 			<Route path="products" element={ <DashboardProducts/> }/>
 			<Route path="homepage/info" element={ <ManageHomeInfoBanner/> }/>
 			<Route path="homepage/slides" element={ <ManageSlides/> } />

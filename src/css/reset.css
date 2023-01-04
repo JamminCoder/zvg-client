@@ -5,3 +5,7 @@
 p {
     max-width: 70ch;
 }
+
+input {
+    border: 1px solid #0002;
+}

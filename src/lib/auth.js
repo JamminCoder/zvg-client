@@ -1,5 +1,7 @@
 import { getCookie } from "./utils";
 import { checkAuth, logout } from "../api";
+import { API_ADMIN_VERIFICATION_STATUS, API_ADMIN_VERIFY_EMAIL } from "../apiRoutes";
+import axios from "axios";
 
 
 export const XSRF_HEADER = { "X-XSRF-TOKEN": getCookie("XSRF-TOKEN") };
@@ -13,6 +15,35 @@ export async function isVerified() {
     const res = await checkAuth();
     return res.status === 200;
 }
+
+export async function checkEmailVerificationStatus() {
+    const res = await axios.get(
+        API_ADMIN_VERIFICATION_STATUS,
+        {
+            headers: XSRF_HEADER,
+            withCredentials: true
+        }
+    );
+
+    return res.data.is_verified;
+}
+
+export function sendVerifyEmailRequest() {
+    console.log("Sending verification request");
+    axios.get(
+        API_ADMIN_VERIFY_EMAIL,
+        {
+            headers: XSRF_HEADER,
+            withCredentials: true
+        }
+    ).then(res => {
+        console.log(res);
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}
+
 
 export function destroy_login_info() {
     logout().then(res => {

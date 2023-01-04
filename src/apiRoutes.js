@@ -26,6 +26,10 @@ export const API_LOGIN = `${ API_URL }/login`;
 export const API_LOGOUT = `${ API_URL }/logout`;
 export const API_VERIFY_AUTH = `${ API_URL }/test-auth`;
 
+// admin auth
+export const API_ADMIN_VERIFICATION_STATUS = `${ API_URL }/admin/verification-status`;
+export const API_ADMIN_VERIFY_EMAIL = `${ API_URL }/admin/verify-email`;
+
 
 // Content management
 export const API_CONTENT_SLIDES_ALL = `${ API_URL }/content/slides`;
