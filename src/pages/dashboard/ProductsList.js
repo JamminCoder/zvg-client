@@ -1,10 +1,10 @@
 import Button from "../../components/Button";
 import ConfirmDeleteModal from "./modals/ConfirmDeleteModal";
 import AdminProductCard from "./AdminProductCard";
-import { deleteCategoryByName } from "../../api";
 import { useState } from "react";
 import UpdateCategoryModal from "./modals/UpdateCategoryModal";
 import NewItemModal from "./modals/NewItemModal";
+import * as categoryEndpoints from "../../endpoints/categories"
 
 export function ProductsList({ category }) {
     const [display, setDisplay] = useState(true);
@@ -25,7 +25,7 @@ export function ProductsList({ category }) {
 
 
     const deleteCategoryForReal = () => {
-        deleteCategoryByName(category.name);
+        categoryEndpoints.deleteCategoryByName(category.name);
         setDisplay(null);
     }
 

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { getCategories } from "../../api";
+import * as categoryEndpoints from "../../endpoints/categories";
 import CategoryDisplay from "../../components/CategoryDisplay"
 
 export default function ProductsDisplay(props) {
@@ -10,7 +10,7 @@ export default function ProductsDisplay(props) {
   
     useEffect(() => {
       if (!attempt) {
-        getCategories(categoryLimit).then(cats => {
+        categoryEndpoints.getCategories(categoryLimit).then(cats => {
           setCategories(cats)
         });
         setAttempt(true);

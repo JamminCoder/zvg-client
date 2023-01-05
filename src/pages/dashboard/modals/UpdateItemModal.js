@@ -1,11 +1,11 @@
 import { preventDefaults, serverURL } from "../../../lib/utils";
-import { deleteProductBySKU, getCategoriesInfo } from "../../../api";
 import { useEffect, useState } from "react";
-import { XSRF_HEADER, WITH_CREDENTIALS } from "../../../lib/auth";
+import { XSRF_HEADER } from "../../../lib/auth";
 import CategorySelect from "../../../components/CategorySelect";
 import Modal from "../../../components/Modal";
 
 import * as productEndpoints from "../../../endpoints/products";
+import * as categoryEndpoints from "../../../endpoints/categories"
 
 const axios = require("axios").default;
 
@@ -15,7 +15,7 @@ export default function UpdateItemModal({ product }) {
 
     useEffect(() => {
         if (!categories) {
-            getCategoriesInfo()
+            categoryEndpoints.getCategoriesInfo()
             .then(cats => setCategories(cats))
             .catch(err => console.log(err));
         }
@@ -28,8 +28,7 @@ export default function UpdateItemModal({ product }) {
         const formData = new FormData(document.querySelector("#update_product_form"));
         
         const requestOptions = { 
-            headers: XSRF_HEADER, 
-            ...WITH_CREDENTIALS 
+            headers: XSRF_HEADER,
         };
 
         axios.post(productEndpoints.UPDATE, formData, requestOptions)
@@ -50,7 +49,7 @@ export default function UpdateItemModal({ product }) {
     }
 
     function deleteProduct() {  
-        deleteProductBySKU(product.sku)
+        productEndpoints.deleteProductBySKU(product.sku)
         .then(res => {
             console.log(res);
             window.location.reload();

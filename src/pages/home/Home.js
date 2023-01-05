@@ -5,7 +5,7 @@ import HeaderSection from "./HeaderSection";
 import ProductsDisplay from "./ProductDisplay";
 
 import CabinSection from "./CabinSection";
-import { getHomepageInfo } from "../../api";
+import * as contentEndpoints from "../../endpoints/content";
 
 
 export default function Home() {
@@ -14,7 +14,7 @@ export default function Home() {
 
   useEffect(() => {
     if (!attempt) {
-      getHomepageInfo()
+      contentEndpoints.getHomepageInfo()
       .then(res => {
         setHomepageInfo(res.data);
       });

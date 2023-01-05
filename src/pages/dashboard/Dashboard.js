@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import DashboardSidebar from "./DashboardSidebar";
-import { getCategories } from "../../api";
 import { ProductsList } from "./ProductsList";
 import { Outlet } from "react-router-dom";
 import NewCategoryModal from "./modals/NewCategoryModal";
 import Button from "../../components/Button";
 import { Navigate, Link } from "react-router-dom";
-import { isVerified, isLoggedIn } from "../../lib/auth";
+import { isLoggedIn } from "../../lib/auth";
+import { isVerified } from "../../endpoints/auth";
+import { getCategories } from "../../endpoints/categories";
 
 export function CategoriesWithProducts(props) {
     const [categories, setCategories] = useState([]);

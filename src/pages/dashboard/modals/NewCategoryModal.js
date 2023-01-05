@@ -3,7 +3,6 @@ import CloseIcon from "../../../components/icons/Close";
 import { useState } from "react";
 import Modal from "../../../components/Modal";
 import * as categoryEndpoints from "../../../endpoints/categories";
-import { newCategory } from "../../../api";
 
 export default function NewCategoryModal(props) {
     const [error, setError] = useState("");
@@ -15,7 +14,7 @@ export default function NewCategoryModal(props) {
         setError("");
         setSuccess("");
 
-        newCategory(document.querySelector("#new_category_form"))
+        categoryEndpoints.newCategory(document.querySelector("#new_category_form"))
         .then(res => {
             console.log(res.data);
             if (res.status === 200) {

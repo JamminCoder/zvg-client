@@ -4,7 +4,8 @@ import GridEvenContainer from '../layouts/GridEvenContainer';
 import ShoppingCartManager from "../lib/shoppingCartManager";
 import { imageURL } from "../lib/utils";
 import { useEffect } from "react";
-import { getProductBySKU, getProductsFromCategory } from "../api";
+import * as productEndpoints from "../endpoints/products";
+import * as categoryEndpoints from "../endpoints/categories";
 import ProductCard from "../components/cards/ProductCard";
 import Button from "../components/Button";
 
@@ -74,7 +75,7 @@ export default function ProductDetails() {
 
     useEffect(() => {
         if (!product)
-            getProductBySKU(sku)
+            productEndpoints.getProductBySKU(sku)
             .then(prod => setProduct(prod));
 
         if (product) {
@@ -87,7 +88,7 @@ export default function ProductDetails() {
         }
 
         if (products.length === 0) {
-            getProductsFromCategory(productType.toLowerCase())
+            categoryEndpoints.getProductsFromCategory(productType.toLowerCase())
             .then(category => {
                 const productDisplay = [];
 

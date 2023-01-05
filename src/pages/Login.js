@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import CenterPage from '../layouts/CenterPage';
 import { useNavigate } from "react-router-dom";
-import { login } from "../api";
+import { login } from "../endpoints/auth";
 import * as authEndpoints from "../endpoints/auth";
 
 const axios = require('axios').default;

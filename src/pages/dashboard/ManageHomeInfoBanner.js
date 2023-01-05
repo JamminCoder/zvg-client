@@ -1,7 +1,7 @@
 import Button from "../../components/Button";
 import { preventDefaults } from "../../lib/utils";
 import { useEffect, useState } from "react";
-import { getHomepageInfo, updateHomepageInfo } from "../../api";
+import * as contentEndpoints from "../../endpoints/content";
 
 export default function ManageHomeInfoBanner() {
     const [homepageInfo, setHomepageInfo] = useState(null);
@@ -11,7 +11,7 @@ export default function ManageHomeInfoBanner() {
 
     useEffect(() => {
         if (!isLoaded) {
-            getHomepageInfo()
+            contentEndpoints.getHomepageInfo()
             .then(res => {
                 setHomepageInfo(res.data);
                 setIsLoaded(true);
@@ -21,7 +21,7 @@ export default function ManageHomeInfoBanner() {
     
     function submit(e) {
         preventDefaults(e);
-        updateHomepageInfo(document.getElementById(formID))
+        contentEndpoints.updateHomepageInfo(document.getElementById(formID))
         .then(console.log)
         .catch(console.log);
     }

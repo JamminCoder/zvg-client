@@ -1,4 +1,4 @@
-import { getSlides } from "../../api";
+import * as contentEndpoints from "../../endpoints/content"
 import { useState, useEffect } from "react";
 import Slide from "./Slide";
 
@@ -9,7 +9,7 @@ export default function HeaderSection(props) {
     useEffect(() => {
         if (!slider) setSlider(document.querySelector(".welcome-slider"));
         if (!slides && slider) {
-            getSlides()
+            contentEndpoints.getSlides()
             .then(slidesData => {
                 const slidesArray = [];
 

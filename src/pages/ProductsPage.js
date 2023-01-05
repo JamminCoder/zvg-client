@@ -5,7 +5,7 @@ import ProductCard from '../components/cards/ProductCard';
 import "../css/shop.css";
 import "../css/app.css"
 import { useEffect, useState } from "react";
-import { getCategoryByName, getProductsFromCategory } from "../api";
+import { getCategoryByName, getProductsFromCategory } from "../endpoints/categories";
 
 
 export default function ProductsPage(props) {

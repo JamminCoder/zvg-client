@@ -25,6 +25,8 @@ import ManageHomeInfoBanner from "./pages/dashboard/ManageHomeInfoBanner";
 import Account from "./pages/dashboard/Account";
 
 
+require("axios").default.defaults.withCredentials = true;
+
 function App() {
 	const [cartItems, setCartItems] = useState([]);
 	

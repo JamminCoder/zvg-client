@@ -1,7 +1,8 @@
 import HeroSection from "../layouts/HeroSection";
 import "../css/shop.css";
 import { useEffect, useState } from "react";
-import { getCategories, getShopHeader } from "../api";
+import { getCategories } from "../endpoints/categories";
+import { getShopHeader } from "../endpoints/content";
 import { serverURL } from "../lib/utils";
 import CategoryDisplay from "../components/CategoryDisplay";
 

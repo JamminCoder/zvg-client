@@ -1,7 +1,6 @@
 import Button from "../../components/Button";
 import { preventDefaults, serverURL, setPreviewImage } from "../../lib/utils";
 import { useState, useEffect } from "react";
-import { getShopHeader, updateShopHeader } from "../../api";
 import * as contentEndpoints from "../../endpoints/content";
 
 
@@ -12,7 +11,7 @@ export default function ManageShopHeader(props) {
     useEffect(() => {
         if (shopHeader || attempt) return;
 
-        getShopHeader().then(setShopHeader);
+        contentEndpoints.getShopHeader().then(setShopHeader);
 
         setAttempt(true);
     });
@@ -20,7 +19,7 @@ export default function ManageShopHeader(props) {
     function save(e) {
         preventDefaults(e);
 
-        updateShopHeader(document.querySelector("#header_form"))
+        contentEndpoints.updateShopHeader(document.querySelector("#header_form"))
         .then(res => {
             console.log(res);
         })

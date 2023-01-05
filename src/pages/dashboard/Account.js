@@ -1,9 +1,6 @@
 import Button from "../../components/Button";
-import { checkEmailVerificationStatus, sendVerifyEmailRequest } from "../../lib/auth";
 import { preventDefaults } from "../../lib/utils";
 import  { useEffect, useState } from "react";
-import { updatePassword } from "../../api";
-
 import * as authEndpoints from "../../endpoints/auth";
 
 
@@ -16,7 +13,7 @@ function EmailVerification({ className }) {
         if (isLoaded) return;
 
         if (!isVerified) {
-            checkEmailVerificationStatus()
+            authEndpoints.checkEmailVerificationStatus()
             .then(isVerifiedResult => {
                 setIsVerified(isVerifiedResult);
             })
@@ -26,7 +23,7 @@ function EmailVerification({ className }) {
     });
 
     function handleClick() {
-        sendVerifyEmailRequest();
+        authEndpoints.sendVerifyEmailRequest();
         setRequestSent(true);
     }
 
@@ -56,7 +53,7 @@ function UpdatePasswordForm() {
 
     function submit(e) {
         preventDefaults(e);
-        updatePassword(document.getElementById(formID))
+        authEndpoints.updatePassword(document.getElementById(formID))
         .then(console.log)
         .catch(console.log);
     }

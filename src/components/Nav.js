@@ -2,9 +2,8 @@ import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import "../css/nav.css";
 import { ShoppingCart } from "./ShoppingCart";
-import ShoppingCartManager from "../lib/shoppingCartManager";
 import IfAuth from "./IfAuth";
-import { destroy_login_info } from "../lib/auth";
+import { destroy_login_info } from "../endpoints/auth";
 
 export default function Nav({ cartItems }) {
     const breakpoint = "1000px";

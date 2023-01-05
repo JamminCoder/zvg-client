@@ -4,9 +4,9 @@ import { XSRF_HEADER } from "../../lib/auth";
 import { preventDefaults, serverURL, setPreviewImage } from "../../lib/utils";
 import { useEffect, useState } from "react";
 import AddButtonToSlideModal from "./modals/AddButtonToSlideModal";
-import { getSlides } from "../../api";
 import { Link } from "react-router-dom";
 import * as contentEndpoints from "../../endpoints/content";
+
 const axios = require("axios").default;
 
 function SlideContentEdit({ slide, formID }) {
@@ -187,7 +187,6 @@ export default function ManageSlides(props) {
         const formData = new FormData(document.querySelector("#new_slide_form"));
         const requestOptions = {
             headers: XSRF_HEADER,
-            withCredentials: true
         };
 
         axios.post(
@@ -201,7 +200,7 @@ export default function ManageSlides(props) {
 
     useEffect(() => {
         if (!attempt && !slides) {
-            getSlides().then(slides => {
+            contentEndpoints.getSlides().then(slides => {
                 setSlides(slides);
             });
 

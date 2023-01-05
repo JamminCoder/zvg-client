@@ -1,8 +1,8 @@
 import * as productEndpoints from "../../../endpoints/products";
+import * as categoryEndpoints from "../../../endpoints/categories"
 import { preventDefaults } from "../../../lib/utils";
 import CloseIcon from "../../../components/icons/Close";
 import { useEffect, useState } from "react";
-import { getCategoriesInfo, newItem } from "../../../api";
 import Modal from "../../../components/Modal";
 
 export default function NewItemModal(props) {
@@ -12,7 +12,7 @@ export default function NewItemModal(props) {
 
     useEffect(() => {
         if (!categories) {
-            getCategoriesInfo()
+           categoryEndpoints.getCategoriesInfo()
             .then(cats => setCategories(cats))
             .catch(err => console.log(err));
         }
@@ -24,7 +24,7 @@ export default function NewItemModal(props) {
         setError("");
         setSuccess("");
 
-        newItem(document.querySelector("#new_product_form"))
+        productEndpoints.newItem(document.querySelector("#new_product_form"))
         .then(res => {
             console.log(res.data);
             if (res.status === 200) {
