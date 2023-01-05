@@ -1,10 +1,11 @@
-import { API_CATEGORIES_UPDATE } from "../../../apiRoutes";
 import { XSRF_HEADER, WITH_CREDENTIALS } from "../../../lib/auth";
-import { preventDefaults, stopPropagation } from "../../../lib/utils";
+import { preventDefaults } from "../../../lib/utils";
 import CloseIcon from "../../../components/icons/Close";
 import axios from "axios";
 import { useState } from "react";
 import Modal from "../../../components/Modal";
+
+import * as categoryEndpoints from "../../../endpoints/categories";
 
 export default function UpdateCategoryModal(props) {
     const [error, setError] = useState("");
@@ -24,7 +25,7 @@ export default function UpdateCategoryModal(props) {
             ...WITH_CREDENTIALS 
         };
 
-        axios.post(API_CATEGORIES_UPDATE(category.name), formData, requestOptions).then(res => {
+        axios.post(categoryEndpoints.UPDATE(category.name), formData, requestOptions).then(res => {
             console.log(res.data);
             if (res.status === 200) {
                 window.location.reload();
@@ -57,7 +58,7 @@ export default function UpdateCategoryModal(props) {
         <p className="text-green-600"> { success } </p>
         <p className="text-red-600"> { error } </p>
 
-        <form id="update_category_form" action={ API_CATEGORIES_UPDATE(category.name) } method="POST" encType="multipart/form-data" className="py-2 flex flex-col gap-4" onSubmit={ submit }>
+        <form id="update_category_form" action={ categoryEndpoints.UPDATE(category.name) } method="POST" encType="multipart/form-data" className="py-2 flex flex-col gap-4" onSubmit={ submit }>
             <input type="hidden" name="target_category" defaultValue={ category.name }/>
             
             <div>

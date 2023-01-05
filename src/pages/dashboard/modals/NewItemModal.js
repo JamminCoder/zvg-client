@@ -1,4 +1,4 @@
-import { API_PRODUCT_NEW } from "../../../apiRoutes";
+import * as productEndpoints from "../../../endpoints/products";
 import { preventDefaults } from "../../../lib/utils";
 import CloseIcon from "../../../components/icons/Close";
 import { useEffect, useState } from "react";
@@ -67,7 +67,7 @@ export default function NewItemModal(props) {
         <p className="text-green-600"> { success } </p>
         <p className="text-red-600"> { error } </p>
 
-        <form className="pb-2 flex flex-col gap-4" id="new_product_form" action={ API_PRODUCT_NEW } method="POST" encType="multipart/form-data" onSubmit={ submit }>
+        <form className="pb-2 flex flex-col gap-4" id="new_product_form" action={ productEndpoints.NEW } method="POST" encType="multipart/form-data" onSubmit={ submit }>
             <input type="hidden" name="category" defaultValue={ props.category } />
             
             <div>
