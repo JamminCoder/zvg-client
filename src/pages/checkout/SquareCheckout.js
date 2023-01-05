@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import ShoppingCartManager from "../../lib/shoppingCartManager";
-import { API_SQUARE_ORDER } from "../../apiRoutes";
+import * as squareEndpoints from "../../endpoints/square";
 import { WITH_CREDENTIALS, XSRF_HEADER } from "../../lib/auth";
 import Button from "../../components/Button";
 
@@ -67,7 +67,7 @@ export default function SquareCheckout() {
         const formData = new FormData(document.querySelector("#card_form"));
         
         axios.post(
-            API_SQUARE_ORDER, 
+            squareEndpoints.ORDER, 
             formData, { 
             headers: XSRF_HEADER, 
             ...WITH_CREDENTIALS 
@@ -86,7 +86,7 @@ export default function SquareCheckout() {
     return (
         <div className="card_container">
             
-            <form id="card_form" action={ API_SQUARE_ORDER } onSubmit={ e => e.preventDefault() }>
+            <form id="card_form" action={ squareEndpoints.ORDER } onSubmit={ e => e.preventDefault() }>
                 
                 {/* <ShippingAndBilling/> */}
                 <div className="grid place-items-center">
