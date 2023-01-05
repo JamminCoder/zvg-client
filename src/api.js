@@ -1,11 +1,4 @@
-import { 
-    API_CONTENT_SLIDES_ALL,
-    API_CONTENT_SHOP_HEADER,
-    API_CONTENT_HOMEPAGE_INFO,
-    API_CONTENT_HOMEPAGE_INFO_UPDATE,
-    API_CONTENT_SHOP_HEADER_UPDATE,
-} from "./apiRoutes";
-
+import * as contentEndpoints from "./endpoints/content";
 import * as authEndpoints from "./endpoints/auth";
 import * as productEndpoints from "./endpoints/products";
 import * as categoryEndpoints from "./endpoints/categories";
@@ -105,17 +98,17 @@ export async function newCategory(formElement) {
 
 /*** Content ***/
 export async function getSlides() {
-    const res = await axios.get(API_CONTENT_SLIDES_ALL);
+    const res = await axios.get(contentEndpoints.SLIDES_ALL);
     return res.data;
 }
 
 export async function getHomepageInfo() {
-    return await axios.get(API_CONTENT_HOMEPAGE_INFO);
+    return await axios.get(contentEndpoints.HOMEPAGE_INFO);
 }
 
 export async function updateHomepageInfo(formElement) {
     return await axios.post(
-        API_CONTENT_HOMEPAGE_INFO_UPDATE,
+        contentEndpoints.HOMEPAGE_INFO_UPDATE,
         new FormData(formElement),
         {
             headers: XSRF_HEADER,
@@ -126,7 +119,7 @@ export async function updateHomepageInfo(formElement) {
 
 export async function getShopHeader() {
     try {
-        const res = await axios.get(API_CONTENT_SHOP_HEADER);
+        const res = await axios.get(contentEndpoints.SHOP_HEADER);
         return res.data;
     } catch (err) {
         console.log(err);
@@ -135,7 +128,7 @@ export async function getShopHeader() {
 
 export async function updateShopHeader(formElement) {
     return await axios.post(
-        API_CONTENT_SHOP_HEADER_UPDATE,
+        contentEndpoints.SHOP_HEADER_UPDATE,
         new FormData(formElement),
         {
             headers: XSRF_HEADER,

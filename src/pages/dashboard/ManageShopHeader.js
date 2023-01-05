@@ -1,10 +1,9 @@
-import axios from "axios";
-import { API_CONTENT_SHOP_HEADER, API_CONTENT_SHOP_HEADER_UPDATE } from "../../apiRoutes";
 import Button from "../../components/Button";
-import { XSRF_HEADER } from "../../lib/auth";
 import { preventDefaults, serverURL, setPreviewImage } from "../../lib/utils";
 import { useState, useEffect } from "react";
 import { getShopHeader, updateShopHeader } from "../../api";
+import * as contentEndpoints from "../../endpoints/content";
+
 
 export default function ManageShopHeader(props) {
     const [shopHeader, setShopHeader] = useState(null);
@@ -38,7 +37,7 @@ export default function ManageShopHeader(props) {
             <img className="absolute w-[100%] h-[100%] bg-slate-100 object-cover brightness-[70%]" id="bg_image" src={serverURL(shopHeader.image_path) } alt="No image uploaded" />
             
             <form 
-                action={ API_CONTENT_SHOP_HEADER_UPDATE }
+                action={ contentEndpoints.SHOP_HEADER_UPDATE }
                 method="POST"
                 onSubmit={ save }
                 id="header_form"
