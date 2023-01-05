@@ -1,8 +1,5 @@
 import { 
-    API_LOGIN, 
-    API_LOGOUT,
     API_CATEGORIES_ALL,
-    API_VERIFY_AUTH,
     API_PRODUCTS_DELETE_SKU,
     API_PRODUCTS_GET_BY_SKU,
     API_CATEGORIES_DELETE,
@@ -16,8 +13,9 @@ import {
     API_CONTENT_SHOP_HEADER_UPDATE,
     API_CATEGORIES_NEW,
     API_PRODUCT_NEW,
-    API_ADMIN_PASSWORD_UPDATE
 } from "./apiRoutes";
+
+import * as authEndpoints from "./endpoints/auth";
 
 import { WITH_CREDENTIALS, XSRF_HEADER } from "./lib/auth";
 
@@ -26,20 +24,20 @@ const axios = require("axios").default;
 
 /*** Auth ***/
 export async function login(userInfo) {
-    return axios.post(API_LOGIN, userInfo, WITH_CREDENTIALS);
+    return axios.post(authEndpoints.LOGIN, userInfo, WITH_CREDENTIALS);
 }
 
 export function logout() {
-    return axios.post(API_LOGOUT, { headers: XSRF_HEADER }, WITH_CREDENTIALS);
+    return axios.post(authEndpoints.LOGOUT, { headers: XSRF_HEADER }, WITH_CREDENTIALS);
 }
 
 export function checkAuth() {
-    return axios.get(API_VERIFY_AUTH, WITH_CREDENTIALS);
+    return axios.get(authEndpoints.VERIFY_AUTH, WITH_CREDENTIALS);
 }
 
 export async function updatePassword(formElement) {
     return await axios.post(
-        API_ADMIN_PASSWORD_UPDATE,
+        authEndpoints.ADMIN_PASSWORD_UPDATE,
         new FormData(formElement),
         {
             headers: XSRF_HEADER,

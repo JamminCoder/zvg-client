@@ -1,9 +1,10 @@
 import Button from "../../components/Button";
 import { checkEmailVerificationStatus, sendVerifyEmailRequest } from "../../lib/auth";
-import { API_ADMIN_PASSWORD_UPDATE } from "../../apiRoutes";
 import { preventDefaults } from "../../lib/utils";
 import  { useEffect, useState } from "react";
 import { updatePassword } from "../../api";
+
+import * as authEndpoints from "../../endpoints/auth";
 
 
 function EmailVerification({ className }) {
@@ -61,7 +62,7 @@ function UpdatePasswordForm() {
     }
 
     return (
-    <form id={ formID } action={ API_ADMIN_PASSWORD_UPDATE } method="POST" onSubmit={ submit } className="grid gap-4 mb-16">
+    <form id={ formID } action={ authEndpoints.ADMIN_PASSWORD_UPDATE } method="POST" onSubmit={ submit } className="grid gap-4 mb-16">
         <h1 className="text-4xl">Update Password</h1>
         <div>
             <label htmlFor="password">Current Password</label><br />

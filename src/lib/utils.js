@@ -1,4 +1,4 @@
-import { API_XSRF, SERVER_URL } from "../apiRoutes";
+import { SERVER_URL, API_XSRF } from "../endpoints/common";
 import { WITH_CREDENTIALS } from "./auth";
 
 const axios = require("axios").default;

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import CenterPage from '../layouts/CenterPage';
-import { API_LOGIN } from "../apiRoutes";
 import { useNavigate } from "react-router-dom";
 import { login } from "../api";
+import * as authEndpoints from "../endpoints/auth";
 
 const axios = require('axios').default;
 
@@ -37,7 +37,7 @@ export default function Login(props) {
 
     return (
         <CenterPage className="bg-slate-50">
-            <form id="loginForm" method="POST" className="p-5 shadow-md bg-white rounded" action={ API_LOGIN } onSubmit={ (e) => onSubmit(e) }>
+            <form id="loginForm" method="POST" className="p-5 shadow-md bg-white rounded" action={ authEndpoints.LOGIN } onSubmit={ (e) => onSubmit(e) }>
                 <h1 className="text-3xl">Login</h1>
 
                 <p className='text-center mt-2 h-3' style={{ color: message.color }}>{ message.text }</p>
