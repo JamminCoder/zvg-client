@@ -1,11 +1,8 @@
-import { API_CATEGORIES_NEW } from "../../../apiRoutes";
-import { XSRF_HEADER, WITH_CREDENTIALS } from "../../../lib/auth";
-import { preventDefaults, stopPropagation } from "../../../lib/utils";
+import { preventDefaults } from "../../../lib/utils";
 import CloseIcon from "../../../components/icons/Close";
-import axios from "axios";
 import { useState } from "react";
-import Overlay from "../../../layouts/Overlay";
 import Modal from "../../../components/Modal";
+import * as categoryEndpoints from "../../../endpoints/categories";
 import { newCategory } from "../../../api";
 
 export default function NewCategoryModal(props) {
@@ -52,7 +49,7 @@ export default function NewCategoryModal(props) {
         <p className="text-green-600"> { success } </p>
         <p className="text-red-600"> { error } </p>
 
-        <form id="new_category_form" action={ API_CATEGORIES_NEW } method="POST" encType="multipart/form-data" className="py-2 flex flex-col gap-4" onSubmit={ submit }>
+        <form id="new_category_form" action={ categoryEndpoints.NEW } method="POST" encType="multipart/form-data" className="py-2 flex flex-col gap-4" onSubmit={ submit }>
             <div>
                 <label htmlFor="image" className="text-lg">Header Images</label><br/>
                 <input type="file" id="image" name="image" required/>

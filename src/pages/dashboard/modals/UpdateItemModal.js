@@ -1,10 +1,11 @@
 import { preventDefaults, serverURL } from "../../../lib/utils";
 import { deleteProductBySKU, getCategoriesInfo } from "../../../api";
-import { API_PRODUCTS_UPDATE } from "../../../apiRoutes";
 import { useEffect, useState } from "react";
 import { XSRF_HEADER, WITH_CREDENTIALS } from "../../../lib/auth";
 import CategorySelect from "../../../components/CategorySelect";
 import Modal from "../../../components/Modal";
+
+import * as productEndpoints from "../../../endpoints/products";
 
 const axios = require("axios").default;
 
@@ -31,7 +32,7 @@ export default function UpdateItemModal({ product }) {
             ...WITH_CREDENTIALS 
         };
 
-        axios.post(API_PRODUCTS_UPDATE, formData, requestOptions)
+        axios.post(productEndpoints.UPDATE, formData, requestOptions)
         .then(res => {
             window.location.reload();
         })
@@ -66,7 +67,7 @@ export default function UpdateItemModal({ product }) {
         <div className="py-2">
             <p className="text-red-600"> { error } </p>
             
-            <form id="update_product_form" action={ API_PRODUCTS_UPDATE } method="POST" onSubmit={ submit }>
+            <form id="update_product_form" action={ productEndpoints.UPDATE } method="POST" onSubmit={ submit }>
                 <input type="hidden" name="sku" id="sku" defaultValue={ product.sku }/>
                 <div className="flex flex-col gap-2 mb-4">
                     

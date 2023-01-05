@@ -1,65 +1,59 @@
-import { 
-    API_LOGIN, 
-    API_LOGOUT,
-    API_CATEGORIES_ALL,
-    API_VERIFY_AUTH,
-    API_PRODUCTS_DELETE_SKU,
-    API_PRODUCTS_GET_BY_SKU,
-    API_CATEGORIES_DELETE,
-    API_CATEGORIES_INFO,
-    API_PRODUCTS_FROM_CATAGORY,
-    API_CATEGORIES_GET,
-    API_CONTENT_SLIDES_ALL,
-    API_CONTENT_SHOP_HEADER,
-    API_CONTENT_HOMEPAGE_INFO,
-    API_CONTENT_HOMEPAGE_INFO_UPDATE,
-    API_CONTENT_SHOP_HEADER_UPDATE,
-    API_CATEGORIES_NEW,
-    API_PRODUCT_NEW,
-} from "./apiRoutes";
+import * as contentEndpoints from "./endpoints/content";
+import * as authEndpoints from "./endpoints/auth";
+import * as productEndpoints from "./endpoints/products";
+import * as categoryEndpoints from "./endpoints/categories";
 
 import { WITH_CREDENTIALS, XSRF_HEADER } from "./lib/auth";
 
 const axios = require("axios").default;
 
 
-// Auth
+/*** Auth ***/
 export async function login(userInfo) {
-    return axios.post(API_LOGIN, userInfo, WITH_CREDENTIALS);
+    return axios.post(authEndpoints.LOGIN, userInfo, WITH_CREDENTIALS);
 }
 
 export function logout() {
-    return axios.post(API_LOGOUT, { headers: XSRF_HEADER }, WITH_CREDENTIALS);
+    return axios.post(authEndpoints.LOGOUT, { headers: XSRF_HEADER }, WITH_CREDENTIALS);
 }
 
 export function checkAuth() {
-    return axios.get(API_VERIFY_AUTH, WITH_CREDENTIALS);
+    return axios.get(authEndpoints.VERIFY_AUTH, WITH_CREDENTIALS);
+}
+
+export async function updatePassword(formElement) {
+    return await axios.post(
+        authEndpoints.ADMIN_PASSWORD_UPDATE,
+        new FormData(formElement),
+        {
+            headers: XSRF_HEADER,
+            withCredentials: true
+        }
+    );
 }
 
 
-// Products
-
+/*** Products ***/
 export async function deleteProductBySKU(sku) {
-    return await axios.post(API_PRODUCTS_DELETE_SKU(sku), { headers: XSRF_HEADER }, WITH_CREDENTIALS);
+    return await axios.post(productEndpoints.DELETE_SKU(sku), { headers: XSRF_HEADER }, WITH_CREDENTIALS);
 }
 
 export async function getProductBySKU(sku) {
-    const res = await axios.get(API_PRODUCTS_GET_BY_SKU(sku));
+    const res = await axios.get(productEndpoints.GET_BY_SKU(sku));
     const product = res.data;
     return product;
 }
 
 export async function deleteCategoryByName(name) {
-    const res = await axios.post(API_CATEGORIES_DELETE(name), { headers: XSRF_HEADER }, WITH_CREDENTIALS);
+    const res = await axios.post(categoryEndpoints.DELETE(name), { headers: XSRF_HEADER }, WITH_CREDENTIALS);
     return res.data;
 }
 
 
-// Categories
-
+/*** Categories ***/ 
 export async function newItem(formElement) {
     return await axios.post(
-        API_PRODUCT_NEW, 
+        productEndpoints.NEW, 
         new FormData(formElement),
         {
             headers: XSRF_HEADER,
@@ -70,29 +64,29 @@ export async function newItem(formElement) {
 
 export async function getCategories(limit=null) {
     const queryLimit = limit ? `?limit=${ limit }`: "";
-    const res = await axios.get(API_CATEGORIES_ALL + queryLimit);
+    const res = await axios.get(categoryEndpoints.ALL + queryLimit);
     const products = res.data;
     return products;
 }
 
 export async function getProductsFromCategory(category) {
-    const res = await axios.get(API_PRODUCTS_FROM_CATAGORY(category));
+    const res = await axios.get(productEndpoints.FROM_CATAGORY(category));
     return res.data;
 }
 
 export async function getCategoryByName(category) {
-    const res = await axios.get(API_CATEGORIES_GET(category));
+    const res = await axios.get(categoryEndpoints.GET(category));
     return res.data;
 }
 
 export async function getCategoriesInfo() {
-    const res = await axios.get(API_CATEGORIES_INFO);
+    const res = await axios.get(categoryEndpoints.INFO);
     return res.data;
 }
 
 export async function newCategory(formElement) {
     return await axios.post(
-        API_CATEGORIES_NEW, 
+        categoryEndpoints.NEW, 
         new FormData(formElement),
         {
             headers: XSRF_HEADER,
@@ -102,19 +96,19 @@ export async function newCategory(formElement) {
 }
 
 
-// Content
+/*** Content ***/
 export async function getSlides() {
-    const res = await axios.get(API_CONTENT_SLIDES_ALL);
+    const res = await axios.get(contentEndpoints.SLIDES_ALL);
     return res.data;
 }
 
 export async function getHomepageInfo() {
-    return await axios.get(API_CONTENT_HOMEPAGE_INFO);
+    return await axios.get(contentEndpoints.HOMEPAGE_INFO);
 }
 
 export async function updateHomepageInfo(formElement) {
     return await axios.post(
-        API_CONTENT_HOMEPAGE_INFO_UPDATE,
+        contentEndpoints.HOMEPAGE_INFO_UPDATE,
         new FormData(formElement),
         {
             headers: XSRF_HEADER,
@@ -125,7 +119,7 @@ export async function updateHomepageInfo(formElement) {
 
 export async function getShopHeader() {
     try {
-        const res = await axios.get(API_CONTENT_SHOP_HEADER);
+        const res = await axios.get(contentEndpoints.SHOP_HEADER);
         return res.data;
     } catch (err) {
         console.log(err);
@@ -134,7 +128,7 @@ export async function getShopHeader() {
 
 export async function updateShopHeader(formElement) {
     return await axios.post(
-        API_CONTENT_SHOP_HEADER_UPDATE,
+        contentEndpoints.SHOP_HEADER_UPDATE,
         new FormData(formElement),
         {
             headers: XSRF_HEADER,

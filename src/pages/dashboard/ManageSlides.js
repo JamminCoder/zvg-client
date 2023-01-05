@@ -1,12 +1,12 @@
 import Button from "../../components/Button";
 import ButtonMap from "../../components/ButtonMap";
-import { API_CONTENT_SLIDES_NEW, API_CONTENT_SLIDES_UPDATE, API_CONTENT_SLIDES_DELETE } from "../../apiRoutes";
 import { XSRF_HEADER } from "../../lib/auth";
 import { preventDefaults, serverURL, setPreviewImage } from "../../lib/utils";
 import { useEffect, useState } from "react";
 import AddButtonToSlideModal from "./modals/AddButtonToSlideModal";
 import { getSlides } from "../../api";
 import { Link } from "react-router-dom";
+import * as contentEndpoints from "../../endpoints/content";
 const axios = require("axios").default;
 
 function SlideContentEdit({ slide, formID }) {
@@ -54,7 +54,7 @@ function SlideContentEdit({ slide, formID }) {
     }
 
     return (
-    <form id={ formID } method="POST" action={ API_CONTENT_SLIDES_UPDATE(slide.id) } className="flex-grow w-[100%] relative grid place-items-center">
+    <form id={ formID } method="POST" action={ contentEndpoints.SLIDES_UPDATE(slide.id) } className="flex-grow w-[100%] relative grid place-items-center">
         { modal }
         <div className="w-[100%]">
             {/* Image */}
@@ -114,7 +114,7 @@ function RenderSlide({ slide }) {
         const formData = new FormData(document.getElementById(formID));
 
         axios.post(
-            API_CONTENT_SLIDES_UPDATE(slide.id),
+            contentEndpoints.SLIDES_UPDATE(slide.id),
             formData, 
             {
                 headers: XSRF_HEADER,
@@ -132,7 +132,7 @@ function RenderSlide({ slide }) {
 
     function submitDelete() {
         axios.post(
-            API_CONTENT_SLIDES_DELETE(slide.id),
+            contentEndpoints.SLIDES_DELETE(slide.id),
             XSRF_HEADER,
             {withCredentials: true}
 
@@ -191,7 +191,7 @@ export default function ManageSlides(props) {
         };
 
         axios.post(
-            API_CONTENT_SLIDES_NEW,
+            contentEndpoints.SLIDES_NEW,
             formData,
             requestOptions,    
         )
@@ -216,7 +216,7 @@ export default function ManageSlides(props) {
         <h1 className="text-4xl my-8">Slides</h1>
 
         <div className="mb-12">
-            <form id="new_slide_form" method="POST" action={ API_CONTENT_SLIDES_NEW } className="p-4 border shadow-lg rounded max-w-screen-sm grid gap-8 justify-start" onSubmit={ submit }>
+            <form id="new_slide_form" method="POST" action={ contentEndpoints.SLIDES_NEW } className="p-4 border shadow-lg rounded max-w-screen-sm grid gap-8 justify-start" onSubmit={ submit }>
                 <h2 className="text-lg font-medium">Add New Slide</h2>
 
                 <div>

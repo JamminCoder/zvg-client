@@ -1,10 +1,10 @@
 import { getCookie } from "./utils";
 import { checkAuth, logout } from "../api";
-import { API_ADMIN_VERIFICATION_STATUS, API_ADMIN_VERIFY_EMAIL } from "../apiRoutes";
+import * as authEndpoints from "../endpoints/auth";
 import axios from "axios";
 
-
-export const XSRF_HEADER = { "X-XSRF-TOKEN": getCookie("XSRF-TOKEN") };
+export const XSRF_TOKEN = getCookie("XSRF-TOKEN");
+export const XSRF_HEADER = { "X-XSRF-TOKEN": XSRF_TOKEN };
 export const WITH_CREDENTIALS = { withCredentials: true };
 
 export function isLoggedIn() {
@@ -18,7 +18,7 @@ export async function isVerified() {
 
 export async function checkEmailVerificationStatus() {
     const res = await axios.get(
-        API_ADMIN_VERIFICATION_STATUS,
+        authEndpoints.ADMIN_VERIFICATION_STATUS,
         {
             headers: XSRF_HEADER,
             withCredentials: true
@@ -31,7 +31,7 @@ export async function checkEmailVerificationStatus() {
 export function sendVerifyEmailRequest() {
     console.log("Sending verification request");
     axios.get(
-        API_ADMIN_VERIFY_EMAIL,
+        authEndpoints.ADMIN_VERIFY_EMAIL,
         {
             headers: XSRF_HEADER,
             withCredentials: true
