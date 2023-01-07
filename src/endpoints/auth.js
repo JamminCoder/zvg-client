@@ -2,13 +2,18 @@ import { apiURL } from "./common";
 import { XSRF_HEADER } from "../lib/auth";
 const axios = require("axios").default;
 
+export const USER = apiURL("/user");
 export const LOGIN = apiURL("/login");
 export const LOGOUT = apiURL("/logout");
 export const VERIFY_AUTH = apiURL("/test-auth");
 export const ADMIN_VERIFICATION_STATUS = apiURL("/admin/verification-status");
 export const ADMIN_VERIFY_EMAIL = apiURL("/admin/verify-email");
+export const ADMIN_EMAIL_UPDATE = apiURL("/admin/email-update");
 export const ADMIN_PASSWORD_UPDATE = apiURL("/admin/password-update");
 
+export async function getUser() {
+    return await axios.get(USER);
+}
 
 export async function login(userInfo) {
     return axios.post(LOGIN, userInfo);
@@ -20,6 +25,16 @@ export function logout() {
 
 export function checkAuth() {
     return axios.get(VERIFY_AUTH);
+}
+
+export async function updateEmail(formElement) {
+    return await axios.post(
+        ADMIN_EMAIL_UPDATE,
+        new FormData(formElement),
+        {
+            headers: XSRF_HEADER
+        }
+    );
 }
 
 export async function updatePassword(formElement) {

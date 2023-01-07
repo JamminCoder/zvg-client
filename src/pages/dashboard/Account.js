@@ -48,6 +48,49 @@ function EmailVerification({ className }) {
     return;
 }
 
+function UpdateEmailForm({ user }) {
+    const [confirmation, setConfirmation] = useState(false);
+    const [message, setMessage] = useState(null);
+    const formID = "update_email_form";
+
+    function handleConfirmClick(e) {
+        preventDefaults(e);
+
+        setConfirmation(!confirmation);
+    }
+
+    function submit(e) {
+        preventDefaults(e);
+        authEndpoints.updateEmail(document.getElementById(formID))
+        .then(res => {
+            setMessage(res.data);
+        });
+    }
+
+    
+    return (
+    <div className="grid gap-4">
+        <EmailVerification className="mb-8" />
+        <form
+        id={ formID } method="POST" action={ authEndpoints.ADMIN_EMAIL_UPDATE }>
+            <label htmlFor="email">Admin Email:</label><br />
+            <input className="mb-4" type="email" name="email" defaultValue={ user.email }/>
+            <Button onClick={ handleConfirmClick } className="bg-slate-700 text-white block">{ confirmation ? "Cancel": "Update Email" }</Button>
+            {
+                confirmation
+                ? <div className="grid gap-4 w-fit">
+                    <p>Enter your password first.</p>
+                    { message }
+                    <input type="text" name="password" id="password" required/>
+                    <Button onClick={ submit } className="bg-green-500 text-white block">Confirm</Button>
+                  </div>
+                : ""
+            }
+        </form>
+    </div>
+    );
+}
+
 function UpdatePasswordForm() {
     const formID = "update_password_form";
 
@@ -80,9 +123,27 @@ function UpdatePasswordForm() {
 }
 
 export default function Account() {
+    const [user, setUser] = useState(null);
+    const [isLoaded, setIsLoaded] = useState(false);
+    useEffect(() => {
+        if (!isLoaded && !user) {
+            authEndpoints.getUser()
+            .then(res => {
+                setUser(res.data);
+                setIsLoaded(true);
+            })
+            .catch(console.error);
+        }
+    });
+
+
     return (
-    <div>
-        <EmailVerification className="mb-8"/>
+    <div className="grid gap-8">
+        {
+            user
+            ? <UpdateEmailForm user={ user }/>
+            : ""
+        }
         <UpdatePasswordForm/>
     </div>
     );
