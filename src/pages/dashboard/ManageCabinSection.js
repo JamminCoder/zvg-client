@@ -29,11 +29,14 @@ export default function ManageCabinSection() {
             className="mb-5 clean-input w-[100%] h-32 text-left"
             defaultValue="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Lorem ipsum dolor, sit amet consectetur adipisicing elit."/>
 
-            <input className="text-center w-fit mb-8 px-7 py-3 rounded bg-blue-700 text-xl sm:text-2xl" defaultValue="Create a Reservation"/>
+            <input 
+            name="link_text"
+            className="text-center w-fit mb-8 px-7 py-3 rounded bg-blue-700 text-xl sm:text-2xl" 
+            defaultValue="Create a Reservation"/>
             
             <div className="flex gap-4 text-xl mb-8">
-                <label htmlFor="link">Link:</label>
-                <input className="text-sm clean-input text-left w-[100%]" type="text" name="link" defaultValue="https://www.hipcamp.com/en-US/land/new-york-zoar-valley-ridge-j29h5pnj"/>    
+                <label htmlFor="href">Link:</label>
+                <input className="text-sm clean-input text-left w-[100%]" type="text" name="href" defaultValue="https://www.hipcamp.com/en-US/land/new-york-zoar-valley-ridge-j29h5pnj"/>    
             </div>
 
             <Button className="bg-green-600 w-32" onClick={ submit } >Save</Button>

@@ -11,7 +11,7 @@ export const SHOP_HEADER_UPDATE = apiURL(`/content/shop-header/update`);
 export const SHOP_HEADER = apiURL(`/content/shop-header`);
 export const HOMEPAGE_INFO = apiURL(`/content/homepage-info`);
 export const HOMEPAGE_INFO_UPDATE = apiURL(`/content/homepage-info/update`);
-export const CABIN_SECTION_UPDATE = apiURL("/content/cabin-secion/update");
+export const CABIN_SECTION_UPDATE = apiURL("/content/cabin-section/update");
 
 
 export async function getSlides() {
