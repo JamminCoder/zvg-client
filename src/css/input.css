@@ -26,6 +26,6 @@
     }
 
     .clean-input {
-        @apply text-center bg-transparent border-b
+        @apply bg-transparent border-b
     }
 }

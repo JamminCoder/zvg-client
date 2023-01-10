@@ -13,6 +13,7 @@ export function serverURL(path) {
 }
 
 export function setPreviewImage(evt, imageID) {
+    console.log("IMAGE");
     var tgt = evt.target || window.event.srcElement,
         files = tgt.files;
     
