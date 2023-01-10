@@ -13,6 +13,7 @@ export default function DashboardSidebar() {
             <SidebarItem onClick={ () => navigate("products") }>Products</SidebarItem>
             <SidebarItem onClick={ () => navigate("homepage/slides") }>Manage Homepage Slides</SidebarItem>
             <SidebarItem onClick={ () => navigate("homepage/info") }>Manage Homepage Info Banner</SidebarItem>
+            <SidebarItem onClick={ () => navigate("homepage/cabin") }>Manage Cabin Section</SidebarItem>
             <SidebarItem onClick={ () => navigate("shop-header") }>Manage Shop Header</SidebarItem>
         </div>
     </Sidebar>
