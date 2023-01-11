@@ -16,10 +16,7 @@ export default function Nav({ cartItems }) {
     const [collapsingContent, setCollapsingContent] = useState(null);
 
     useEffect(() => {
-        async function wrapper() {
-            setItemCount(cartItems.length);
-        }
-        wrapper();
+        setItemCount(cartItems.length);
 
         if (!listenerAdded) {
             window.matchMedia(`(min-width: ${ breakpoint })`).addEventListener('change', e => setMqMatches( e.matches ));
