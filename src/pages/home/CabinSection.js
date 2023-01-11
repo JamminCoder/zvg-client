@@ -20,16 +20,6 @@ export default function CabinSection() {
         }
     });
 
-    function modifyIframeLinks() {
-        const iframe = document.getElementById("hipcamp_iframe");
-        const anchors = iframe.getElementsByTagName("a");
-        anchors.forEach(el => {
-            console.log(el);
-            el.setAttribute("target", "_blank");
-        });
-
-        console.log("loaded");
-    }
 
     return (
     <div className="grid place-items-center py-16">
@@ -40,7 +30,6 @@ export default function CabinSection() {
 
         <p className="text-center">Page preview of the real <a className="link text-xl" href={ iframeUrl }>Hipcamp Page</a></p>
         <iframe 
-        onLoad={ modifyIframeLinks }
         id="hipcamp_iframe" 
         loading="lazy" 
         src={ iframeUrl } 
