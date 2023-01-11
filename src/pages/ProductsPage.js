@@ -5,7 +5,7 @@ import ProductCard from '../components/cards/ProductCard';
 import "../css/shop.css";
 import "../css/app.css"
 import { useEffect, useState } from "react";
-import { getCategoryByName, getProductsFromCategory } from "../endpoints/categories";
+import { getCategoryByName } from "../endpoints/categories";
 
 
 export default function ProductsPage(props) {
@@ -47,7 +47,8 @@ export default function ProductsPage(props) {
     if (!category) return;
 
     return (
-        <div>
+    <div className="flex flex-col items-center">
+        <div className="w-[100%] max-w-[110rem]">
             <HeroSection  
                 bgSrc={ `${ category ? serverURL( `${ category.image }` ): "" }` }
                 className="grid place-items-center max-h-[65vh] w-[100%] aspect-video "
@@ -65,8 +66,8 @@ export default function ProductsPage(props) {
             <main className="py-24 px-2 md:px-10 flex flex-wrap gap-5">
                 { products.data ? products.data: "No products" }
             </main>
-                
-
+            
         </div>
+    </div>
     );
 }
