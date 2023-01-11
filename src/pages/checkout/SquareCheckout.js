@@ -65,7 +65,8 @@ export default function SquareCheckout() {
 
     function submit() {
         const formData = new FormData(document.querySelector("#card_form"));
-        
+        const clearCart = formData.get("clear_cart") ? true : false;
+
         axios.post(
             squareEndpoints.ORDER, 
             formData, { 
@@ -76,6 +77,9 @@ export default function SquareCheckout() {
             console.log(res.data);
             const paymentData = res.data.payment_link;
             const paymentUrl = paymentData.url;
+            
+            if (clearCart) ShoppingCartManager.clearCart();
+
             window.location.href = paymentUrl;
         })
         .catch(err => {
@@ -90,6 +94,10 @@ export default function SquareCheckout() {
                 
                 {/* <ShippingAndBilling/> */}
                 <div className="grid place-items-center">
+                    <div className="flex gap-4">
+                        <label htmlFor="clear_cart">Clear cart after checkout?</label>
+                        <input className="w-8" type="checkbox" name="clear_cart"/>
+                    </div>
                     <CheckoutButton onClick={ submit } className="my-4" />
                 </div>
                 

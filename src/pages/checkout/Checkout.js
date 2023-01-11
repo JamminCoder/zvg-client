@@ -26,7 +26,7 @@ export default function Checkout(props) {
                 <ProductList className="mb-5" cartItems={ cartItems }/>
 
                 Tax: ${ tax }
-                <div className="text-xl">
+                <div className="text-xl mb-8">
                     Total: ${ price }
                 </div>
                 <SquareCheckout/>
