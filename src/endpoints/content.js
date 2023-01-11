@@ -11,6 +11,8 @@ export const SHOP_HEADER_UPDATE = apiURL(`/content/shop-header/update`);
 export const SHOP_HEADER = apiURL(`/content/shop-header`);
 export const HOMEPAGE_INFO = apiURL(`/content/homepage-info`);
 export const HOMEPAGE_INFO_UPDATE = apiURL(`/content/homepage-info/update`);
+export const CABIN_SECTION_IFRAME = apiURL("/content/cabin-section");
+export const CABIN_SECTION_IFRAME_UPDATE = apiURL("/content/cabin-section/update");
 
 export async function getSlides() {
     const res = await axios.get(SLIDES_ALL);
@@ -50,4 +52,17 @@ export async function updateShopHeader(formElement) {
             withCredentials: true,
         }
     );
+}
+
+export async function updateCabinSectionIFrame(formElement) {
+    return await axios.post(
+        CABIN_SECTION_IFRAME_UPDATE, 
+        new FormData(formElement), 
+        { headers: XSRF_HEADER }
+    );
+}
+
+export async function getCabinSectionIFrame() {
+    const res = await axios.get(CABIN_SECTION_IFRAME);
+    return res.data;
 }

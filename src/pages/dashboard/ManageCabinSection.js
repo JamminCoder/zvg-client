@@ -1,32 +1,54 @@
+import { getCabinSectionIFrame, updateCabinSectionIFrame } from "../../endpoints/content";
+import { preventDefaults } from "../../lib/utils";
+import { useEffect, useState } from "react";
+import Button from "../../components/Button";
+
 export default function ManageCabinSection() {
-    return(
-    <form className="py-24 bg-gray-900 text-white px-10">
-        <section className="gap-10 flex flex-col-reverse md:grid place-items-center grid-cols-2">
-        <div>
-            <img src={`${process.env.PUBLIC_URL}/img/cabin.png`} alt="cabin" />
-            <input type="file" name="image" id="image"/>
-        </div>
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [iframeUrl, setIframeUrl] = useState(null);
+    const [message, setMessage] = useState(null);
+    const formID = "iframe_url_form";
 
-        <div>
-            <input 
-            name="header"
-            className="clean-input border-b-white text-3xl sm:text-5xl mb-5" 
-            defaultValue="Lorum ipsum dolar sit amit"/>
+    useEffect(() => {
+        if (!isLoaded) {
+            getCabinSectionIFrame()
+            .then(iframeUrl => {
+                setIframeUrl(iframeUrl);
+                console.log(iframeUrl)
+                setIsLoaded(true);
+            })
+            .catch(err => {
+                setIsLoaded(true);
+                console.error(err);
+            })
+        }
+    });
 
-            <textarea
-            name="lead"
-            className="mb-5 clean-input block w-[100%] h-32 text-left"
-            defaultValue="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Lorem ipsum dolor, sit amet consectetur adipisicing elit."/>
+    function submit(e) {
+        preventDefaults(e);
+        updateCabinSectionIFrame(document.getElementById(formID))
+        .then(res => {
+            setMessage(res.data);
+        })
+        .catch(err => {
+            setMessage("Something went wrong");
+            console.error(err);
+        })
+    }
 
-            <input className="text-center block w-fit mb-8 px-7 py-3 rounded bg-blue-700 text-xl sm:text-2xl" defaultValue="Create a Reservation"/>
-            
-            <div className="flex gap-4 text-xl">
-                <label htmlFor="link">Link:</label>
-                <input className="text-sm text-black w-[100%]" type="text" name="link" defaultValue="https://www.hipcamp.com/en-US/land/new-york-zoar-valley-ridge-j29h5pnj"/>    
-            </div>
+    if (!isLoaded) return "Loading...";
 
-        </div>
-        </section>
+    return <>
+    <h1 className="text-4xl font-medium mb-8">Mange cabin section Iframe URL</h1>
+    <form id={ formID } onSubmit={ submit }>
+        { message ? <p>{ message }</p>: "" }
+        <label htmlFor="iframe_url">Cabin section IFrame URL (the link to your hipcamp page)</label><br />
+        <textarea 
+        name="iframe_url"
+        className="w-[100%] max-w-[50em] mb-8" 
+        defaultValue={iframeUrl || "https://www.hipcamp.com/en-US/land/new-york-zoar-valley-ridge-j29h5pnj" }/>
+
+        <Button className="bg-green-600 text-white block" onClick={ submit }>Save</Button>
     </form>
-    );
+    </>
 }
