@@ -6,8 +6,7 @@ const axios = require("axios").default;
 export const ALL = apiURL(`/categories/all`);
 export const INFO = apiURL(`/categories/info/all`);
 export const NEW = apiURL(`/categories/new`);
-export const GET = category => apiURL(`/categories/${ category }`);
-export const FROM_CATAGORY = category => apiURL(`/categories/${ category }`);
+export const GET_BY_NAME = category => apiURL(`/categories/${ category }`);
 export const DELETE = category => apiURL(`/categories/delete/${ category }`);
 export const UPDATE = category => apiURL(`/categories/update/${category}`);
 
@@ -20,13 +19,21 @@ export async function getCategories(limit=null) {
     return products;
 }
 
-export async function getProductsFromCategory(category) {
-    const res = await axios.get(FROM_CATAGORY(category));
-    return res.data;
-}
+
+/**
+ * Returns category JSON
+ * @param { string } category
+ * @returns {Promise} 
+ * { 
+ * "category": string,
+ * "description": string,
+ * "products": Array,
+ * "image": string
+ * }
+ */
 
 export async function getCategoryByName(category) {
-    const res = await axios.get(GET(category));
+    const res = await axios.get(GET_BY_NAME(category));
     return res.data;
 }
 

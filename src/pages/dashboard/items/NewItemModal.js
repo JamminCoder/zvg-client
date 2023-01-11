@@ -1,6 +1,6 @@
 import * as productEndpoints from "../../../endpoints/products";
 import * as categoryEndpoints from "../../../endpoints/categories"
-import { preventDefaults } from "../../../lib/utils";
+import { preventDefaults, setPreviewImage } from "../../../lib/utils";
 import CloseIcon from "../../../components/icons/Close";
 import { useEffect, useState } from "react";
 import Modal from "../../../components/Modal";
@@ -8,13 +8,21 @@ import Modal from "../../../components/Modal";
 export default function NewItemModal(props) {
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
+    const [isLoaded, setIsLoaded] = useState(false);
     const [categories, setCategories] = useState(null);
 
     useEffect(() => {
-        if (!categories) {
+        if (!categories && !isLoaded) {
            categoryEndpoints.getCategoriesInfo()
-            .then(cats => setCategories(cats))
-            .catch(err => console.log(err));
+            .then(cats => {
+                setCategories(cats);
+                setIsLoaded(true);
+
+            })
+            .catch(err => {
+                console.log(err);
+                setIsLoaded(true);
+            });
         }
     });
 
@@ -53,14 +61,7 @@ export default function NewItemModal(props) {
     }
 
     return (
-    <Modal close={ props.close }>
-        <span 
-            className="absolute right-0 top-0 p-1 m-1 shadow rounded-full bg-slate-50 hover:bg-slate-100"
-            onClick={ props.close || null }>
-            
-            <CloseIcon size={ 32 }/>
-        </span>
-
+    <div>
         <h1 className="font-medium text-3xl">New Product</h1>
         <h2 className="font-medium text-xl">Category: { props.category }</h2>
         
@@ -71,8 +72,9 @@ export default function NewItemModal(props) {
             <input type="hidden" name="category" defaultValue={ props.category } />
             
             <div>
+                <img id="preview_image" src="" alt="" />
                 <label htmlFor="images" className="text-lg">Product Images</label><br/>
-                <input type="file" id="images" name="images[]" multiple required/>
+                <input  onChange={ e => setPreviewImage(e, "preview_image") } type="file" id="images" name="images[]" multiple required/>
             </div>
 
             <div>
@@ -102,6 +104,6 @@ export default function NewItemModal(props) {
 
             <button className="border px-2 py-1 w-fit rounded hover:bg-slate-50 active:bg-slate-100">Create</button>
         </form>
-    </Modal>
+    </div>
     );
 }

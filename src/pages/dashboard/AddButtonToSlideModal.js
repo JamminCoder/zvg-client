@@ -1,6 +1,6 @@
-import { preventDefaults } from "../../../lib/utils";
-import Button from "../../../components/Button";
-import Modal from "../../../components/Modal";
+import { preventDefaults } from "../../lib/utils";
+import Button from "../../components/Button";
+import Modal from "../../components/Modal";
 
 
 export default function AddButtonToSlideModal(props) {

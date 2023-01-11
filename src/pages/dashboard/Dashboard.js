@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import DashboardSidebar from "./DashboardSidebar";
 import { ProductsList } from "./ProductsList";
 import { Outlet } from "react-router-dom";
-import NewCategoryModal from "./modals/NewCategoryModal";
-import Button from "../../components/Button";
 import { Navigate, Link } from "react-router-dom";
 import { isLoggedIn } from "../../lib/auth";
 import { isVerified } from "../../endpoints/auth";
@@ -34,7 +32,7 @@ export function DashboardProducts(props) {
     return <>
         { modal }
         <h1 className="text-3xl pb-5">Products</h1>
-        <Button className="shadow my-8 bg-blue-500 text-white" onClick={ () => setModal(<NewCategoryModal close={() => setModal(null)}/>) }>New Category</Button>
+        <Link className="shadow my-8 bg-blue-500 text-white btn block w-fit" to="/dashboard/new-category">New Category</Link>
         <div className="grid gap-24 mb-10">    
             <CategoriesWithProducts/>
         </div>

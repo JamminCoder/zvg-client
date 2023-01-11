@@ -1,10 +1,9 @@
 import Button from "../../components/Button";
-import ConfirmDeleteModal from "./modals/ConfirmDeleteModal";
+import ConfirmDeleteModal from "./items/ConfirmDeleteModal";
 import AdminProductCard from "./AdminProductCard";
 import { useState } from "react";
-import UpdateCategoryModal from "./modals/UpdateCategoryModal";
-import NewItemModal from "./modals/NewItemModal";
 import * as categoryEndpoints from "../../endpoints/categories"
+import { Link } from "react-router-dom";
 
 export function ProductsList({ category }) {
     const [display, setDisplay] = useState(true);
@@ -17,11 +16,6 @@ export function ProductsList({ category }) {
                 close={ () => setModal(null) }
                 delete={ deleteCategoryForReal }/>
             ): setModal(null);
-
-    const handleEdit = () =>
-        !modal ? setModal(
-            <UpdateCategoryModal category={ category } close={ () => setModal(null) }/>
-        ): setModal(null);
 
 
     const deleteCategoryForReal = () => {
@@ -38,12 +32,11 @@ export function ProductsList({ category }) {
         <h2 className="text-2xl mb-5">{ category.name }</h2>
         
         <div className="flex gap-12 mb-8">
-            <Button
-                className="text-white bg-gray-800 text-xs rounded" 
-                onClick={ handleEdit }>
-                
+            <Link
+            className="text-white bg-gray-800 text-xs btn" 
+            to={ `/dashboard/category/${ category.name }/update` }>
                 Edit { category.name } Category
-            </Button>
+            </Link>
 
             <Button 
                 className="text-white bg-red-500 text-xs rounded" 
@@ -57,7 +50,7 @@ export function ProductsList({ category }) {
             { category.products.map(product => <AdminProductCard key={ product.sku } product={ product } />)}
         </div>
 
-        <Button className="shadow" onClick={ () => setModal(<NewItemModal close={() => setModal(null)} category={ category.name }/>) }>New { category.name } item</Button>
+        <Link className="shadow" to={ "new" }>New { category.name } item</Link>
     </div>
     );
 }

@@ -1,10 +1,8 @@
 import { preventDefaults } from "../../../lib/utils";
-import CloseIcon from "../../../components/icons/Close";
 import { useState } from "react";
-import Modal from "../../../components/Modal";
 import * as categoryEndpoints from "../../../endpoints/categories";
 
-export default function NewCategoryModal(props) {
+export default function NewCategoryPage(props) {
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
 
@@ -35,14 +33,7 @@ export default function NewCategoryModal(props) {
     }
 
     return (
-    <Modal close={ props.close }>
-        <span 
-            className="absolute right-0 top-0 p-1 m-1 shadow rounded-full bg-slate-50 hover:bg-slate-100"
-            onClick={ props.close || null }>
-            
-            <CloseIcon size={ 32 }/>
-        </span>
-
+    <div>
         <h1 className="text-black font-medium text-3xl">New Category</h1>
         
         <p className="text-green-600"> { success } </p>
@@ -66,6 +57,6 @@ export default function NewCategoryModal(props) {
             
             <button className="border px-2 py-1 w-fit rounded hover:bg-slate-50 active:bg-slate-100">Create</button>
         </form>
-    </Modal>
+    </div>
     );
 }

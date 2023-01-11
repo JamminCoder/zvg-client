@@ -88,7 +88,7 @@ export default function ProductDetails() {
         }
 
         if (products.length === 0) {
-            categoryEndpoints.getProductsFromCategory(productType.toLowerCase())
+            categoryEndpoints.getCategoryByName(productType.toLowerCase())
             .then(category => {
                 const productDisplay = [];
 

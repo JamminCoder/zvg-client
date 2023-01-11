@@ -3,7 +3,7 @@ import ButtonMap from "../../components/ButtonMap";
 import { XSRF_HEADER } from "../../lib/auth";
 import { preventDefaults, serverURL, setPreviewImage } from "../../lib/utils";
 import { useEffect, useState } from "react";
-import AddButtonToSlideModal from "./modals/AddButtonToSlideModal";
+import AddButtonToSlideModal from "./AddButtonToSlideModal";
 import { Link } from "react-router-dom";
 import * as contentEndpoints from "../../endpoints/content";
 

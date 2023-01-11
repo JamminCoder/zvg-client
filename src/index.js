@@ -24,6 +24,8 @@ import ShoppingCartManager from "./lib/shoppingCartManager";
 import ManageHomeInfoBanner from "./pages/dashboard/ManageHomeInfoBanner";
 import Account from "./pages/dashboard/Account";
 import ManageCabinSection from "./pages/dashboard/ManageCabinSection";
+import NewCategoryPage from "./pages/dashboard/items/NewCategoryPage";
+import UpdateCategoryPage from "./pages/dashboard/items/UpdateCategoryPage";
 
 
 require("axios").default.defaults.withCredentials = true;
@@ -60,6 +62,13 @@ function App() {
 			<Route path="" element={ <DashboardHome/> }/>
 			<Route path="account" element={ <Account/> } />
 			<Route path="products" element={ <DashboardProducts/> }/>
+			{/* Product management */}
+			<Route path="category">
+				<Route path="new" element={ <NewCategoryPage/> }/>
+				<Route path=":categoryName/update" element={ <UpdateCategoryPage/> } />
+			</Route>
+
+			
 			<Route path="homepage/info" element={ <ManageHomeInfoBanner/> }/>
 			<Route path="homepage/slides" element={ <ManageSlides/> } />
 			<Route path="homepage/cabin" element={ <ManageCabinSection/> } />
