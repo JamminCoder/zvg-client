@@ -7,15 +7,13 @@ import { destroy_login_info } from "../endpoints/auth";
 
 export default function Nav({ cartItems }) {
     const breakpoint = "1000px";
+    const [listenerAdded, setListenerAdded] = useState(false);
     const [mqMatches, setMqMatches] = useState(
         window.matchMedia(`(min-width: ${ breakpoint })`).matches
     );
 
     const [itemCount, setItemCount] = useState(null);
-
-    const [collapsingContent, setCollapsingContent] = useState(
-        document.querySelector(".collapsing-nav-content")
-    );
+    const [collapsingContent, setCollapsingContent] = useState(null);
 
     useEffect(() => {
         async function wrapper() {
@@ -23,8 +21,13 @@ export default function Nav({ cartItems }) {
         }
         wrapper();
 
-        window.matchMedia(`(min-width: ${ breakpoint })`).addEventListener('change', e => setMqMatches( e.matches ));
-        setCollapsingContent(document.querySelector(".collapsing-nav-content"));
+        if (!listenerAdded) {
+            window.matchMedia(`(min-width: ${ breakpoint })`).addEventListener('change', e => setMqMatches( e.matches ));
+            setListenerAdded(true);
+        }
+
+        if (!collapsingContent) setCollapsingContent(document.querySelector(".collapsing-nav-content"));
+        
         if (mqMatches && collapsingContent) collapsingContent.classList.remove("nav-expanded");
     });
 
@@ -36,6 +39,8 @@ export default function Nav({ cartItems }) {
         color: "rgb(0, 0, 0)",
         borderBottom: "1px solid rgba(0, 0, 0, 0.4)"
     };
+
+    
     
     return (
         <nav className="nav shadow-lg bg-slate-100">
@@ -92,7 +97,6 @@ export default function Nav({ cartItems }) {
 
                 <span className="cart-notification">{ itemCount == 0 ? "": itemCount }</span>
             </div>
-            
         </nav>
     );
 }
