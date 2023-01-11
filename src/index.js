@@ -26,6 +26,7 @@ import Account from "./pages/dashboard/Account";
 import ManageCabinSection from "./pages/dashboard/ManageCabinSection";
 import NewCategoryPage from "./pages/dashboard/items/NewCategoryPage";
 import UpdateCategoryPage from "./pages/dashboard/items/UpdateCategoryPage";
+import UpdateItemPage from "./pages/dashboard/items/UpdateItemPage";
 
 
 require("axios").default.defaults.withCredentials = true;
@@ -61,7 +62,12 @@ function App() {
 		<Route path="/dashboard" element={ <DashboardLayout/> }>
 			<Route path="" element={ <DashboardHome/> }/>
 			<Route path="account" element={ <Account/> } />
-			<Route path="products" element={ <DashboardProducts/> }/>
+
+			<Route path="products">
+				<Route path="" element={ <DashboardProducts/> }/>
+				<Route path=":productSKU/update" element={ <UpdateItemPage/> }/>
+			</Route>
+
 			{/* Product management */}
 			<Route path="category">
 				<Route path="new" element={ <NewCategoryPage/> }/>

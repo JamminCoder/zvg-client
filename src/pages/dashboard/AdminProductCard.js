@@ -1,17 +1,12 @@
-import { useState } from "react";
-import UpdateItemModal from "./items/UpdateItemModal";
 import Card from "../../components/cards/Card";
 import { imageURL } from "../../lib/utils";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function AdminProductCard({ product }) {
-    const [modal, setModal] = useState(null);
-
-    const handleModal = () =>
-        !modal ? setModal(<UpdateItemModal product={ product }/>) : setModal(null);
+    const navigate = useNavigate();
 
     return (
-        <Card className="w-64 rounded overflow-hidden" onClick={ handleModal }>
-            { modal }
+        <Link to={ `/dashboard/products/${product.sku}/update` } className="w-64 rounded overflow-hidden shadow-lg">
             <div>
                 <img className="bg-gray-400 w-[100%] aspect-square object-cover object-top" src={  imageURL(product.images[0]) }/>
             </div>
@@ -25,6 +20,6 @@ export default function AdminProductCard({ product }) {
                     <p style={{ color: !product.stock ? "red": "green" }}>Stock: { product.stock }</p>
                 </div>
             </div>
-        </Card>
+        </Link>
     );
 }
