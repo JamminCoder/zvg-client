@@ -12,7 +12,6 @@ export default function NewItemPage(props) {
     const [success, setSuccess] = useState("");
     const [isLoaded, setIsLoaded] = useState(false);
     const [categories, setCategories] = useState(null);
-    const [taxInputUpdated, setTaxInputUpdated] = useState(false);
 
     const categoryName = useParams().categoryName;
 
@@ -38,7 +37,7 @@ export default function NewItemPage(props) {
         setError("");
         setSuccess("");
 
-        productEndpoints.newItem(document.querySelector("#new_product_form"))
+        productEndpoints.newItem(document.getElementById("new_product_form"))
         .then(res => {
             console.log(res.data);
             if (res.status === 200) {
