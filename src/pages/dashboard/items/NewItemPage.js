@@ -4,6 +4,7 @@ import { preventDefaults, setPreviewImage } from "../../../lib/utils";
 import { useEffect, useState } from "react";
 import Modal from "../../../components/Modal";
 import { useParams } from "react-router-dom";
+import Button from "../../../components/Button";
 
 export default function NewItemPage(props) {
     const [error, setError] = useState("");
@@ -63,9 +64,9 @@ export default function NewItemPage(props) {
     }
 
     return (
-    <div>
+    <div className="w-[100%] max-w-[50rem]">
         <h1 className="font-medium text-3xl">New Product</h1>
-        <h2 className="font-medium text-xl">Category: { categoryName }</h2>
+        <h2 className="font-medium text-xl mb-8">Category: { categoryName }</h2>
         
         <p className="text-green-600"> { success } </p>
         <p className="text-red-600"> { error } </p>
@@ -74,7 +75,7 @@ export default function NewItemPage(props) {
             <input type="hidden" name="category" defaultValue={ props.category } />
             
             <div>
-                <img className="w-48 aspect-square object-cover" id="preview_image" src="" alt="" />
+                <img className="bg-slate-200 w-48 aspect-square object-cover mb-4" id="preview_image" src="" alt="Choose a product image" />
                 <label htmlFor="images" className="text-lg">Product Images</label><br/>
                 <input  onChange={ e => setPreviewImage(e, "preview_image") } type="file" id="images" name="images[]" multiple required/>
             </div>
@@ -104,7 +105,7 @@ export default function NewItemPage(props) {
                 <input type="text" id="tax_percent" name="tax_percent" className="w-16 max-w-fit border" required/>%
             </div>
 
-            <button className="border px-2 py-1 w-fit rounded hover:bg-slate-50 active:bg-slate-100">Create</button>
+            <Button className="bg-green-600 text-white w-fit">Create</Button>
         </form>
     </div>
     );
