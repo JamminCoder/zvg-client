@@ -1,15 +1,17 @@
 import * as productEndpoints from "../../../endpoints/products";
 import * as categoryEndpoints from "../../../endpoints/categories"
 import { preventDefaults, setPreviewImage } from "../../../lib/utils";
-import CloseIcon from "../../../components/icons/Close";
 import { useEffect, useState } from "react";
 import Modal from "../../../components/Modal";
+import { useParams } from "react-router-dom";
 
-export default function NewItemModal(props) {
+export default function NewItemPage(props) {
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
     const [isLoaded, setIsLoaded] = useState(false);
     const [categories, setCategories] = useState(null);
+
+    const categoryName = useParams().categoryName;
 
     useEffect(() => {
         if (!categories && !isLoaded) {
@@ -63,7 +65,7 @@ export default function NewItemModal(props) {
     return (
     <div>
         <h1 className="font-medium text-3xl">New Product</h1>
-        <h2 className="font-medium text-xl">Category: { props.category }</h2>
+        <h2 className="font-medium text-xl">Category: { categoryName }</h2>
         
         <p className="text-green-600"> { success } </p>
         <p className="text-red-600"> { error } </p>
@@ -72,7 +74,7 @@ export default function NewItemModal(props) {
             <input type="hidden" name="category" defaultValue={ props.category } />
             
             <div>
-                <img id="preview_image" src="" alt="" />
+                <img className="w-48 aspect-square object-cover" id="preview_image" src="" alt="" />
                 <label htmlFor="images" className="text-lg">Product Images</label><br/>
                 <input  onChange={ e => setPreviewImage(e, "preview_image") } type="file" id="images" name="images[]" multiple required/>
             </div>
