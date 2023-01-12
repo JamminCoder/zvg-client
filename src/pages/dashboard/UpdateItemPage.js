@@ -7,6 +7,7 @@ import * as productEndpoints from "../../endpoints/products";
 import * as categoryEndpoints from "../../endpoints/categories";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../components/Button";
+import TaxSelect from "./TaxSelect";
 const axios = require("axios").default;
 
 export default function UpdateItemPage(props) {
@@ -88,7 +89,7 @@ export default function UpdateItemPage(props) {
                 
                 <form id="update_product_form" action={ productEndpoints.UPDATE } method="POST" onSubmit={ submit }>
                     <input type="hidden" name="sku" id="sku" defaultValue={ product.sku }/>
-                    <div className="flex flex-col gap-2 mb-4">
+                    <div className="flex flex-col gap-4 mb-4">
                         
                         <div className="mb-2">
                             <label htmlFor="images" className="text-lg">Product Images</label><br/>
@@ -117,7 +118,7 @@ export default function UpdateItemPage(props) {
 
                         <div>
                             <label htmlFor="tax_percent" className="text-lg">Tax (in percent)</label><br/>
-                            <input type="text" id="tax_percent" name="tax_percent" className="w-16 max-w-fit border" required defaultValue={ product.tax_percent }/>%
+                            <TaxSelect/>
                         </div>
 
                         <div>
