@@ -5,12 +5,14 @@ import { useEffect, useState } from "react";
 import Modal from "../../components/Modal";
 import { useParams } from "react-router-dom";
 import Button from "../../components/Button";
+import TaxSelect from "./TaxSelect";
 
 export default function NewItemPage(props) {
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
     const [isLoaded, setIsLoaded] = useState(false);
     const [categories, setCategories] = useState(null);
+    const [taxInputUpdated, setTaxInputUpdated] = useState(false);
 
     const categoryName = useParams().categoryName;
 
@@ -26,7 +28,16 @@ export default function NewItemPage(props) {
                 console.log(err);
                 setIsLoaded(true);
             });
+
         }
+
+        if (!taxInputUpdated) {
+            try {
+                updateTaxInput();
+                setTaxInputUpdated(true);
+            } catch(err) {}
+        }
+        
     });
 
     function submit(e) {
@@ -55,6 +66,12 @@ export default function NewItemPage(props) {
 
     }
 
+    function updateTaxInput() {
+        const taxInput = document.getElementById("tax_percent");
+        const taxPercent = document.getElementById("tax_select").value;
+        taxInput.value = taxPercent;
+    }
+
     if (!categories || !categories.length) {
         return (
             <Modal close={ props.close }>
@@ -64,7 +81,7 @@ export default function NewItemPage(props) {
     }
 
     return (
-    <div className="w-[100%] max-w-[50rem]">
+    <div className="w-[100%] max-w-[50rem] pb-8">
         <h1 className="font-medium text-3xl">New Product</h1>
         <h2 className="font-medium text-xl mb-8">Category: { categoryName }</h2>
         
@@ -100,9 +117,10 @@ export default function NewItemPage(props) {
                 $<input type="text" id="price" name="price" className="max-w-fit border" required/>
             </div>
 
-            <div>
+            <div className="mb-8">
                 <label htmlFor="tax_percent" className="text-lg">Tax Percent</label><br/>
-                <input type="text" id="tax_percent" name="tax_percent" className="w-16 max-w-fit border" required/>%
+                <TaxSelect id="tax_select" onChange={ updateTaxInput }/><br />
+                or custom value: <input type="text" id="tax_percent" name="tax_percent" className="w-16 max-w-fit border" required/>%
             </div>
 
             <Button className="bg-green-600 text-white w-fit">Create</Button>
