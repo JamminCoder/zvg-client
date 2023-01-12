@@ -1,6 +1,6 @@
-import { preventDefaults } from "../../../lib/utils";
+import { preventDefaults } from "../../lib/utils";
 import { useState } from "react";
-import * as categoryEndpoints from "../../../endpoints/categories";
+import * as categoryEndpoints from "../../endpoints/categories";
 
 export default function NewCategoryPage(props) {
     const [error, setError] = useState("");

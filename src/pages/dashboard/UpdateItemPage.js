@@ -1,12 +1,12 @@
-import { preventDefaults, serverURL } from "../../../lib/utils";
+import { preventDefaults, serverURL } from "../../lib/utils";
 import { useEffect, useState } from "react";
-import { XSRF_HEADER } from "../../../lib/auth";
-import CategorySelect from "../../../components/CategorySelect";
+import { XSRF_HEADER } from "../../lib/auth";
+import CategorySelect from "../../components/CategorySelect";
 
-import * as productEndpoints from "../../../endpoints/products";
-import * as categoryEndpoints from "../../../endpoints/categories";
+import * as productEndpoints from "../../endpoints/products";
+import * as categoryEndpoints from "../../endpoints/categories";
 import { useNavigate, useParams } from "react-router-dom";
-import Button from "../../../components/Button";
+import Button from "../../components/Button";
 const axios = require("axios").default;
 
 export default function UpdateItemPage(props) {

@@ -1,11 +1,11 @@
-import { XSRF_HEADER, WITH_CREDENTIALS } from "../../../lib/auth";
-import { preventDefaults } from "../../../lib/utils";
+import { XSRF_HEADER, WITH_CREDENTIALS } from "../../lib/auth";
+import { preventDefaults } from "../../lib/utils";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-import * as categoryEndpoints from "../../../endpoints/categories";
+import * as categoryEndpoints from "../../endpoints/categories";
 import { useNavigate, useParams } from "react-router-dom";
-import Button from "../../../components/Button";
+import Button from "../../components/Button";
 
 export default function UpdateCategoryPage(props) {
     const [error, setError] = useState("");

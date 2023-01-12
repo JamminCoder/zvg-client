@@ -24,10 +24,10 @@ import ShoppingCartManager from "./lib/shoppingCartManager";
 import ManageHomeInfoBanner from "./pages/dashboard/ManageHomeInfoBanner";
 import Account from "./pages/dashboard/Account";
 import ManageCabinSection from "./pages/dashboard/ManageCabinSection";
-import NewCategoryPage from "./pages/dashboard/items/NewCategoryPage";
-import UpdateCategoryPage from "./pages/dashboard/items/UpdateCategoryPage";
-import UpdateItemPage from "./pages/dashboard/items/UpdateItemPage";
-import NewItemPage from "./pages/dashboard/items/NewItemPage";
+import NewCategoryPage from "./pages/dashboard/NewCategoryPage";
+import UpdateCategoryPage from "./pages/dashboard/UpdateCategoryPage";
+import UpdateItemPage from "./pages/dashboard/UpdateItemPage";
+import NewItemPage from "./pages/dashboard/NewItemPage";
 
 
 require("axios").default.defaults.withCredentials = true;

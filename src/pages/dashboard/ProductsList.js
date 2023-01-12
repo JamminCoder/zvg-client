@@ -1,5 +1,5 @@
 import Button from "../../components/Button";
-import ConfirmDeleteModal from "./items/ConfirmDeleteModal";
+import ConfirmDeleteModal from "./ConfirmDeleteModal";
 import AdminProductCard from "./AdminProductCard";
 import { useState } from "react";
 import * as categoryEndpoints from "../../endpoints/categories"

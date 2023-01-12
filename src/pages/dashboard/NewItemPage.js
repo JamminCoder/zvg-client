@@ -1,10 +1,10 @@
-import * as productEndpoints from "../../../endpoints/products";
-import * as categoryEndpoints from "../../../endpoints/categories"
-import { preventDefaults, setPreviewImage } from "../../../lib/utils";
+import * as productEndpoints from "../../endpoints/products";
+import * as categoryEndpoints from "../../endpoints/categories"
+import { preventDefaults, setPreviewImage } from "../../lib/utils";
 import { useEffect, useState } from "react";
-import Modal from "../../../components/Modal";
+import Modal from "../../components/Modal";
 import { useParams } from "react-router-dom";
-import Button from "../../../components/Button";
+import Button from "../../components/Button";
 
 export default function NewItemPage(props) {
     const [error, setError] = useState("");
