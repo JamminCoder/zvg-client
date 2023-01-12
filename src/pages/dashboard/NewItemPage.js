@@ -29,15 +29,7 @@ export default function NewItemPage(props) {
                 setIsLoaded(true);
             });
 
-        }
-
-        if (!taxInputUpdated) {
-            try {
-                updateTaxInput();
-                setTaxInputUpdated(true);
-            } catch(err) {}
-        }
-        
+        }        
     });
 
     function submit(e) {
@@ -64,12 +56,6 @@ export default function NewItemPage(props) {
             console.log(err);
         });
 
-    }
-
-    function updateTaxInput() {
-        const taxInput = document.getElementById("tax_percent");
-        const taxPercent = document.getElementById("tax_select").value;
-        taxInput.value = taxPercent;
     }
 
     if (!categories || !categories.length) {
@@ -119,8 +105,7 @@ export default function NewItemPage(props) {
 
             <div className="mb-8">
                 <label htmlFor="tax_percent" className="text-lg">Tax Percent</label><br/>
-                <TaxSelect id="tax_select" onChange={ updateTaxInput }/><br />
-                or custom value: <input type="text" id="tax_percent" name="tax_percent" className="w-16 max-w-fit border" required/>%
+                <TaxSelect/>
             </div>
 
             <Button className="bg-green-600 text-white w-fit">Create</Button>
