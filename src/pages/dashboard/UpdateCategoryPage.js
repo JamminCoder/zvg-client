@@ -66,13 +66,13 @@ export default function UpdateCategoryPage(props) {
 
     return (
     <div>
-        <h1 className="text-black font-medium text-3xl">Update { category.category } Category</h1>
+        <h1 className="text-black font-medium text-3xl">Update { category.name } Category</h1>
         
         <p className="text-green-600"> { success } </p>
         <p className="text-red-600"> { error } </p>
 
-        <form id="update_category_form" action={ categoryEndpoints.UPDATE(category.category) } method="POST" encType="multipart/form-data" className="py-2 flex flex-col gap-4" onSubmit={ submit }>
-            <input type="hidden" name="target_category" defaultValue={ category.category }/>
+        <form id="update_category_form" action={ categoryEndpoints.UPDATE(category.name) } method="POST" encType="multipart/form-data" className="py-2 flex flex-col gap-4" onSubmit={ submit }>
+            <input type="hidden" name="target_category" defaultValue={ category.name }/>
             
             <div>
                 <label htmlFor="image" className="text-lg">Header Image</label><br/>
@@ -81,7 +81,7 @@ export default function UpdateCategoryPage(props) {
 
             <div>
                 <label htmlFor="category" className="text-lg">Category</label><br/>
-                <input type="text" id="category" name="category" className="border" defaultValue={ category.category } required/>
+                <input type="text" id="category" name="category" className="border" defaultValue={ category.name } required/>
             </div>
 
             <div>

@@ -25,7 +25,7 @@ export async function getCategories(limit=null) {
  * @param { string } category
  * @returns {Promise} 
  * { 
- * "category": string,
+ * "name": string,
  * "description": string,
  * "products": Array,
  * "image": string
