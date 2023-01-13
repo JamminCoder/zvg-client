@@ -148,7 +148,7 @@ export function destroy_login_info() {
 }
 
 /**
- * Checks to see if use is verified  
+ * Checks to see if user is verified  
  * @returns { Promise<boolean> } true | false
  */
 export async function isVerified() {
