@@ -11,24 +11,35 @@ export const DELETE = category => apiURL(`/categories/delete/${ category }`);
 export const UPDATE = category => apiURL(`/categories/update/${category}`);
 
 
+/**
+ * Gets as many categories as allowed by limit
+ * @param { number | null } limit 
+ * @returns { Promise } Promise ->
+ * Array[{
+ *  "name": string,
+ *  "description": string,
+ *  "products": Array,
+ *  "image": string
+ * }]
+ */
 
 export async function getCategories(limit=null) {
     const queryLimit = limit ? `?limit=${ limit }`: "";
     const res = await axios.get(ALL + queryLimit);
-    const products = res.data;
-    return products;
+    const categories = res.data;
+    return categories;
 }
 
 
 /**
  * Returns category JSON
  * @param { string } category
- * @returns {Promise} 
+ * @returns { Promise } Promise ->
  * { 
- * "name": string,
- * "description": string,
- * "products": Array,
- * "image": string
+ *  "name": string,
+ *  "description": string,
+ *  "products": Array,
+ *  "image": string
  * }
  */
 
@@ -37,6 +48,17 @@ export async function getCategoryByName(category) {
     return res.data;
 }
 
+
+/**
+ * Gets information on all categories.
+ * @returns { Promise } Promise ->
+ * Array[{
+ *  "name": string,
+ *  "description": string,
+ *  "products_count": number,
+ *  "image": string
+ * }]
+ */
 export async function getCategoriesInfo() {
     const res = await axios.get(INFO);
     return res.data;
