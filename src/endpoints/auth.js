@@ -1,7 +1,7 @@
 import { apiURL } from "./common";
 import { XSRF_HEADER } from "../lib/auth";
-const axios = require("axios").default;
 import { AxiosResponse } from "axios";
+const axios = require("axios").default;
 
 export const USER = apiURL("/user");
 export const LOGIN = apiURL("/login");
