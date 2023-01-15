@@ -17,7 +17,7 @@ export const CABIN_SECTION_IFRAME_UPDATE = apiURL("/content/cabin-section/update
 
 /**
  * Gets all of the homepage slides.
- * @returns {Array}
+ * @returns { Promise<Array<JSON>> }
  * Array[{  
  *  header: string,  
  *  lead: string,  
@@ -32,14 +32,15 @@ export async function getSlides() {
 
 /**
  * Gets the homepage info banner
- * @returns {JSON} 
+ * @returns { Promise<JSON> } Promise -> JSON
  * {  
  *  header: string,  
  *  lead: string,  
  * }
  */
 export async function getHomepageInfo() {
-    return await axios.get(HOMEPAGE_INFO);
+    const res = await axios.get(HOMEPAGE_INFO);
+    return res.data;
 }
 
 
@@ -50,7 +51,7 @@ export async function getHomepageInfo() {
  *  header: string,  
  *  lead: string,  
  * }
- * @returns { Promise<AxiosResponse<any, any>> }
+ * @returns { Promise<AxiosResponse<any, any>> } Promise -> AxiosResponse
  */
 export async function updateHomepageInfo(formElement) {
     return await axios.post(
@@ -63,13 +64,13 @@ export async function updateHomepageInfo(formElement) {
 }
 
 /**
- * Gets the header section for the shop
- * @returns { Promise<JSON> | null }
+ * Gets the header section for the shop.
+ * @returns { Promise<JSON> | null } 
  * {  
  *  header: string,  
  *  lead: string,  
  *  image_path: string,  
- * }
+ * } | null
  */
 export async function getShopHeader() {
     try {
@@ -80,17 +81,32 @@ export async function getShopHeader() {
     }
 }
 
+/**
+ * Update the Shop page header section.
+ * @param { HTMLElement } formElement 
+ * {  
+ *  header_text: text,  
+ *  lead_text: text input,  
+ *  image: file  
+ * }
+ * @returns { Promise<AxiosResponse<any, any>> } Promise -> AxiosResponse
+ */
 export async function updateShopHeader(formElement) {
     return await axios.post(
         SHOP_HEADER_UPDATE,
         new FormData(formElement),
         {
             headers: XSRF_HEADER,
-            withCredentials: true,
         }
     );
 }
 
+
+/**
+ * Update the IFrame URL for the cabin section.
+ * @param { HTMLElement } formElement 
+ * @returns { Promise<AxiosResponse<any, any>> } Promise -> AxiosResponse
+ */
 export async function updateCabinSectionIFrame(formElement) {
     return await axios.post(
         CABIN_SECTION_IFRAME_UPDATE, 
@@ -99,6 +115,10 @@ export async function updateCabinSectionIFrame(formElement) {
     );
 }
 
+/**
+ * Get the cabin section IFrame URL.
+ * @returns { string } URL
+ */
 export async function getCabinSectionIFrame() {
     const res = await axios.get(CABIN_SECTION_IFRAME);
     return res.data;
