@@ -74,7 +74,7 @@ export default function NewItemPage(props) {
         <p className="text-red-600"> { error } </p>
 
         <form className="pb-2 flex flex-col gap-4" id="new_product_form" action={ productEndpoints.NEW } method="POST" encType="multipart/form-data" onSubmit={ submit }>
-            <input type="hidden" name="category" defaultValue={ props.category } />
+            <input type="hidden" name="category" defaultValue={ categoryName } />
             
             <div>
                 <img className="bg-slate-200 w-48 aspect-square object-cover mb-4" id="preview_image" src="" alt="Choose a product image" />
