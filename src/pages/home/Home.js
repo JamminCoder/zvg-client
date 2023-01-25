@@ -6,22 +6,27 @@ import ProductsDisplay from "./ProductDisplay";
 
 import CabinSection from "./CabinSection";
 import * as contentEndpoints from "../../endpoints/content";
+import LoadingPage from "../../components/Loading";
 
 
 export default function Home() {
   const [homepageInfo, setHomepageInfo] = useState(null);
   const [attempt, setAttempt] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     if (!attempt) {
       contentEndpoints.getHomepageInfo()
       .then(res => {
         setHomepageInfo(res.data);
+        setIsLoaded(true);
       });
 
       setAttempt(true);
     }
   });
+
+  if (!isLoaded) return <LoadingPage/>
 
   return (
     <div>

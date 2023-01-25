@@ -5,6 +5,7 @@ import { getCategories } from "../endpoints/categories";
 import { getShopHeader } from "../endpoints/content";
 import { serverURL } from "../lib/utils";
 import CategoryDisplay from "../components/CategoryDisplay";
+import LoadingPage from "../components/Loading";
 
 export default function Shop(props) {
     const [shopHeader, setShopHeader] = useState(null);
@@ -19,7 +20,7 @@ export default function Shop(props) {
         setAttempt(true);
     })
 
-    if (!shopHeader) return;
+    if (!shopHeader) return <LoadingPage/>;
 
     return (
         <div className="flex flex-col items-center">
