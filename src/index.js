@@ -28,6 +28,7 @@ import NewCategoryPage from "./pages/dashboard/NewCategoryPage";
 import UpdateCategoryPage from "./pages/dashboard/UpdateCategoryPage";
 import UpdateItemPage from "./pages/dashboard/UpdateItemPage";
 import NewItemPage from "./pages/dashboard/NewItemPage";
+import About from "./pages/About";
 
 
 require("axios").default.defaults.withCredentials = true;
@@ -53,9 +54,7 @@ function App() {
 		<Route path="/shop/checkout" element={ <Checkout cartItems={ cartItems }/> }/>
 		<Route path="/shop/:productType" element={ <ProductsPage/> } />
 		<Route path="/shop/:productType/:sku" element={ <ProductDetails/> } />
-		
-
-		{/* <Route path="/campground" element={ <ReservationPage/> } /> */}
+		<Route path="/about" element={ <About/> }/>
 
 		<Route path="/login" element={ <Login/> } />
 

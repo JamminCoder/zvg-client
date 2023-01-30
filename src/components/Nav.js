@@ -76,11 +76,6 @@ export default function Nav({ cartItems }) {
                     isActive ? activeLinkStyle : undefined
                 }>About</NavLink>
 
-                <NavLink to="/contact" className="text-xl block text-gray-800 interactive-hover" 
-                    style={({ isActive }) =>
-                    isActive ? activeLinkStyle : undefined
-                }>Contact</NavLink>
-
                 <ShoppingCart cartItems={ cartItems }/>
                 
             </div>
