@@ -12,7 +12,7 @@ export function SidebarItem(props) {
 
 export function Sidebar(props) {
     return (
-        <div className="h-[100vh] w-52 top-0 left-0 sticky shadow-lg pt-24 p-4">
+        <div className="h-[100vh] w-64 top-0 left-0 sticky shadow-lg pt-24 p-4">
             { props.children }
         </div>
     );

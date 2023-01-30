@@ -29,6 +29,7 @@ import UpdateCategoryPage from "./pages/dashboard/UpdateCategoryPage";
 import UpdateItemPage from "./pages/dashboard/UpdateItemPage";
 import NewItemPage from "./pages/dashboard/NewItemPage";
 import About from "./pages/About";
+import ManageAboutPage from "./pages/dashboard/ManageAboutPage";
 
 
 require("axios").default.defaults.withCredentials = true;
@@ -61,6 +62,7 @@ function App() {
 		{/* Dashboard is an outlet */}
 		<Route path="/dashboard" element={ <DashboardLayout/> }>
 			<Route path="" element={ <DashboardHome/> }/>
+			<Route path="about" element={ <ManageAboutPage/> }/>
 			<Route path="account" element={ <Account/> } />
 
 			<Route path="products">
@@ -75,6 +77,7 @@ function App() {
 				<Route path=":categoryName/update" element={ <UpdateCategoryPage/> } />
 			</Route>
 
+			
 			
 			<Route path="homepage/info" element={ <ManageHomeInfoBanner/> }/>
 			<Route path="homepage/slides" element={ <ManageSlides/> } />
