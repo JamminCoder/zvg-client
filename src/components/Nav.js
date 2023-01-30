@@ -4,10 +4,33 @@ import "../css/nav.css";
 import { ShoppingCart } from "./ShoppingCart";
 import IfAuth from "./IfAuth";
 import { destroy_login_info } from "../endpoints/auth";
+import { getCabinSectionIFrame } from "../endpoints/content";
+import { preventDefaults } from "../lib/utils";
+
+function CampgroundLink() {
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [url, setUrl] = useState(null);
+
+    useEffect(() => {
+        if (isLoaded) return;
+        
+        getCabinSectionIFrame()
+        .then(setUrl).catch(console.error)
+        .finally(() => setIsLoaded(true));
+    });
+    
+    if (!isLoaded) return <a className="inactive text-xl block text-gray-500" onClick={ preventDefaults }>Camp Ground</a>
+
+    return <a href={ url } className="text-xl block text-gray-800 interactive-hover">Camp Ground</a>;
+
+}
 
 export default function Nav({ cartItems }) {
     const breakpoint = "1000px";
     const [listenerAdded, setListenerAdded] = useState(false);
+
+    
+
     const [mqMatches, setMqMatches] = useState(
         window.matchMedia(`(min-width: ${ breakpoint })`).matches
     );
@@ -66,15 +89,12 @@ export default function Nav({ cartItems }) {
                     isActive ? activeLinkStyle : undefined
                 }>Shop</NavLink>
 
-                <NavLink to="/campground" className="text-xl block text-gray-800 interactive-hover" 
-                    style={({ isActive }) =>
-                    isActive ? activeLinkStyle : undefined
-                }>Camp Ground</NavLink>
-
                 <NavLink to="/about" className="text-xl block text-gray-800 interactive-hover" 
                     style={({ isActive }) =>
                     isActive ? activeLinkStyle : undefined
                 }>About</NavLink>
+
+                <CampgroundLink/>
 
                 <ShoppingCart cartItems={ cartItems }/>
                 
