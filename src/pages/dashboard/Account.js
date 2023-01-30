@@ -1,6 +1,7 @@
 import Button from "../../components/Button";
 import { preventDefaults } from "../../lib/utils";
 import  { useEffect, useState } from "react";
+import LoadingPage from "../../components/Loading";
 import * as authEndpoints from "../../endpoints/auth";
 
 
@@ -128,14 +129,16 @@ export default function Account() {
     useEffect(() => {
         if (!isLoaded && !user) {
             authEndpoints.getUser()
-            .then(res => {
-                setUser(res.data);
+            .then(user => {
+                setUser(user);
                 setIsLoaded(true);
+                console.log(user);
             })
             .catch(console.error);
         }
     });
 
+    if (!isLoaded) return <LoadingPage/>
 
     return (
     <div className="grid gap-8">
