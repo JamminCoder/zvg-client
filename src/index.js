@@ -92,9 +92,16 @@ function App() {
 
 
 (async () => {
-await xsrf();
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+try {
+	await xsrf();
+} catch (error) {
+	console.error("Error getting CSRF token!");
+	console.log(error);
+}
+
+
 root.render(
   <React.StrictMode>
 		<App/>
