@@ -14,6 +14,8 @@ export const HOMEPAGE_INFO = apiURL(`/content/homepage-info`);
 export const HOMEPAGE_INFO_UPDATE = apiURL(`/content/homepage-info/update`);
 export const CABIN_SECTION_IFRAME = apiURL("/content/cabin-section");
 export const CABIN_SECTION_IFRAME_UPDATE = apiURL("/content/cabin-section/update");
+export const ABOUT_PAGE_UPDATE = apiURL("/content/about-page/update");
+export const ABOUT_PAGE = apiURL("/content/about-page");
 
 /**
  * Gets all of the homepage slides.
@@ -122,4 +124,29 @@ export async function updateCabinSectionIFrame(formElement) {
 export async function getCabinSectionIFrame() {
     const res = await axios.get(CABIN_SECTION_IFRAME);
     return res.data;
+}
+
+/**
+ * Gets the about page.
+ * @returns { Promise<JSON> | null } 
+ * {  
+ *  header: string,  
+ *  body: string,   
+ * }
+ */
+export async function getAboutPage() {
+    const res = await axios.get(ABOUT_PAGE);
+    return res.data;
+}
+
+/**
+ * @param { HTMLElement } formElement 
+ * @returns { Promise<AxiosResponse<any, any>> } Promise -> AxiosResponse 
+ */
+export async function updateAboutPage(formElement) {
+    return await axios.post(
+        ABOUT_PAGE_UPDATE, 
+        new FormData(formElement), 
+        { headers: XSRF_HEADER }
+    );
 }
