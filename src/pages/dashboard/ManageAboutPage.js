@@ -41,7 +41,7 @@ function AboutPageForm() {
             <div>
                 <label htmlFor="body">Body</label><br />
                 <textarea className="border" name="body" cols="50" rows="20"
-                defaultValue={ aboutPageData.body } placeholder="Enter site description"></textarea>
+                defaultValue={  aboutPageData.body } placeholder="Enter site description."></textarea>
             </div>
 
             <Button className="bg-green-600 text-white" onClick={ submit }>Save</Button>

@@ -19,7 +19,7 @@ export default function About() {
     return (
         <div className="py-24 px-4 grid place-content-center">
             <h1 className="text-4xl font-medium mb-8">{ pageData.header }</h1>
-            <p>{ pageData.body }</p>    
+            <p className="whitespace-pre-line" >{ pageData.body }</p>    
         </div>
     );
 }
