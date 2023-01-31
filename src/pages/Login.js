@@ -50,7 +50,7 @@ export default function Login(props) {
 
                     <div className="mb-4">
                         <label htmlFor="password">Password</label><br/>
-                        <input className="border" type="text" name="password" id="password"/>
+                        <input className="border" type="password" name="password" id="password"/>
                     </div>
 
                 </div>

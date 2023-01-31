@@ -82,7 +82,7 @@ function UpdateEmailForm({ user }) {
                 ? <div className="grid gap-4 w-fit">
                     <p>Enter your password first.</p>
                     { message }
-                    <input type="text" name="password" id="password" required/>
+                    <input type="password" name="password" id="password" required/>
                     <Button onClick={ submit } className="bg-green-500 text-white block">Confirm</Button>
                   </div>
                 : ""
@@ -111,11 +111,11 @@ function UpdatePasswordForm() {
         </div>
         <div>
             <label htmlFor="password">New Password</label><br />
-            <input type="text" name="password" id="password" />
+            <input type="password" name="password" id="password" />
         </div>
         <div>
             <label htmlFor="password_confirmation">Confirm New Password</label><br />
-            <input type="text" name="password_confirmation" id="password_confirmation" />
+            <input type="password" name="password_confirmation" id="password_confirmation" />
         </div>
         <Button onClick={ submit } className="bg-green-500 text-white w-fit">Update Password</Button>
 
