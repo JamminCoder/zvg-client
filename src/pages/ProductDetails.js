@@ -8,6 +8,7 @@ import * as productEndpoints from "../endpoints/products";
 import * as categoryEndpoints from "../endpoints/categories";
 import ProductCard from "../components/cards/ProductCard";
 import Button from "../components/Button";
+import { LoadingPage } from "../components/Loading";
 
 function ImagePreview(props) {
     const children = Children.toArray(props.children);
@@ -112,7 +113,8 @@ export default function ProductDetails() {
         }
     });
 
-    if (!product || !product.stock) return "Product does not exist";
+    if (!product) return <LoadingPage/>;
+    if (product && !product.stock) return "Product does not exist";
 
     return (
         <div className="mx-auto px-4 py-24">
