@@ -6,6 +6,7 @@ import { Navigate, Link } from "react-router-dom";
 import { isLoggedIn } from "../../lib/auth";
 import { isVerified } from "../../endpoints/auth";
 import { getCategories } from "../../endpoints/categories";
+import Account from "./Account";
 
 export function CategoriesWithProducts(props) {
     const [categories, setCategories] = useState([]);
@@ -27,30 +28,26 @@ export function CategoriesWithProducts(props) {
 }
 
 export function DashboardProducts(props) {
-    const [modal, setModal] = useState(null);
-
-    return <>
-        { modal }
+    return (
+    <div>
         <h1 className="text-3xl pb-5">Categories and Products</h1>
         <Link className="shadow my-8 bg-blue-500 text-white btn block w-fit" to="/dashboard/new-category">New Category</Link>
         <div className="grid gap-24 mb-10">    
             <CategoriesWithProducts/>
         </div>
-    </>;
+    </div>
+    );
 }
 
 
 export function DashboardHome(props) {
-    return (<>
+    return (
+    <div className="grid gap-8">
        <h1 className="text-4xl font-medium mb-8">Dashboard</h1>
-       <p className="text-xl mb-2">Quick Links</p>
-
-        <div className="grid gap-2 w-fit">
-            <Link className="link list-item list-inside w-fit" to="products">Products</Link>
-            <Link className="link list-item list-inside w-fit" to="slides">Slides</Link>
-        </div>
-        
-    </>);
+       <Account/>
+       <DashboardProducts/>
+    </div>
+    );
 }
 
 export function DashboardLayout(props) {
