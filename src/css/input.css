@@ -10,11 +10,11 @@
 
 @layer components {
     .sidebar-item {
-        @apply rounded shadow p-2 hover:translate-x-[6px] transition-all cursor-pointer
+        @apply bg-slate-100 rounded shadow p-2 hover:translate-x-[6px] transition-all cursor-pointer
     }
 
     .sidebar-item:active {
-        @apply bg-slate-100
+        @apply bg-slate-200
     }
 
     .btn {

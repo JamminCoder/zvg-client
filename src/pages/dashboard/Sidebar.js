@@ -1,12 +1,19 @@
+import { Link, NavLink } from "react-router-dom";
+
 export function SidebarItem(props) {
-    function handleClick() {
-        if (props.onClick) props.onClick();
+    const slate = "rgb(226 232 240)";
+    let activeLinkStyle = {
+        transform: "translateX(10px)",
+        backgroundColor: slate,
+        textDecoration: "underline"
     }
 
     return (
-        <div className="sidebar-item" onClick={ handleClick }>
-            { props.children }
-        </div>
+        <NavLink end className="sidebar-item" to={ props.to }
+            style={({ isActive }) =>
+            isActive ? activeLinkStyle : undefined
+        }>{ props.children }</NavLink>
+
     );
 }
 
