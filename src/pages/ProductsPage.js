@@ -6,6 +6,7 @@ import "../css/shop.css";
 import "../css/app.css"
 import { useEffect, useState } from "react";
 import { getCategoryByName } from "../endpoints/categories";
+import { LoadingPage, LoadingAnimation } from "../components/Loading";
 
 
 export default function ProductsPage(props) {
@@ -44,7 +45,7 @@ export default function ProductsPage(props) {
         }
     })
 
-    if (!category) return;
+    if (!category) return <LoadingPage/>;
 
     return (
     <div className="flex flex-col items-center">
@@ -64,7 +65,7 @@ export default function ProductsPage(props) {
 
 
             <main className="py-24 px-2 md:px-10 flex flex-wrap gap-5">
-                { products.data ? products.data: "No products" }
+                { products.data ? products.data: <LoadingAnimation/> }
             </main>
             
         </div>

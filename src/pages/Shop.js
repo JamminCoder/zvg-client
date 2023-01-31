@@ -5,7 +5,7 @@ import { getCategories } from "../endpoints/categories";
 import { getShopHeader } from "../endpoints/content";
 import { serverURL } from "../lib/utils";
 import CategoryDisplay from "../components/CategoryDisplay";
-import LoadingPage from "../components/Loading";
+import { LoadingPage } from "../components/Loading";
 
 export default function Shop(props) {
     const [shopHeader, setShopHeader] = useState(null);

@@ -2,7 +2,7 @@ import { preventDefaults } from "../../lib/utils";
 import Button from "../../components/Button";
 import { getAboutPage, updateAboutPage } from "../../endpoints/content";
 import { useEffect, useState } from "react";
-import LoadingPage from "../../components/Loading";
+import { LoadingPage } from "../../components/Loading";
 
 function AboutPageForm() {
     const formID = "about_page_form";

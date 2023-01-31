@@ -1,7 +1,7 @@
 import Button from "../../components/Button";
 import { preventDefaults } from "../../lib/utils";
 import  { useEffect, useState } from "react";
-import LoadingPage from "../../components/Loading";
+import { LoadingPage } from "../../components/Loading";
 import * as authEndpoints from "../../endpoints/auth";
 
 

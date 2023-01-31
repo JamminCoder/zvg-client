@@ -1,4 +1,4 @@
-import LoadingPage from '../components/Loading';
+import { LoadingPage } from '../components/Loading';
 import { useState, useEffect } from "react";
 import { getAboutPage } from "../endpoints/content";
 

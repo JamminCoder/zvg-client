@@ -6,7 +6,7 @@ import ProductsDisplay from "./ProductDisplay";
 
 import CabinSection from "./CabinSection";
 import * as contentEndpoints from "../../endpoints/content";
-import LoadingPage from "../../components/Loading";
+import { LoadingPage } from "../../components/Loading";
 
 
 export default function Home() {
