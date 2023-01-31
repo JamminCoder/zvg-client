@@ -55,7 +55,7 @@ export default function ProductDetails() {
         const qty = document.querySelector("#qty").value;
 
         ShoppingCartManager.addItem(product, qty)
-        .then(success => setIsItemInCart(success));
+        .then(setIsItemInCart);
 
 
         e.stopPropagation();
@@ -76,14 +76,14 @@ export default function ProductDetails() {
     useEffect(() => {
         if (!product)
             productEndpoints.getProductBySKU(sku)
-            .then(prod => setProduct(prod));
+            .then(setProduct);
 
         if (product) {
             ShoppingCartManager.isItemInCart(product.sku)
-            .then(isInCart => setIsItemInCart(isInCart));
+            .then(setIsItemInCart);
 
             ShoppingCartManager.ableToAddToCart(product)
-            .then(result => setAbleToAddItem(result));
+            .then(setAbleToAddItem);
             setSelectorValue(product.count);
         }
 
