@@ -127,15 +127,14 @@ export default function Account() {
     const [user, setUser] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     useEffect(() => {
-        if (!isLoaded && !user) {
-            authEndpoints.getUser()
-            .then(user => {
-                setUser(user);
-                setIsLoaded(true);
-                console.log(user);
-            })
-            .catch(console.error);
-        }
+        if (isLoaded) return;
+        
+        authEndpoints.getUser()
+        .then(user => {
+            setUser(user);
+            console.log(user);
+        }).catch(console.error)
+        .finally(() => setIsLoaded(true));
     });
 
     if (!isLoaded) return <LoadingPage/>
