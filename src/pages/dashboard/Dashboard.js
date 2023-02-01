@@ -31,7 +31,7 @@ export function DashboardProducts(props) {
     return (
     <div>
         <h1 className="text-3xl pb-5">Categories and Products</h1>
-        <Link className="shadow my-8 bg-blue-500 text-white btn block w-fit" to="/dashboard/new-category">New Category</Link>
+        <Link className="shadow my-8 bg-blue-500 text-white btn block w-fit" to="/dashboard/category/new">New Category</Link>
         <div className="grid gap-24 mb-10">    
             <CategoriesWithProducts/>
         </div>

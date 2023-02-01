@@ -20,11 +20,12 @@ export default function Shop(props) {
         setAttempt(true);
     })
 
-    if (!shopHeader) return <LoadingPage/>;
+    if (!attempt) return <LoadingPage/>;
 
     return (
         <div className="flex flex-col items-center">
             <div className="w-[100%] max-w-[110rem]">
+                { shopHeader ? 
                 <HeroSection 
                     className="grid place-items-center max-h-[65vh] w-[100%] aspect-video"
                     bgAlt="filler pic"
@@ -35,6 +36,8 @@ export default function Shop(props) {
                         <p className="max-w-[80%]">{ shopHeader.lead }</p>
                     </div>
                 </HeroSection>
+                : ""
+                }
                 
                 <main className="py-24 px-2 md:px-10 grid gap-12">
                     { 
