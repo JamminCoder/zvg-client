@@ -4,7 +4,7 @@ import { WITH_CREDENTIALS } from "./auth";
 const axios = require("axios").default;
 
 export function imageURL(imgName) {
-    return `${SERVER_URL}/product_images/${imgName}`;
+    return `${SERVER_URL}/images/${imgName}`;
 }
 
 export function serverURL(path) {
