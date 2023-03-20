@@ -26,8 +26,7 @@ export default function Shop(props) {
         <div className="flex flex-col items-center">
             <div className="w-[100%]">
                 { shopHeader ? 
-                <HeroSection 
-                    className="grid place-items-center max-h-[65vh] w-[100%] aspect-video"
+                <HeroSection
                     bgAlt="filler pic"
                     bgSrc={ serverURL(shopHeader.image_path) }
                 >
@@ -36,7 +35,9 @@ export default function Shop(props) {
                         <p className="max-w-[80%]">{ shopHeader.lead }</p>
                     </div>
                 </HeroSection>
-                : ""
+                :   <HeroSection>
+                        <h1 className="text-4xl sm:text-6xl mb-5">Shop</h1>
+                    </HeroSection>
                 }
                 
                 <main className="py-24 px-2 md:px-10 grid gap-12 max-w-[110rem]">

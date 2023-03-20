@@ -1,6 +1,6 @@
 export default function HeroSection(props) {
 	return (
-		<section className={`relative ${ props.className }`}>
+		<section className={`relative grid place-items-center max-h-[65vh] w-[100%] aspect-video ${ props.className }`}>
 			<div className="z-10">
 				{ props.children }
 			</div>
