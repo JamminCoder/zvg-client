@@ -24,7 +24,7 @@ export default function Shop(props) {
 
     return (
         <div className="flex flex-col items-center">
-            <div className="w-[100%] max-w-[110rem]">
+            <div className="w-[100%]">
                 { shopHeader ? 
                 <HeroSection 
                     className="grid place-items-center max-h-[65vh] w-[100%] aspect-video"
@@ -39,7 +39,7 @@ export default function Shop(props) {
                 : ""
                 }
                 
-                <main className="py-24 px-2 md:px-10 grid gap-12">
+                <main className="py-24 px-2 md:px-10 grid gap-12 max-w-[110rem]">
                     { 
                         categories.length 
                         ? categories.map(cat => <CategoryDisplay category={ cat } />)
