@@ -50,7 +50,7 @@ export function ProductsList({ category }) {
             { category.products.map(product => <AdminProductCard key={ product.sku } product={ product } />)}
         </div>
 
-        <Link className="btn shadow bg-blue-500 text-white" to={ `${ category.name }/new` }>New { category.name } item</Link>
+        <Link className="btn shadow bg-blue-500 text-white" to={ `products/${ category.name }/new` }>New { category.name } item</Link>
     </div>
     );
 }
