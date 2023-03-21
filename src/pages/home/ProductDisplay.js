@@ -16,14 +16,18 @@ export default function ProductsDisplay(props) {
         setAttempt(true);
       }
     }); 
-  
+    
+    if (!categories) {
+      return <h2 className="text-4xl font-medium py-16 text-center">There are currently no products in stock. (no categories) </h2>
+    }
+
+    if (!categories[0].products.length) {
+      return <h2 className="text-4xl font-medium py-16 text-center">There are currently no products in stock.</h2>
+    }
+
     return (
       <div>
-        {
-          categories
-          ? categories.map(cat => <CategoryDisplay category={cat} className="p-8"/>)
-          : <h2 className="text-4xl font-medium py-16 text-center">There are currently no products in stock.</h2>
-        }
+        { categories.map(cat => <CategoryDisplay category={cat} className="p-8"/>) }
       </div>
     );
   }
